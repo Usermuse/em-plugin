@@ -1,6 +1,6 @@
 ---
 name: write-feature-spec
-description: "Write a feature specification grounded in real customer evidence — verbatim quotes, needs, and pain points with source links from Evermuse — using spec-driven-development structure (prioritized user stories, Given/When/Then acceptance scenarios, functional requirements, measurable success criteria). Use when the user wants to write a spec, feature spec, 'spec out' a feature, or turn an idea into a rigorous specification. Trigger terms: write a spec, feature spec, specify, spec out, requirements doc, user stories. Not for low-level API/interface specs with no customer-facing behavior."
+description: "Write a feature specification grounded in real customer evidence — verbatim quotes, needs, and pain points with source links from Evermuse — using spec-driven-development structure (prioritized user stories, Given/When/Then acceptance scenarios, functional requirements, measurable success criteria). Use when the user wants to write a spec, feature spec, 'spec out' a feature, or turn an idea into a rigorous specification. Trigger terms: write a spec, feature spec, specify, spec out, user stories with acceptance criteria. Not for low-level API/interface specs with no customer-facing behavior; for a lighter business PRD, use create-prd."
 ---
 
 # Write a Feature Spec (grounded in customer evidence)

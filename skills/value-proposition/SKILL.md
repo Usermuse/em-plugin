@@ -1,6 +1,6 @@
 ---
 name: value-proposition
-description: "Design a value proposition on the 6-part JTBD structure — Who, Why, What before, How, What after, Alternatives — then turn it into ready-to-use marketing/sales/onboarding statements, all in customers' verbatim language. Use when the user says 'write our value proposition', 'value prop', 'why should customers choose us', 'positioning statement', 'marketing message', or 'articulate our value'. Trigger terms: value proposition, value prop, JTBD, positioning statement, marketing copy, sales messaging, customer value. Not for full pricing or business-model work."
+description: "Design a value proposition on the 6-part JTBD structure, then turn it into ready-to-use marketing/sales/onboarding statements — all in customers' verbatim language. Use when the user says 'write our value proposition', 'value prop', 'why should customers choose us', 'positioning statement', or 'articulate our value'. Trigger terms: value proposition, value prop, JTBD, positioning statement, marketing copy, sales messaging, customer value. Not for full pricing or business-model work."
 ---
 
 # Value Proposition (JTBD + statements)

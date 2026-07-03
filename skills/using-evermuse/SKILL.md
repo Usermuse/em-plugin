@@ -1,6 +1,6 @@
 ---
 name: using-evermuse
-description: "Foundational doctrine and mechanics for grounding product work in real customer evidence via the Evermuse MCP. Loaded by every other Evermuse skill. Use when any product task — a spec, plan, research question, roadmap, gap analysis, or PR review — should be backed by verbatim customer quotes, needs, and pain points with source links, or when you need to save research and deliverables back into Evermuse. Trigger terms: Evermuse, customer evidence, voice of customer, ground this in research, what do customers say."
+description: "Foundational doctrine and mechanics for grounding product work in real customer evidence via the Evermuse MCP — loaded by every other Evermuse skill. Use when you need the shared rules for how to search Evermuse, cite customer quotes with source links, resolve the active Product/Project, or save deliverables back via add_source. Trigger terms: Evermuse doctrine, Evermuse MCP, ground this in Evermuse, how to use Evermuse, save to Evermuse. (For an actual customer question, use customer-research; this skill supplies the mechanics other skills reuse.)"
 ---
 
 # Using Evermuse

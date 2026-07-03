@@ -1,6 +1,6 @@
 ---
 name: gap-analysis
-description: "Find the gaps between what was specified, what was built, and what customers actually need — a three-lens audit (spec-vs-spec consistency, spec-vs-code implementation, spec-vs-customer coverage) with every finding backed by evidence. Use when the user asks to 'do a gap analysis', 'what's missing', 'did we build what we specced', 'are we covering what customers need', or wants a consistency/coverage check on a spec, plan, or shipped feature. Trigger terms: gap analysis, what's missing, coverage check, consistency check, did we build what we planned, are we meeting customer needs."
+description: "Audit an existing spec, plan, or shipped feature for gaps across three lenses — spec-vs-spec consistency, spec-vs-code implementation, and whether the build covers what customers need — with every finding backed by evidence. Use when the user asks to 'do a gap analysis', 'what's missing from the spec', 'did we build what we specced', 'did we build what customers asked for', or wants a consistency/coverage check against a spec, plan, or shipped feature. Trigger terms: gap analysis, what's missing from the spec, coverage check, consistency check, did we build what we planned. Requires an artifact to audit against — for an open-ended customer question with no spec, use customer-research."
 ---
 
 # Gap Analysis (three lenses)
@@ -9,6 +9,9 @@ Find what's missing — not just against the spec, but against reality and again
 
 ## Step 0 — Relevance & availability
 Confirm the product context and Evermuse availability (see `using-evermuse` Step 0). Lens 3 needs the MCP; Lenses 1–2 work ungrounded (label the output accordingly if disconnected).
+
+## Evermuse Grounding (required)
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill: verify the product → run `evidence` searches per major need theme (for Lens 3) → cite every Lens-3 row with a source badge → save. **Reuse grounding from an earlier spec/plan in the same session** rather than re-searching. Do this grounding pass before Lens 3 below.
 
 ## Gather the artifacts
 - **Spec/plan**: local `specs/<feature>/spec.md` + `plan.md`, and/or shaping notes via `get_shaping_notes` → `read_shaping_note`.
@@ -38,9 +41,6 @@ Lead with a one-paragraph verdict (is the build ready / what's the biggest risk)
 
 ## Save
 `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","gap-analysis","<slug>"])` after confirmation.
-
-## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`: verify product → evidence searches per need theme → cite every Lens-3 row with a badge → save. Reuse grounding from an earlier spec/plan in the same session rather than re-searching.
 
 ---
 ### Further reading
