@@ -1,0 +1,25 @@
+{
+  "name": "evermuse",
+  "owner": {
+    "name": "Evermuse",
+    "url": "https://evermuse.com"
+  },
+  "metadata": {
+    "description": "Customer-evidence-grounded product-management skills powered by the Evermuse MCP.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "evermuse",
+      "source": "./",
+      "description": "Feature specs, dev plans, customer research, gap analysis, and PR reviews grounded in real customer evidence — verbatim quotes, needs, and pain points with source links — via the Evermuse MCP.",
+      "category": "product-management",
+      "keywords": [
+        "product-management",
+        "customer-evidence",
+        "voice-of-customer",
+        "evermuse"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+---
+name: gap-analysis
+description: "Find the gaps between what was specified, what was built, and what customers actually need — a three-lens audit (spec-vs-spec consistency, spec-vs-code implementation, spec-vs-customer coverage) with every finding backed by evidence. Use when the user asks to 'do a gap analysis', 'what's missing', 'did we build what we specced', 'are we covering what customers need', or wants a consistency/coverage check on a spec, plan, or shipped feature. Trigger terms: gap analysis, what's missing, coverage check, consistency check, did we build what we planned, are we meeting customer needs."
+---
+
+# Gap Analysis (three lenses)
+
+Find what's missing — not just against the spec, but against reality and against the customer. Most "gap analysis" stops at spec-vs-code. This one adds the lens that matters most: **are the things customers most need actually covered?**
+
+## Step 0 — Relevance & availability
+Confirm the product context and Evermuse availability (see `using-evermuse` Step 0). Lens 3 needs the MCP; Lenses 1–2 work ungrounded (label the output accordingly if disconnected).
+
+## Gather the artifacts
+- **Spec/plan**: local `specs/<feature>/spec.md` + `plan.md`, and/or shaping notes via `get_shaping_notes` → `read_shaping_note`.
+- **Code** (for Lens 2): read the relevant implementation, **read-only**. Don't modify anything.
+- **Customer evidence** (for Lens 3): `evidence` searches per major need theme + `find_supporting_quotes`.
+
+## The three lenses
+
+**Lens 1 — Spec ↔ Spec (internal consistency).** Using `references/analysis-checklist.md` (spec-kit `analyze` method): duplicate/contradictory requirements, ambiguity (vague terms, unresolved `[NEEDS CLARIFICATION]`), coverage gaps (requirements with no task; success criteria needing work not planned), terminology drift.
+
+**Lens 2 — Spec ↔ Code (intended vs. implemented).** For each functional requirement (FR-###), find the implementation evidence in the code and classify: implemented / partial / missing / diverged. Cite both sides — the requirement *and* the file:line. A mismatch only matters when it changes behavior or crosses a trust/permission boundary; note cosmetic drift separately.
+
+**Lens 3 — Spec ↔ Customer (demand coverage).** For each high-signal need in the corpus, check whether the spec/build addresses it. The gaps that hurt are **strongly-evidenced needs that nothing covers**. Rank by demand strength (mentions across accounts), each row badged with a quote.
+
+## Output
+A severity-ranked table — Critical / High / Medium — where each row names the gap, the lens, and the evidence (a source badge for Lens 3, a file:line for Lens 2, a spec reference for Lens 1):
+
+```markdown
+| Sev | Gap | Lens | Evidence |
+|-----|-----|------|----------|
+| 🔴 Critical | No scheduled export, but it's the top ask | Customer | 6 mentions [^3][^4][^7] |
+| 🟠 High | FR-004 (audit log) not implemented | Code | spec §FR-004 · not found in src/ |
+| 🟡 Medium | "export" vs "download" used interchangeably | Spec | spec §3, §7 |
+```
+
+Lead with a one-paragraph verdict (is the build ready / what's the biggest risk), then the table, then a short prioritized fix list.
+
+## Save
+`add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","gap-analysis","<slug>"])` after confirmation.
+
+## Evermuse Grounding (required)
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`: verify product → evidence searches per need theme → cite every Lens-3 row with a badge → save. Reuse grounding from an earlier spec/plan in the same session rather than re-searching.
+
+---
+### Further reading
+- Lens 1 adapts [github/spec-kit](https://github.com/github/spec-kit) `analyze` (MIT); Lens 2 adapts the intended-vs-implemented method from [phuryn/pm-skills](https://github.com/phuryn/pm-skills) (MIT).
