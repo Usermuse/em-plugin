@@ -1,6 +1,6 @@
 ---
 name: assumptions
-description: "Surface the risky assumptions behind a feature or product idea, but first check the customer evidence — if customers already answered it, it's a finding, not an assumption — then score the rest by Impact × Risk and match each to the cheapest experiment. Use when the user asks to 'identify assumptions', 'what are we assuming', 'stress-test this idea', 'what could go wrong', 'what should we test first', 'how do we validate this', or 'design an experiment'. Trigger terms: assumptions, risks, what could go wrong, validate, de-risk, experiment, test this, prioritize assumptions. Not for prioritizing shipped features (that's prioritize-features)."
+description: "Surface the risky assumptions behind a feature or idea, but first check the evidence — if customers already answered it, it's a finding, not an assumption — then score the rest by Impact × Risk and match each to the cheapest experiment. Use when the user asks to 'identify assumptions', 'what are we assuming', 'stress-test this idea', 'what could go wrong', 'what should we test first', or 'design an experiment'. Trigger terms: assumptions, risks, what could go wrong, validate, de-risk, experiment, test this. Not for prioritizing shipped features (that's prioritize-features)."
 ---
 
 # Assumptions (find → cross off what's known → prioritize → experiment)
