@@ -1,0 +1,73 @@
+---
+name: ideal-customer-profile
+description: "Build an Ideal Customer Profile from your real won-and-happy customers — firmographics, behaviors, jobs-to-be-done, and pains drawn from actual conversations with the accounts that bought and stayed. Use when the user says 'define our ICP', 'who is our ideal customer', 'who are our best customers', 'who should we sell to', 'build a customer profile', or 'who retains and expands'. Trigger terms: ICP, ideal customer profile, best customers, target customer, who to sell to, firmographics, JTBD, disqualification criteria. Not for picking a single first market — use beachhead-segment for that."
+---
+
+# Ideal Customer Profile
+
+Define the customer most likely to find value, retain, and expand — but build it from **real won-and-happy customers in the corpus**, not an idealized composite. The Evermuse twist: you identify the accounts that actually bought and stayed, read *their* conversations for why, and let the patterns across them define the ICP with quotes attached.
+
+## Step 0 — Relevance & availability
+Confirm this is an ICP / targeting task and Evermuse is connected. If the tools aren't present, produce a framework-only ICP labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
+
+## Evermuse Grounding (required)
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
+- **Ground (real customers first):** verify the product (`get_products`/`switch_product`). Identify the won-and-happy accounts: **`get_meetings(attendee_domain: …)`** for the customers who bought and stayed (renewals, expansions, enthusiastic calls), and **`get_meetings(title_keyword: "renewal" / "QBR" / "onboarding")`** to find the stickiest relationships. Then run **2–3 `evidence` searches** on why they bought and why they stay ("why did they choose us", "what made it worth paying for", "what would make them leave"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Use `view_item` / `get_meeting_transcript` to deep-dive one exemplar happy account.
+- **Work:** extract firmographic, behavioral, JTBD, and pain patterns **across the happy accounts**, each backed by a quote. Note the "ideal-of-the-ideal" (highest-value pattern) and explicit disqualification criteria (who looked similar but churned or never activated).
+- **Cite:** every pattern claim carries a source badge (see `citations.md`).
+- **Save (nature=evidence):** this is a customer-voice synthesis. After the user confirms, `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","icp","voice-of-customer","segmentation"])`.
+
+## Instructions
+
+You are defining the ICP for **$ARGUMENTS**. Where the source method reaches for "PMF survey data / win-loss / interviews," use the Evermuse corpus of real customer conversations as the primary source — start from accounts that actually won and stayed, and read their words.
+
+### Step 1 — Find the real best customers
+Segment the accounts in the corpus by value signal: bought and renewed, expanded, fastest time-to-value, most enthusiastic, best reference potential. These accounts — not a hypothetical persona — are the raw material.
+
+### Step 2 — Extract the four ICP components (each cited)
+For the best-customer cohort, synthesize patterns and attach quotes:
+
+- **Firmographics** — company size, industry/vertical, geography, buyer's role/department, company stage. Note the *actual* common denominators, including non-obvious outliers that are high-value.
+- **Behaviors** — how they discovered the product, evaluation process and timeline, who was in the buying committee, adoption speed and breadth, support needs. (Discovery channel is gold for GTM — cite it.)
+- **Jobs to Be Done** — the functional job, plus emotional ("how they want to feel") and social dimensions, and their own success metrics — in their words.
+- **Needs & pains** — the before-state frustrations and the after-state they got, quantified where the evidence allows (cost/time of the problem).
+
+### Step 3 — Sharpen the edges
+- **Ideal-of-the-ideal:** the tightest sub-pattern that predicts the best outcomes.
+- **Disqualification criteria:** who is NOT a fit — grounded in accounts that looked similar but churned, stalled, or never activated. This is where evidence prevents an over-broad ICP.
+- **GTM implications:** what the ICP means for messaging and channels (hand off to `/evermuse:positioning-and-messaging` or `/evermuse:gtm-strategy`).
+
+## Deliverable format
+
+```markdown
+# Ideal Customer Profile — [product]
+
+**Built from:** [N] won-and-happy accounts in the corpus ([examples]).
+
+**Firmographics:** [size / industry / geo / role / stage] — pattern evidenced by [^1].
+**Behaviors:** discovered via [channel] [^2]; buying committee [who]; adoption [speed].
+**Jobs to Be Done:** functional — [job]; emotional — [feeling]; social — [status]. > "[JTBD quote]" — [attribution] [^3]
+**Top pains → outcomes:**
+| Before (pain) | After (outcome they got) | Evidence |
+|---|---|---|
+| [pain] | [outcome] | > "[quote]" — [attribution] [^4] |
+
+**Ideal-of-the-ideal:** [tightest high-value sub-pattern].
+**Disqualification (NOT a fit):** [traits] — grounded in [churned/stalled accounts] [^5].
+**GTM implications:** [messaging + channel notes].
+---
+## Sources
+[^1]: …
+```
+
+## Honesty when evidence is thin
+If only a handful of happy accounts exist, say so — the ICP is a hypothesis from N accounts, not a law. Flag where more won-customer conversations would sharpen it.
+
+## Save & hand off
+After saving, offer: **"Position for this ICP?"** (`/evermuse:positioning-and-messaging`), **"Plan the launch?"** (`/evermuse:gtm-strategy`), or **"Narrow to a first beachhead?"** (`/evermuse:beachhead-segment`).
+
+---
+### Further reading
+- Adapted from [phuryn/pm-skills](https://github.com/phuryn/pm-skills) `ideal-customer-profile` (MIT); grounding is Evermuse-native.
+- Based on Jobs to Be Done theory (Clayton Christensen).
+- [How to Design a Value Proposition Customers Can't Resist?](https://www.productcompass.pm/p/how-to-design-value-proposition-template)
