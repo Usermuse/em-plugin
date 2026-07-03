@@ -21,7 +21,7 @@ Every spec gets a Customer Evidence section. Every dev plan opens with the custo
 
 ```bash
 # Add this repo as a plugin marketplace, then install the plugin
-claude plugin marketplace add evermuse/em-plugin
+claude plugin marketplace add Usermuse/em-plugin
 claude plugin install evermuse@evermuse
 ```
 
