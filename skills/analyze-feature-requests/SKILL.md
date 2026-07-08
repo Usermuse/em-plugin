@@ -11,6 +11,9 @@ Turn a messy pile of customer asks into named themes with the duplicates merged 
 Confirm this is request triage and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, ask the user to paste the requests and label the output **⚠ ungrounded** — but the point of this skill is pulling them from the corpus, so prefer to fix the connection.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Pull the raw asks with **`get_notes(note_types:[need,feedback])`** (add `date_from`/`date_to` to scope a period). Then, per emerging theme, run a focused `evidence` search + `find_supporting_quotes(topic, limit: 6–8)` to gauge how many distinct accounts share it and capture verbatim voice. Use **`view_item`** to open the hottest individual requests in full.
 - **Work:** the theme/dedupe/need triage below.

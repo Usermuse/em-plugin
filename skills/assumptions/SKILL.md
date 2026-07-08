@@ -15,6 +15,9 @@ Confirm this is idea/feature stress-testing and Evermuse is connected (see `usin
 - **New product / venture** — extend to 8: add **Ethics, Go-to-Market, Strategy & Objectives, Team** (critical when there's no live product to lean on).
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Run **2–4 `evidence` searches** targeting the exact belief each candidate assumption rests on ("do customers actually want $ARGUMENTS", "how do they do this today", "would they pay for it", "can they figure it out"). Use `find_supporting_quotes(topic, limit: 6–8)` on the highest-stakes beliefs. This search is what lets you convert assumptions into findings.
 - **Work:** the four-step method below.

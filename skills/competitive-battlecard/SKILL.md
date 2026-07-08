@@ -11,6 +11,9 @@ Create a concise, sales-ready battlecard against a specific competitor. The Ever
 Confirm this is competitive / sales-enablement work and Evermuse is connected. If the tools aren't present, produce a framework-only battlecard labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (real objections first):** verify the product (`get_products`/`switch_product`). Run **2–3 `evidence` searches** for how this competitor comes up in real calls ("[competitor] mentioned", "why they considered [competitor]", "objection we lost on", "what [competitor] does better"), and pull the verbatim lines with **`find_supporting_quotes(topic: "[competitor]", limit: 6–8)`** and **`get_notes(keyword: "[competitor]", note_types: ["feedback","problem","qa"])`**. Use `get_meetings(transcript_keyword: "[competitor]")` to find the exact deals where it surfaced.
 - **Secondary (label it):** `list_competitors` / `get_competitor_capabilities` for a structured capability read — mark every such row **(secondary — Evermuse capability data, not the customer speaking)**. Never let it override an actual customer objection.

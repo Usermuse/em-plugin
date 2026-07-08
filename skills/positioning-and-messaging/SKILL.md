@@ -11,6 +11,9 @@ Produce positioning options and campaign/message ideas — but written in the **
 Confirm this is positioning / marketing work and Evermuse is connected. If the tools aren't present, produce framework-only positioning labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (mine the vocabulary):** verify the product (`get_products`/`switch_product`). Run **2–3 `evidence` searches** for how customers describe the pain, the win, and the alternatives in their own words ("how they describe the problem", "the phrase they use for the outcome", "what they compared us to"), and pull the actual phrasing with **`find_supporting_quotes(topic, limit: 8–10)`** — this is the raw material for the language. Add **1 `context` search** on competitor positioning ("how competitors position themselves", "gaps competitors leave open") to find unclaimed territory.
 - **Work:** generate positioning options and campaign ideas below, each written in mined phrasing and **each mapped to a proof quote**. Positioning claims a territory competitors leave open; campaigns carry the message into a channel.

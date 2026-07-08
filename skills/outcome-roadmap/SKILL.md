@@ -11,6 +11,9 @@ Shift $ARGUMENTS from an output roadmap (a list of features by quarter) to an **
 Confirm this is product-roadmap work and Evermuse is present. If the MCP isn't connected, transform the roadmap using the framework but label it **⚠ ungrounded** and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a roadmap:
 
 - **Ground.** Verify the product (Rule 1). For **each initiative/lane**, run a focused **`evidence` search** on the pain it addresses + `find_supporting_quotes(topic, limit: 4)` to establish demand strength (mentions across accounts). Run **1 `guidance` search** for the company strategy the roadmap must align to. Keep to a few well-worded searches total — reuse across lanes (credits — Rule 7).

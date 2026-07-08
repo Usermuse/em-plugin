@@ -13,6 +13,9 @@ Produce a feature specification that a team can build from — with the rigor of
 Confirm this is customer-facing product work and the Evermuse tools are present. If the MCP isn't connected, produce the spec from the templates but label it **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. (See `using-evermuse` SKILL.md, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a spec:
 
 - **Ground.** Verify the product (Rule 1). Then run **3–4 `evidence` searches** worded from different angles — the exact feature phrasing, the underlying pain, the adjacent workflow, and an objection/failure angle (see `search-patterns.md`). Pull verbatim quotes with `find_supporting_quotes(topic, limit: 8)`. Run **one `guidance` search** for strategy/objectives touching this area, and — only if competitor parity matters — one `context` search.

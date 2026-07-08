@@ -11,6 +11,9 @@ Map the competitive landscape — but weight it by the customers' own words, not
 Confirm this is competitive/market work and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the framework labeled **⚠ ungrounded** and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. Two sources, ranked:
 - **Primary — what customers say (evidence):** for each competitor, run an `evidence` search for **mentions** ("mentions of <competitor>", "compared us to <competitor>", "why they chose <competitor>", "switched from <competitor>") and pull `find_supporting_quotes("<competitor>", limit: 3–5)` for verbatim win/loss voice. This is the ground truth.
 - **Secondary — the internal competitor list (label as less reliable):** `list_competitors` and `get_competitor_capabilities` are **AI-generated/curated inside Evermuse** — use them to enumerate the set and capability claims, but explicitly mark them *secondary* and reconcile every claim against what customers actually said. Never present a capability row as customer truth.

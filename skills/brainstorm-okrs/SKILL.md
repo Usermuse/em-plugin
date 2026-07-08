@@ -11,6 +11,9 @@ Generate ambitious, measurable OKRs for the team working on $ARGUMENTS. The diff
 Confirm this is product/team-goal work and Evermuse is present. If the MCP isn't connected, produce OKRs from the framework but label them **⚠ ungrounded** and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For OKRs, grounding is two-sided:
 
 - **Ground (company direction).** Run **1–2 `guidance` searches** for company objectives, strategy, and north-star metric — the OKRs must ladder up to these. Treat the roadmap / strategy docs as the alignment target.

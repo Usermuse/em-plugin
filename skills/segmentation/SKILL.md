@@ -16,6 +16,9 @@ Confirm this is segmentation work and Evermuse is connected (see `using-evermuse
 State which you're doing up front. Default to **user segmentation** unless the user is clearly exploring a market they don't yet serve.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. Run **3–4 `evidence` searches** worded around *need differences*, not demographics ("what <group A> is trying to do", "why <group B> uses it differently", "unmet need for <workflow>", "who churns and why"). For market-level cuts, add 1–2 `context` searches. Pull `find_supporting_quotes(topic, limit: 3–5)` per emerging segment. Use `get_meetings(attendee_domain)` to see which accounts anchor each group.
 - **Work:** cluster into 3-5 need-distinct, non-overlapping segments (see Instructions).

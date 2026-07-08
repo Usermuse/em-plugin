@@ -18,6 +18,9 @@ Ask the user (or infer from their ask) which to run, and load the matching refer
 - **Ansoff Matrix** — growth options across product × market → `references/ansoff.md`
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing strategy/objectives ("company strategy and objectives") so the framework serves the real direction. Then **2 `evidence` searches** for the customer-side cells — strengths/weaknesses/buyer power come from what customers actually praise and complain about ("what customers love / value most", "what frustrates them / makes them consider leaving"). Then **1–2 `context` searches** for the market-side cells — opportunities/threats/substitutes/forces/macro factors ("competitor and substitute landscape", "market and regulatory shifts"). Pull verbatim with `find_supporting_quotes(topic, limit: 5–6)` for customer-derived cells.
 - **Work:** fill the chosen framework's grid using the reference file. **Each cell names the evidence or context result it rests on.** Customer-derived cells (evidence) stay separate from market cells (context).

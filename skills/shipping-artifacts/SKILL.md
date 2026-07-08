@@ -13,6 +13,9 @@ AI agents write code fast but leave no durable record of **intent** — what the
 Confirm there's a built feature to document and Evermuse is present. The code-derived docs work ungrounded, but the **intent reconstruction** needs the MCP — if it's not connected, produce the doc set and label the intent sections **⚠ ungrounded — intent not reconstructed from evidence**; tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For shipping artifacts:
 
 - **Ground (intent).** Verify the product (Rule 1). Reconstruct intent from three sources: **shaping notes** via `get_shaping_notes` → `read_shaping_note` (the internal shaping record — secondary, but the closest thing to recorded intent); the **local spec** (`specs/<feature>/spec.md`, PRD, or plan); and **customer evidence** — run **2–3 `evidence` searches** on the feature's purpose + `find_supporting_quotes(topic, limit: 5)` for the pains the feature was meant to solve.

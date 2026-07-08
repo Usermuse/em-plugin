@@ -11,6 +11,9 @@ Brainstorm a product vision that is inspiring, achievable, and emotional — and
 Confirm this is product-direction work and Evermuse is connected. If not, produce a framework-only vision labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for any existing vision/values/objectives ("company vision and values", "long-term objectives") so the new vision extends the real one. Then **2 `evidence` searches** worded to surface the *future customers want* — their desired end state, not just today's pain ("what customers wish were possible", "the outcome they're really after / 'if only we could…'"). Add **1 `context` search** for where the market is heading ("where the market is moving", "emerging expectations"). Use `find_supporting_quotes("desired future outcome", limit: 6–8)` for the verbatim aspiration.
 - **Work:** distill recurring customer-desired outcomes into the vision. The vision must echo language customers actually used.

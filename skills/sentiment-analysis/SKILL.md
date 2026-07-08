@@ -11,6 +11,9 @@ Read the mood of the feedback corpus — for a topic, a segment, or a time windo
 Confirm this is a feedback/satisfaction question spanning multiple conversations and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the framework labeled **⚠ ungrounded** and tell the user to authorize the MCP. For a single conversation's sentiment, use `/evermuse:customer-research` instead.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. Pull the feedback body over the window: `get_notes(note_types: ["feedback","problem","quote"], date_from: "<start>", date_to: "<end>", keyword: "<topic>")`. Add **2–3 `evidence` searches** worded across the sentiment spectrum ("what customers love about <topic>", "frustration with <topic>", "why <topic> falls short"). Pull the voice with `find_supporting_quotes(topic, limit: 6–10)` — **each returned quote carries a `sentiment_analysis` field; use it** as the per-quote sentiment label rather than guessing.
 - **Work:** cluster into themes, score each, split positive vs. negative drivers (see Instructions).

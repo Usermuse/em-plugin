@@ -11,6 +11,9 @@ Turn one specific conversation into a structured, accessible summary — pulling
 Confirm the user means a specific conversation (not "what do customers think about X" across many — that's `/evermuse:customer-research`) and Evermuse is connected (see `using-evermuse` Step 0). If disconnected but the user pasted a transcript, summarize that directly and label it **⚠ ungrounded — not from Evermuse** (no source links).
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. **Locate the conversation** with `get_meetings(attendee_domain / title_keyword / transcript_keyword / date_from / date_to)` — narrow to the one meeting the user means; if several match, list them and ask which. Then **`get_meeting_transcript(meeting_id)`** for that one conversation (this is the deep-dive exception to the "no transcripts for search" rule).
 - **Work:** extract into the template below, pulling **verbatim quotes with their timestamps**.

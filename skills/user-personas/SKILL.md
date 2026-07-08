@@ -11,6 +11,9 @@ Produce 3 personas that a skeptical stakeholder can't dismiss as made up — bec
 Confirm this is user/customer profiling work and Evermuse is connected (see `using-evermuse` Step 0). If the MCP isn't connected, produce framework-only personas labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. Never present invented archetypes as research-backed.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product (`get_products`/`switch_product`). Find out **who actually exists** before inventing anyone: `get_meetings(attendee_domain: "<customer-domain>")` (and/or `get_meetings(title_keyword: "interview")`) to see the real people and accounts in the corpus. Then run **2–3 `evidence` searches** per emerging cluster, worded around behavior and goals ("<workflow> how they do it today", "why they <goal>", "frustration with <task>"). Pull the voice with `find_supporting_quotes(topic, limit: 4–6)` for each persona.
 - **Work:** cluster the real people into 3 distinct personas by shared job-to-be-done and behavior — never by demographics alone (see Instructions).

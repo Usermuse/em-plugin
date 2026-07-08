@@ -11,6 +11,9 @@ Turn tickets/PRDs/git logs for $ARGUMENTS into polished, user-facing release not
 Confirm these are customer-facing changes and Evermuse is present. If the MCP isn't connected, produce the notes from the raw material but label them **⚠ ungrounded** (no "you asked" attribution) and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For release notes:
 
 - **Ground.** Verify the product (Rule 1). For **each shipped item**, run `find_supporting_quotes(topic, limit: 3)` and `get_notes(keyword, note_types: ["need","feedback"])` to find who requested it and count requesting accounts. Keep searches tight — one pass per notable item, skip minor fixes (credits — Rule 7).

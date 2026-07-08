@@ -13,6 +13,9 @@ Produce a comprehensive but readable Product Requirements Document — the busin
 Confirm this is customer-facing product work and the Evermuse tools are present. If the MCP isn't connected, produce the PRD from the template but label it **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a PRD:
 
 - **Ground.** Verify the product (Rule 1). Run **3–4 `evidence` searches** worded from different angles — the exact feature ask, the underlying pain, the adjacent workflow, and an objection/failure angle. Pull verbatim quotes with `find_supporting_quotes(topic, limit: 6)` for the sections that carry customer voice (Background, Objective, Segments, Value Props). Run **one `guidance` search** for company objectives/strategy this feature should ladder up to. Only if competitor parity is part of the value story, run **one `context` search**.

@@ -17,6 +17,9 @@ The user's stated approach, stack, constraints, and scope **win**. Evermuse evid
 Confirm customer-facing product work and that the Evermuse tools are present (see `using-evermuse` Step 0). If not connected, produce the plan from templates, labeled **⚠ ungrounded**.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
 - **Ground.** Verify the product. **If a spec already exists** (a local `specs/<feature>/spec.md`, or a shaping note found via `get_shaping_notes`), inherit its citations — don't re-search from scratch. **Otherwise** run a light grounding pass: 2–3 `evidence` searches + `find_supporting_quotes(limit: 6)` on the feature and its underlying pain.

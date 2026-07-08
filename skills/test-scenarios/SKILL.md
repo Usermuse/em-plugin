@@ -11,6 +11,9 @@ Build a QA test plan for $ARGUMENTS that covers two sources: the **acceptance cr
 Confirm this is customer-facing feature validation and Evermuse is present. If the MCP isn't connected, derive scenarios from the acceptance criteria alone and label the plan **⚠ ungrounded — edge-case coverage from evidence unavailable**; tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For test scenarios:
 
 - **Ground.** Verify the product (Rule 1). Source the **acceptance criteria** from the local spec (`specs/<feature>/spec.md`), the `user-stories` output, or shaping notes. Then run **2–3 `evidence` searches** on *failure* in this feature area — "broke", "didn't work", "confusing", "error", "workaround", the specific error the feature area produces — plus `find_supporting_quotes(topic, limit: 6)` and `get_notes(note_types: ["problem","feedback"])` to surface real edge cases customers reported.

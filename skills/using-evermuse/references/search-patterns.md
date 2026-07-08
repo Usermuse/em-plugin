@@ -2,6 +2,10 @@
 
 How to get sharp, grounded results out of Evermuse without burning credits or drowning in 100K-char payloads.
 
+## `search` goes first — it's a hard rule
+
+Every task's **first** Evermuse retrieval is `search`, and you run **2–4 `search` calls before any other retrieval tool**. `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, and `get_meeting_transcript` are all *follow-ups* — they narrow, quote, or deep-dive what the opening searches surfaced. Leading with them means you're filtering or quoting before you know what's there. So: search 2–4 times, *then* reach for the rest.
+
 ## Triangulate: 2–4 searches, worded differently
 
 One search finds one facet. Real grounding comes from attacking the topic from several angles. For a feature or topic, run searches like:

@@ -11,6 +11,9 @@ Map the journey from first awareness to advocacy — and make each stage carry a
 Confirm this is a customer-experience question and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the framework labeled **⚠ ungrounded** and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. For **each stage**, pull the pain in the customer's voice: `get_notes(note_types: ["problem","feedback"], keyword: "<stage keyword>")` — e.g. keyword `signup`/`trial` for Acquisition, `onboarding`/`setup`/`first` for Onboarding, `cancel`/`churn` for Retention. Reinforce with a stage-scoped `evidence` search and `find_supporting_quotes("<stage> friction", limit: 3–5)`. That's roughly 2 focused calls per painful stage — concentrate on the stages the user cares about, don't grind all seven.
 - **Work:** map stages, then attach the real pain + quote + emotion to each (see Instructions).

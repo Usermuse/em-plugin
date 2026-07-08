@@ -15,6 +15,9 @@ Confirm there's a concrete document to attack and Evermuse is connected. If not 
 - **Pre-mortem mode:** if the user asks to "run a pre-mortem" or imagine the launch already failed, use `references/pre-mortem-template.md` (Tigers / Paper Tigers / Elephants → launch-blocking / fast-follow / track). Same counter-evidence grounding applies.
 
 ## Evermuse Grounding (required — searches must try to FALSIFY the doc)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. First list the doc's **load-bearing claims** about the user/market/mechanism/timeline. Then run **2–3 `evidence` searches worded to contradict them** — for a claim "users want fewer steps," search "users who wanted more control / more options" and "complaints about oversimplified flows." Pull the sharpest opposing quotes with `find_supporting_quotes("<the opposite of the claim>", limit: 6–8)`. Add **1 `context` search** to test market claims ("competitor already does X", "market moving away from Y").
 - **Work:** steelman each load-bearing claim, then attack the steelman — anchoring the attack in the counter-evidence you found. Rank by impact × likelihood-wrong × cheapness-to-test.

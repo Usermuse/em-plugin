@@ -11,6 +11,9 @@ Find what's missing — not just against the spec, but against reality and again
 Confirm the product context and Evermuse availability (see `using-evermuse` Step 0). Lens 3 needs the MCP; Lenses 1–2 work ungrounded (label the output accordingly if disconnected).
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill: verify the product → run `evidence` searches per major need theme (for Lens 3) → cite every Lens-3 row with a source badge → save. **Reuse grounding from an earlier spec/plan in the same session** rather than re-searching. Do this grounding pass before Lens 3 below.
 
 ## Gather the artifacts

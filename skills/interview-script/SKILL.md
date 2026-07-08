@@ -11,6 +11,9 @@ A Mom-Test interview guide — ask about their life, not your idea; the past, no
 Confirm this is interview prep and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, you can still produce a solid Mom-Test script from the framework — label it **⚠ ungrounded** and note you couldn't check what's already known, so it may re-ask settled questions.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Run **2–4 `evidence` searches** on the research topic $ARGUMENTS to see what customers have *already* said; `find_supporting_quotes(topic, limit: 6–8)` for what's well-established. Then pull **`get_research_questions`** as a **labeled secondary** input — Evermuse's AI-suggested open questions — to cross-reference, never as the primary source of truth.
 - **Work:** split known vs. open, then build the script around the open gaps.

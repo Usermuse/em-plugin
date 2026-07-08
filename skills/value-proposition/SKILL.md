@@ -11,6 +11,9 @@ Two artifacts in one pass: a rigorous 6-part JTBD value proposition per segment,
 Confirm this is customer-value/positioning work and Evermuse is connected. If not, produce a framework-only value prop labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. Run **1 `guidance` search** for existing positioning/values ("current positioning", "how we describe our value") so statements stay on-message. Then **2–3 `evidence` searches** for the pains and desired gains, worded from angles: the current-state friction ("what's painful about how they do this today"), the desired outcome ("what they wish they could do"), and the objection to alternatives ("why the tools they use fall short"). Pull the verbatim voice with `find_supporting_quotes(topic, limit: 6–8)` — this is the raw material for both the JTBD boxes and the statement phrasing. Add **1 `context` search** for competitive alternatives.
 - **Work:** fill the 6-part template per segment (below), then generate 2–3 statements per segment.

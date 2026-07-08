@@ -13,6 +13,9 @@ This is the showcase skill for **nature=context**: the market numbers come from 
 Confirm this is a market-opportunity question and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the sizing framework labeled **⚠ ungrounded** (external numbers still possible via web research, but the wedge won't be evidence-validated) and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill the natures split cleanly:
 - **Ground (context — the market):** verify the product, then run **2–3 `context` searches** for market/industry signals ("<market> size", "<industry> growth", "<segment> spend on <category>"). Supplement with web research / analyst reports for TAM inputs where the corpus is thin — label external figures with their source.
 - **Ground (evidence — the wedge only):** run **1–2 `evidence` searches** + `find_supporting_quotes` to confirm a real, urgent beachhead ("who is desperate for this", "willing to pay for <capability>"). This validates SOM/SAM assumptions — it does **not** size TAM.

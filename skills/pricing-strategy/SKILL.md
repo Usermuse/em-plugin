@@ -11,6 +11,9 @@ Recommend a pricing model and structure, or brainstorm 3–5 monetization option
 Confirm this is pricing/monetization work and Evermuse is connected. If not, produce a framework-only recommendation labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing pricing/positioning/objectives ("current pricing and packaging", "monetization objectives"). Then **2–3 `evidence` searches** for the price signal — worded as: willingness-to-pay ("what customers said they'd pay / budget", "how they value the outcome"), pricing objections ("too expensive / pushback on price", "what they compared cost against"), and value language ("the outcome worth paying for"). Pull verbatim with `find_supporting_quotes("price and value", limit: 6–8)`.
 - **Competitor pricing (secondary, labeled):** use `list_competitors` + `get_competitor_capabilities` for competitor tiers/features, and **1 `context` search** for market pricing conventions. Label all of this **secondary** — it informs positioning, never overrides customer WTP evidence.

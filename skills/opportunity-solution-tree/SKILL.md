@@ -11,6 +11,9 @@ Structure discovery the Teresa Torres way: one measurable **outcome** at the top
 Confirm this is discovery structuring and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, you can sketch the tree's skeleton but every opportunity is unverified — label the whole thing **⚠ ungrounded** and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Run **2–4 `evidence` searches** around the outcome and its likely opportunity space (the pain, the workaround, the moment of friction). Use `find_supporting_quotes(topic, limit: 8–10)` — this is what fills the opportunity level with real voice. `get_notes(note_types:[need,problem])` helps enumerate opportunities.
 - **Work:** build the four-level tree below.

@@ -11,6 +11,9 @@ Produce a comprehensive Product Strategy Canvas — vision, segments, costs, val
 Confirm this is product/company-direction work and Evermuse is connected. If the tools aren't present, produce a framework-only canvas labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product (`get_products`/`switch_product`). Then run **1 `guidance` search** for existing company strategy/objectives/values ("current strategy and objectives", "company vision and values") so you extend rather than reinvent direction. Then **2 `evidence` searches** for the top customer pains driving the strategy ("biggest recurring pain", "why customers churn / stall") and **1 `context` search** for market shifts ("competitor and market shifts", "emerging alternatives"). Pull verbatim voice with `find_supporting_quotes(topic, limit: 6–8)`.
 - **Work:** fill the 9-section canvas below. Each **Market Segment** is defined by a customer problem drawn from evidence; each **Value Proposition** pillar cites the pain (evidence) it relieves AND the market shift (context) that makes it winnable now.

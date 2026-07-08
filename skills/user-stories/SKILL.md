@@ -11,6 +11,9 @@ Turn a feature ($ARGUMENTS) into a set of independent, testable stories where **
 Confirm this is customer-facing product work and Evermuse is present. If the MCP isn't connected, produce the stories from the templates but label them **⚠ ungrounded** and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For stories:
 
 - **Ground.** Verify the product (Rule 1). Run **2–3 `evidence` searches** — the feature ask, the underlying job/pain, and the failure/objection angle. Then `find_supporting_quotes(topic, limit: 8)` to get the verbatim lines each story will cite. `get_notes(note_types: ["need","feedback"])` in the feature area surfaces distinct user situations worth their own story.

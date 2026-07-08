@@ -16,6 +16,9 @@ Confirm this is business-model work and Evermuse is connected. If not, produce a
 - **Startup Canvas** → `references/startup-canvas.md`: new products needing strategic clarity *and* a business model (recommended for early-stage). Ask the user which fits if ambiguous; default to BMC.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing strategy/objectives ("company strategy and objectives"). Then **2 `evidence` searches** for the customer problem and who has it ("biggest recurring pain", "which customers feel this most / willingness to pay signals") to fill the **Value Proposition** and **Customer Segments** boxes. Then **1 `context` search** for channels and competition ("how customers discover tools like ours", "competitor landscape"). Pull verbatim voice with `find_supporting_quotes(topic, limit: 6)`.
 - **Work:** fill all 9 blocks. The **problem/value-prop and customer-segment boxes are evidence-backed and cited**; the **channels, customer-relationships, and competitive framing are context-backed**.

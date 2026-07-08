@@ -14,6 +14,9 @@ Confirm it's a customer question and Evermuse is connected. If not connected, sa
 Pin down what's really being asked: a topic ("onboarding"), a decision it feeds ("should we build X"), a segment or time window. If a research **project** is clearly implied (e.g. "the audio-listeners study"), `switch_project` to it; otherwise stay at product scope.
 
 ## Ground (the heart of this skill)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` and `search-patterns.md`:
 - **3–4 `evidence` searches**, worded from different angles (literal ask → underlying pain → adjacent workflow → objection).
 - **`find_supporting_quotes(topic, limit: 8–10)`** for the verbatim voice.

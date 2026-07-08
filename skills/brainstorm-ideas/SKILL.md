@@ -15,6 +15,9 @@ Confirm this is product ideation and Evermuse is connected (see `using-evermuse`
 - **New product / new concept** — initial discovery. Evidence may be thin, so lean more on **`nature=context`** (market/competitor signals) and **`nature=guidance`** (the company's own strategy/vision), and be honest that ideas rest on hypotheses rather than a customer corpus.
 
 ## Evermuse Grounding (required)
+
+> **Search first — non-negotiable.** Your opening Evermuse retrieval MUST be **2–4 `search` calls and nothing else.** Do **not** lead with `get_notes`, `find_supporting_quotes`, `get_meetings`, `view_item`, or `get_meeting_transcript` — those may only run *after* the searches. Word the searches from different angles, and **brace for a large payload**: a `search` can exceed the ~120K-char cap and be spilled to a file — read that file selectively (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/search-patterns.md`), never re-run with a broader query.
+
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product (`get_products`/`switch_product`). Run **2–4 searches** worded from different angles around $ARGUMENTS — e.g. the objective ("$ARGUMENTS the outcome"), the underlying pain, the adjacent workflow, the objection. Existing product → nature `evidence`; new concept → mix `context` + `guidance`. Then `find_supporting_quotes(topic, limit: 8–10)` to capture the verbatim unmet needs that will seed ideation.
 - **Work:** the three-perspective ideation below, seeded by those needs.
