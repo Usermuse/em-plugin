@@ -1,6 +1,20 @@
 ---
 name: analyze-feature-requests
-description: "Triage a pile of customer feature requests into themes, merge duplicates, and surface the underlying need behind each ask — pulling the requests straight from Evermuse notes and backing every theme with quotes. Use when the user asks to 'triage feature requests', 'group these requests', 'what are customers asking for', 'find duplicate requests', 'what's the real need here', or 'cluster the feedback'. Trigger terms: feature requests, triage requests, group requests, duplicate requests, underlying need, cluster feedback. Not for scoring a curated backlog (that's prioritize-features)."
+description: >-
+  Triage a pile of customer feature requests into themes, merge duplicates, and
+  surface the underlying need behind each ask — pulling the requests straight
+  from Evermuse notes and backing every theme with quotes. Use when the user
+  asks to 'triage feature requests', 'group these requests', 'what are customers
+  asking for', 'find duplicate requests', 'what's the real need here', or
+  'cluster the feedback'. Trigger terms: feature requests, triage requests,
+  group requests, duplicate requests, underlying need, cluster feedback. Not for
+  scoring a curated backlog (that's prioritize-features).
+category: Customer Voice & Feedback
+tags:
+  - feature-requests
+  - feedback
+  - triage
+  - analysis
 ---
 
 # Analyze Feature Requests (theme, dedupe, find the real need)
@@ -14,7 +28,7 @@ Confirm this is request triage and Evermuse is connected (see `using-evermuse` S
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Pull the raw asks with **`get_notes(note_types:[need,feedback])`** (add `date_from`/`date_to` to scope a period). Then, per emerging theme, run a focused `evidence` search + `find_supporting_quotes(topic, limit: 6–8)` to gauge how many distinct accounts share it and capture verbatim voice. Use **`view_item`** to open the hottest individual requests in full.
 - **Work:** the theme/dedupe/need triage below.
-- **Cite:** every theme carries a mention count and at least one verbatim quote with a source badge.
+- **Cite:** every theme carries a mention count and at least one verbatim quote with an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 - **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","triage","feature-requests","<topic>"])` after confirmation.
 
 ## Instructions
@@ -40,10 +54,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 | Data export | "get my data out to share it" | 9 (6 accts) | 4 | frustrated | ✓ |
 
 ### Top 3 to act on
-1. **[Theme]** — need: […]. Evidence: > "[verbatim]" — [Name], [Meeting], [Date] · [View](LINK) [^1] (6 accounts). Alt solutions: … Riskiest assumption: … Test: …
----
-## Sources
-[^1]: …
+1. **[Theme]** — need: […]. Evidence: > "[verbatim]" — [Name], [Meeting], [Date] [`1`](LINK) (6 accounts). Alt solutions: … Riskiest assumption: … Test: …
 ```
 
 Be honest when a "hot" request is really one loud account repeating itself — say so rather than inflating it into a trend.

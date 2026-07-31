@@ -1,6 +1,19 @@
 ---
 name: review-pr
-description: "Review a pull request against three things at once: code quality, the spec it was meant to satisfy, and the actual customer asks behind it — calling out where the diff diverges from what customers literally requested. Use when the user asks to 'review this PR', 'review the diff', 'check this PR against the spec', or wants a customer-voice-aware code review. Trigger terms: review this PR, review the diff, PR review, check against the spec, does this match what customers asked. Defer to a dedicated code-review tool if the user names one and only wants code quality."
+description: >-
+  Review a pull request against three things at once: code quality, the spec it
+  was meant to satisfy, and the actual customer asks behind it — calling out
+  where the diff diverges from what customers literally requested. Use when the
+  user asks to 'review this PR', 'review the diff', 'check this PR against the
+  spec', or wants a customer-voice-aware code review. Trigger terms: review this
+  PR, review the diff, PR review, check against the spec, does this match what
+  customers asked. Defer to a dedicated code-review tool if the user names one
+  and only wants code quality.
+category: Delivery & Engineering
+tags:
+  - code-review
+  - pr
+  - quality
 ---
 
 # Review a PR (against code, spec, and customer voice)
@@ -26,7 +39,7 @@ Run 2–3 `evidence` searches + `find_supporting_quotes` for the feature area, s
 1. **Code quality** — correctness, edge cases, error handling, security, tests, style/conventions. Standard, focused review; report only real issues.
 2. **Spec conformance** — does the diff satisfy each relevant FR-###? Note requirements that are unmet, partially met, or exceeded (scope creep).
 3. **Customer-voice conformance** — does the *behavior* match what customers asked for? Quote-vs-diff mismatches are the headline:
-   > Customer asked: "export with the header row, we paste into our template" [^2]. The diff writes rows without a header (`export.ts:41`). ❌ Mismatch.
+   > Customer asked: "export with the header row, we paste into our template" [`1`](URL). The diff writes rows without a header (`export.ts:41`). ❌ Mismatch.
 
 ## Verdict
 Lead with a clear recommendation — **Approve / Approve with nits / Request changes** — and the single most important reason. Then the three passes as sections. Keep code nits concise; make the customer-voice findings vivid and cited.
@@ -36,6 +49,8 @@ Offer to save the review summary: `add_source(nature: "guidance", source_type: "
 
 ## Evermuse Grounding (required)
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`: verify product → find intent (shaping note/spec) → evidence searches + quotes → cite every customer-voice finding → offer save/post.
+
+Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 
 ---
 ### Further reading

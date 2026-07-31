@@ -1,6 +1,20 @@
 ---
 name: assumptions
-description: "Surface the risky assumptions behind a feature or idea, but first check the evidence — if customers already answered it, it's a finding, not an assumption — then score the rest by Impact × Risk and match each to the cheapest experiment. Use when the user asks to 'identify assumptions', 'what are we assuming', 'stress-test this idea', 'what could go wrong', 'what should we test first', or 'design an experiment'. Trigger terms: assumptions, risks, what could go wrong, validate, de-risk, experiment, test this. Not for prioritizing shipped features (that's prioritize-features)."
+description: >-
+  Surface the risky assumptions behind a feature or idea, but first check the
+  evidence — if customers already answered it, it's a finding, not an assumption
+  — then score the rest by Impact × Risk and match each to the cheapest
+  experiment. Use when the user asks to 'identify assumptions', 'what are we
+  assuming', 'stress-test this idea', 'what could go wrong', 'what should we
+  test first', or 'design an experiment'. Trigger terms: assumptions, risks,
+  what could go wrong, validate, de-risk, experiment, test this. Not for
+  prioritizing shipped features (that's prioritize-features).
+category: Specs & Requirements
+tags:
+  - assumptions
+  - validation
+  - experiments
+  - risk
 ---
 
 # Assumptions (find → cross off what's known → prioritize → experiment)
@@ -18,7 +32,7 @@ Confirm this is idea/feature stress-testing and Evermuse is connected (see `usin
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Run **2–4 `evidence` searches** targeting the exact belief each candidate assumption rests on ("do customers actually want $ARGUMENTS", "how do they do this today", "would they pay for it", "can they figure it out"). Use `find_supporting_quotes(topic, limit: 6–8)` on the highest-stakes beliefs. This search is what lets you convert assumptions into findings.
 - **Work:** the four-step method below.
-- **Cite:** every "already answered" finding carries the quote that answers it; every experiment references the assumption it de-risks.
+- **Cite:** every "already answered" finding carries the quote that answers it, cited inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL); every experiment references the assumption it de-risks.
 - **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","assumptions","experiments","<topic>"])` after confirmation.
 
 ## Instructions
@@ -41,18 +55,15 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 
 ```markdown
 ### Already answered by customers (crossed off)
-- ~~We assumed users want scheduled export~~ → **Confirmed.** > "[verbatim]" — [Name], [Meeting] · [View](LINK) [^1] (5 accounts)
+- ~~We assumed users want scheduled export~~ → **Confirmed.** > "[verbatim]" — [Name], [Meeting] [`1`](LINK) (5 accounts)
 
 ### Contradicted — the idea currently gets this wrong
-- We assumed [X], but customers say [Y]. > "[quote]" [^2]
+- We assumed [X], but customers say [Y]. > "[quote]" [`2`](URL)
 
 ### True unknowns — scored & matched
 | Assumption | Area | Impact | Risk | Quadrant | Cheapest experiment | Metric · threshold |
 |-----------|------|--------|------|----------|---------------------|--------------------|
 | We assume … | Value | High | High | Experiment | Fake-door test | CTR ≥ 8% |
----
-## Sources
-[^1]: …
 ```
 
 ## References

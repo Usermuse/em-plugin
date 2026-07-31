@@ -1,6 +1,18 @@
 ---
 name: market-sizing
-description: "Estimate market size (TAM, SAM, SOM) with top-down and bottom-up approaches, grounded in market/industry signals and validated against a real customer beachhead. Use when the user says 'how big is the market', 'what's our TAM', 'size this opportunity', 'estimate the addressable market', 'prep market size for the pitch', or is evaluating market entry. Trigger terms: market size, TAM, SAM, SOM, addressable market, market opportunity, market sizing, beachhead. Not for internal usage/revenue analytics of an existing product."
+description: >-
+  Estimate market size (TAM, SAM, SOM) with top-down and bottom-up approaches,
+  grounded in market/industry signals and validated against a real customer
+  beachhead. Use when the user says 'how big is the market', 'what's our TAM',
+  'size this opportunity', 'estimate the addressable market', 'prep market size
+  for the pitch', or is evaluating market entry. Trigger terms: market size,
+  TAM, SAM, SOM, addressable market, market opportunity, market sizing,
+  beachhead. Not for internal usage/revenue analytics of an existing product.
+category: Market & Competition
+tags:
+  - tam-sam-som
+  - market-sizing
+  - analysis
 ---
 
 # Market Sizing (TAM / SAM / SOM)
@@ -17,7 +29,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill th
 - **Ground (context — the market):** verify the product, then run **2–3 `context` searches** for market/industry signals ("<market> size", "<industry> growth", "<segment> spend on <category>"). Supplement with web research / analyst reports for TAM inputs where the corpus is thin — label external figures with their source.
 - **Ground (evidence — the wedge only):** run **1–2 `evidence` searches** + `find_supporting_quotes` to confirm a real, urgent beachhead ("who is desperate for this", "willing to pay for <capability>"). This validates SOM/SAM assumptions — it does **not** size TAM.
 - **Work:** triangulate top-down and bottom-up; scope SAM/SOM; project growth (see Instructions).
-- **Cite:** market figures cite their external source; wedge claims carry customer source badges (see `citations.md`). Keep the two visibly separate — never let a customer quote masquerade as a market number, or vice versa.
+- **Cite:** market figures cite their external source; wedge claims carry customer linked-number badges (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`). Keep the two visibly separate — never let a customer quote masquerade as a market number, or vice versa.
 - **Save:** `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","market-sizing","<product-slug>"])` after confirmation.
 
 ## Instructions
@@ -38,16 +50,16 @@ Size the market for **$ARGUMENTS** within the stated constraints (geography, ver
 |--------|------------------|-------------------|-------|
 | TAM | | | [external source] |
 | SAM | | | product/channel constraints |
-| SOM | | | GTM capacity + evidenced wedge [^1] |
+| SOM | | | GTM capacity + evidenced wedge [`1`](URL) |
 ```
 
 ### Wedge validation (the Evermuse differentiator)
 A short block: **which slice do we win first, and who in the corpus already wants it?** 1-2 verbatim quotes proving urgency:
 ```markdown
-> "[verbatim quote showing pull/urgency]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
+> "[verbatim quote showing pull/urgency]" — [Name], [Meeting], [Date] [`1`](URL)
 ```
 
-Close with **key assumptions & risks** and a **Sources** footer separating market sources from customer evidence. Be explicit about what's data vs. estimate, and where confidence intervals are wide.
+Close with **key assumptions & risks**, keeping market sources and customer evidence clearly separated via inline citations. Be explicit about what's data vs. estimate, and where confidence intervals are wide.
 
 ---
 ### Further reading

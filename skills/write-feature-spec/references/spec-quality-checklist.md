@@ -19,9 +19,9 @@ Run before declaring a spec done. Anything unchecked gets fixed or explicitly fl
 - [ ] Every claim of the form "customers want / need / struggle with X" carries a **source badge** or is explicitly marked a **hypothesis**.
 - [ ] At least the P1 story has an **Evidence:** quote (if any evidence exists for the feature at all).
 - [ ] Dissenting/minority voices are represented, not smoothed over.
-- [ ] All `[^n]` markers resolve to entries in the **Sources** footer; none are fabricated or renumbered.
+- [ ] Every inline citation badge [`1`](URL) links to a real Evermuse `url`; none are fabricated or renumbered.
 - [ ] Secondary assets (shaping notes, roadmap) — if referenced — are labeled as such, not cited as customer voice.
 
 ## Honesty
-- [ ] No invented quotes, speakers, meetings, links, or footnote numbers.
+- [ ] No invented quotes, speakers, meetings, or links.
 - [ ] Where evidence was thin, the spec says so rather than overclaiming demand.

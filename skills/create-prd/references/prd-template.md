@@ -5,9 +5,9 @@
 **Status:** Draft · **Input:** "$ARGUMENTS"
 
 > **Customer Evidence (mandatory when grounded).** The voice behind this PRD. Fill from `search` (nature=evidence) + `find_supporting_quotes`.
-> - **[Theme 1]** — [N mentions across M accounts]. [one-line summary] [^1]
-> - **[Theme 2]** — [N mentions]. [^2]
-> - Representative quote: *"[verbatim]"* — [Speaker, Account, date] [^3]
+> - **[Theme 1]** — [N mentions across M accounts]. [one-line summary] [`1`](URL)
+> - **[Theme 2]** — [N mentions]. [`2`](URL)
+> - Representative quote: *"[verbatim]"* — [Speaker, Account, date] [`3`](URL)
 
 ---
 
@@ -21,7 +21,7 @@
 
 ## 3. Background
 - **Context:** what is this initiative about?
-- **Why now?** What changed for customers? Lead with the pain, quoted and cited. [^n]
+- **Why now?** What changed for customers? Lead with the pain, quoted and cited. [`4`](URL)
 - Is this newly possible (tech, market, regulation)?
 
 ## 4. Objective
@@ -33,13 +33,13 @@
   - KR3: [metric → target]
 
 ## 5. Market Segment(s)
-For whom are we building this? Define segments by the **problem/job** customers described, not demographics. Name the accounts/personas the evidence came from. [^n]
+For whom are we building this? Define segments by the **problem/job** customers described, not demographics. Name the accounts/personas the evidence came from. [`5`](URL)
 - Constraints:
 
 ## 6. Value Proposition(s)
 What customer jobs/needs are we addressing? Each entry is backed by a real quote.
-- **Pain avoided:** [quote] [^n]
-- **Gain created:** [quote] [^n]
+- **Pain avoided:** [quote] [`6`](URL)
+- **Gain created:** [quote] [`7`](URL)
 - **Where we win vs. competitors:** [only if a `context` search supports it]
 
 ## 7. Solution
@@ -50,9 +50,3 @@ What customer jobs/needs are we addressing? Each entry is backed by a real quote
 
 ## 8. Release
 Relative timeframes (now / next / later), never hard dates. What's in v1 vs. future.
-
----
-## Sources
-[^1]: [source badge / attribution — who said it, which meeting, when, Evermuse link]
-[^2]:
-[^3]:

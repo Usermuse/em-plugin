@@ -1,6 +1,19 @@
 ---
 name: summarize-conversation
-description: "Summarize one customer interview or team meeting into structured notes — participants, needs/JTBD, verbatim quotes with timestamps, decisions, action items — by locating the conversation in Evermuse and reading its transcript. Use when the user says 'summarize this interview', 'summarize the meeting', 'recap the call', 'meeting notes', 'meeting minutes', or 'write up the interview'. Trigger terms: summarize meeting, summarize interview, meeting notes, meeting minutes, recap the call, interview summary. Not for research across many calls (that's customer-research)."
+description: >-
+  Summarize one customer interview or team meeting into structured notes —
+  participants, needs/JTBD, verbatim quotes with timestamps, decisions, action
+  items — by locating the conversation in Evermuse and reading its transcript.
+  Use when the user says 'summarize this interview', 'summarize the meeting',
+  'recap the call', 'meeting notes', 'meeting minutes', or 'write up the
+  interview'. Trigger terms: summarize meeting, summarize interview, meeting
+  notes, meeting minutes, recap the call, interview summary. Not for research
+  across many calls (that's customer-research).
+category: Ops & Meta
+tags:
+  - summary
+  - handoff
+  - documentation
 ---
 
 # Summarize a Conversation (interview or meeting)
@@ -14,7 +27,7 @@ Confirm the user means a specific conversation (not "what do customers think abo
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. **Locate the conversation** with `get_meetings(attendee_domain / title_keyword / transcript_keyword / date_from / date_to)` — narrow to the one meeting the user means; if several match, list them and ask which. Then **`get_meeting_transcript(meeting_id)`** for that one conversation (this is the deep-dive exception to the "no transcripts for search" rule).
 - **Work:** extract into the template below, pulling **verbatim quotes with their timestamps**.
-- **Cite:** quotes carry speaker + timestamp; the summary links back to the meeting in Evermuse.
+- **Cite:** quotes carry speaker + timestamp and an inline citation (linked-number code badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`); the summary links back to the meeting in Evermuse.
 - **Save:** `add_source(nature: "evidence", source_type: "meeting_notes", tags: ["evermuse-plugin","<interview-summary | meeting-summary>","<topic>"])` after confirmation — so the extracted needs/quotes rejoin the corpus.
 
 ## Two flavors (pick by conversation type)
@@ -33,7 +46,7 @@ Tag `interview-summary`. Template:
 - …
 
 **Key Insights / Notable Quotes**:
-- > "[verbatim]" — [Speaker] [12:340] · [View](LINK)
+- > "[verbatim]" — [Speaker] [12:340] [`1`](URL)
 
 **Action Items**: [Date · Owner · Action]
 ```

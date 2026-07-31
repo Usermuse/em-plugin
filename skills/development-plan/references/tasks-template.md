@@ -19,14 +19,14 @@
 - [ ] T005 [P] [...]
 
 ## Phase 3: User Story 1 — [Title] (Priority: P1) ← strongest customer signal
-> Building this because: "[one-line motivating quote]" — [Name] [^1]
+> Building this because: "[one-line motivating quote]" — [Name] [`1`](URL)
 **Goal**: [story goal] · **Independent test**: [how to verify standalone]
 - [ ] T00X [US1] [model/service/endpoint task + file path]
 - [ ] T00X [P] [US1] [...]
 **Checkpoint**: US1 is fully functional and independently demoable.
 
 ## Phase 4: User Story 2 — [Title] (Priority: P2)
-> Building this because: "[quote]" — [Name] [^2]
+> Building this because: "[quote]" — [Name] [`2`](URL)
 - [ ] T0XX [US2] [...]
 **Checkpoint**: US2 works independently.
 
@@ -39,8 +39,3 @@
 
 ## Implementation strategy
 - **MVP** = Setup + Foundational + US1. Ship, learn, then add US2+.
-
----
-## Sources
-[^1]: [Name] — [Meeting], [Date]
-[^2]: …

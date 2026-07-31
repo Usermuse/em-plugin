@@ -21,7 +21,7 @@ Before you ask the user anything, ask the corpus. For each ambiguity, run a quic
 
 - **Cap: 3 questions.** Only the highest-impact unresolved items (architecture, data model, scope boundary, compliance).
 - **Multiple-choice, evidence-attached.** Present 2–5 concrete options and hang the evidence on them so the user decides with the customer in the room:
-  > **Default export scope?** Customers split: 3 want current-project only [^2][^5][^9], 1 wants the whole workspace [^11].
+  > **Default export scope?** Customers split: 3 want current-project only [`1`](URL) [`2`](URL) [`3`](URL), 1 wants the whole workspace [`4`](URL).
   > (a) Current project (recommended — matches majority) · (b) Whole workspace · (c) User-selectable
 - **One at a time or as a short batch**, then fold answers into the spec, replacing each `[NEEDS CLARIFICATION]` marker.
 

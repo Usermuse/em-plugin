@@ -1,6 +1,20 @@
 ---
 name: development-plan
-description: "Create a development plan for a feature that starts from what customers actually requested — Evermuse quotes and demand evidence carried into the plan itself — then applies spec-driven phasing and a dependency-ordered task list. Use when the user says 'plan this feature', 'create a dev plan', 'how should we build this', 'break this into tasks', or 'implementation plan' for a customer-facing capability. Trigger terms: dev plan, development plan, implementation plan, feature plan, task breakdown, how should we build. Not for pure infra/refactor work with no customer-facing change — use a plain plan there."
+description: >-
+  Create a development plan for a feature that starts from what customers
+  actually requested — Evermuse quotes and demand evidence carried into the plan
+  itself — then applies spec-driven phasing and a dependency-ordered task list.
+  Use when the user says 'plan this feature', 'create a dev plan', 'how should
+  we build this', 'break this into tasks', or 'implementation plan' for a
+  customer-facing capability. Trigger terms: dev plan, development plan,
+  implementation plan, feature plan, task breakdown, how should we build. Not
+  for pure infra/refactor work with no customer-facing change — use a plain plan
+  there.
+category: Delivery & Engineering
+tags:
+  - planning
+  - tasks
+  - implementation
 ---
 
 # Development Plan (customer-grounded)
@@ -11,7 +25,7 @@ Turn a feature or spec into an actionable development plan whose starting point 
 
 The user's stated approach, stack, constraints, and scope **win**. Evermuse evidence informs *what to prioritize, how to sequence, and what "done" means* — it never replaces the user's ask. If the evidence contradicts the user's plan (e.g. they're building X but customers keep asking for Y), **surface it as a flagged note with quotes and then proceed as asked**:
 
-> ⚠️ **Evidence flag:** You've scoped this to bulk export, but 6 of 8 recent mentions were about *scheduled* export [^3][^4][^7]. Proceeding with bulk as requested; flagging in case it reshapes priority.
+> ⚠️ **Evidence flag:** You've scoped this to bulk export, but 6 of 8 recent mentions were about *scheduled* export [`1`](URL) [`2`](URL) [`3`](URL). Proceeding with bulk as requested; flagging in case it reshapes priority.
 
 ## Step 0 — Relevance & availability
 Confirm customer-facing product work and that the Evermuse tools are present (see `using-evermuse` Step 0). If not connected, produce the plan from templates, labeled **⚠ ungrounded**.
@@ -21,7 +35,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
 - **Ground.** Verify the product. **If a spec already exists** (a local `specs/<feature>/spec.md`, or a shaping note found via `get_shaping_notes`), inherit its citations — don't re-search from scratch. **Otherwise** run a light grounding pass: 2–3 `evidence` searches + `find_supporting_quotes(limit: 6)` on the feature and its underlying pain.
 - **Work.** Fill `references/plan-template.md` then `references/tasks-template.md`, reading the actual repository for technical context.
-- **Cite.** The plan opens with a **"Why we're building this"** block (see below). Each task story-group repeats its motivating quote.
+- **Cite.** The plan opens with a **"Why we're building this"** block (see below). Each task story-group repeats its motivating quote. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 - **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","dev-plan","<slug>"])`.
 
 ## The "Why we're building this" opener (required)
@@ -30,8 +44,8 @@ Before any technical content, the plan states — in the customer's words — wh
 ```markdown
 ## Why we're building this
 Most-requested by [N accounts]; the recurring pain is [one line].
-> "[verbatim quote]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
-> "[a second, ideally dissenting or nuancing, quote]" — [Name], [Meeting] [^2]
+> "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](URL)
+> "[a second, ideally dissenting or nuancing, quote]" — [Name], [Meeting] [`2`](URL)
 ```
 
 This is what makes the plan feel grounded on first read. Don't skip it when evidence exists.

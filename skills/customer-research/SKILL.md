@@ -1,6 +1,19 @@
 ---
 name: customer-research
-description: "Answer questions about what customers actually think, need, ask for, or complain about — by searching real customer evidence in Evermuse and returning a quote-rich, source-linked brief. Use when the user asks 'what do customers think about X', 'have customers asked for Y', 'what are the biggest pain points', 'who mentioned Z', 'why are users churning', or wants voice-of-customer / user-research / feedback synthesis. Trigger terms: what do customers think, customer feedback, user research, voice of customer, pain points, what are customers saying, have customers asked for."
+description: >-
+  Answer questions about what customers actually think, need, ask for, or
+  complain about — by searching real customer evidence in Evermuse and returning
+  a quote-rich, source-linked brief. Use when the user asks 'what do customers
+  think about X', 'have customers asked for Y', 'what are the biggest pain
+  points', 'who mentioned Z', 'why are users churning', or wants
+  voice-of-customer / user-research / feedback synthesis. Trigger terms: what do
+  customers think, customer feedback, user research, voice of customer, pain
+  points, what are customers saying, have customers asked for.
+category: Discovery & Research
+tags:
+  - research
+  - customers
+  - insights
 ---
 
 # Customer Research (voice-of-customer synthesis)
@@ -24,21 +37,20 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` and `search-patter
 Cluster the evidence into **themes**, and for each: demand strength (mentions across distinct accounts), sentiment split, who said it and when, and the sharpest verbatim quote. Represent **dissenting voices** — don't flatten disagreement into a false consensus. Separate `evidence` (what customers said) from any `context` (market) you pulled; never blend them.
 
 ## Deliver
-A brief that leads with the answer, then themes with quote blocks and source badges, then a Sources footer:
+Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
+
+A brief that leads with the answer, then themes with quote blocks and inline citations:
 
 ```markdown
 **Short answer:** [1–2 sentences that directly answer the question.]
 
 ### Theme 1 — [name] ([N mentions / M accounts], mostly [sentiment])
-> "[verbatim quote]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
+> "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](URL)
 [one line of interpretation]
 
 ### Theme 2 — …
 
 **Dissent / nuance:** [minority view, cited]
----
-## Sources
-[^1]: …
 ```
 
 ## Save & hand off

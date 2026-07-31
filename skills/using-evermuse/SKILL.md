@@ -1,6 +1,19 @@
 ---
 name: using-evermuse
-description: "Foundational doctrine and mechanics for grounding product work in real customer evidence via the Evermuse MCP — loaded by every other Evermuse skill. Use when you need the shared rules for how to search Evermuse, cite customer quotes with source links, resolve the active Product/Project, or save deliverables back via add_source. Trigger terms: Evermuse doctrine, Evermuse MCP, ground this in Evermuse, how to use Evermuse, save to Evermuse. (For an actual customer question, use customer-research; this skill supplies the mechanics other skills reuse.)"
+description: >-
+  Foundational doctrine and mechanics for grounding product work in real
+  customer evidence via the Evermuse MCP — loaded by every other Evermuse skill.
+  Use when you need the shared rules for how to search Evermuse, cite customer
+  quotes with source links, resolve the active Product/Project, or save
+  deliverables back via add_source. Trigger terms: Evermuse doctrine, Evermuse
+  MCP, ground this in Evermuse, how to use Evermuse, save to Evermuse. (For an
+  actual customer question, use customer-research; this skill supplies the
+  mechanics other skills reuse.)
+category: Customer Voice & Feedback
+tags:
+  - evermuse
+  - grounding
+  - evidence
 ---
 
 # Using Evermuse
@@ -22,7 +35,7 @@ Every Evermuse skill follows the same four beats. The skill supplies the *Work*;
 
 **1. Product first, always.** Every Evermuse call is scoped to a Product. At the start of a task, call `get_products`. If exactly one product exists (or one obviously matches the repo/context), `switch_product` to it and mention which one you picked. If several plausibly match, **ask the user** which product before searching — grounding against the wrong product is worse than not grounding at all. A Project (e.g. "Discovery", "Support", "Sales") is optional; only `switch_project` when the task is scoped to one research effort. If no product exists, tell the user to set one up in Evermuse and proceed with a clearly-labeled **⚠ ungrounded** deliverable.
 
-**2. Search in triangulation, with a declared nature.** Never rely on a single search. Run **2–4 searches worded from different angles** (the literal ask, the underlying pain, the adjacent workflow, the objection) before answering. For each search, decide up front what *nature* of information you want and pass it:
+**2. Search in triangulation, with a declared nature.** Never rely on a single search. Run **2–4 searches worded from different angles** (the literal ask, the underlying pain, the adjacent workflow, the objection) before answering. Each `search` response opens with a **digest** — counts by type, the recurring-theme clusters, top speakers, date range, and how many results remain. Read it before the items: it hands you the patterns pre-counted, and tells you whether page 1 was enough. For each search, decide up front what *nature* of information you want and pass it:
    - `evidence` — direct customer signal: needs, feedback, quotes, pain points, Q&A from real conversations. **This is the voice of the customer.**
    - `context` — market/industry: competitor capabilities, news, external signals.
    - `guidance` — the company's own internal direction: strategy, objectives, values, positioning.
@@ -35,7 +48,7 @@ Every Evermuse skill follows the same four beats. The skill supplies the *Work*;
 
 **5. Treat AI/human-generated assets as secondary.** Shaping notes, research questions, the competitor list, and the "updated roadmap" are generated or curated *inside* Evermuse. They are useful context but are **not** ground truth about what customers need. Use them sparingly and only when specifically appropriate (e.g. a shaping note's branch/PR field during a PR review). Never cite them as if they were the customer speaking.
 
-**6. Cite everything customer-derived, with source badges.** Assume every result may carry a resource link (deep link back into Evermuse). Render each customer-backed claim with a source badge and preserve the `[^n]` footnote markers into a Sources section. When a result has no link yet, fall back to attribution (who said it, which meeting, when). Full format in `references/citations.md`.
+**6. Cite everything customer-derived, inline.** Every customer-backed claim carries an inline citation as its baseline — a linked number in a code badge, `` [`1`](URL) ``, using the result's `url` field and numbered sequentially per answer. Fuller styles (a verbatim quote block, an attribution line) are welcome *in addition* where they sharpen the point, never instead of the inline badge. When a result has no `url`, fall back to attribution (who said it, which meeting, when) with no link. Full format — and the exact badge syntax — in `references/citations.md`. **Load it whenever you output customer-derived claims.** (Exception: the first-party Usermuse in-app chat keeps its own `[^n]` footnote contract — see the scoping note at the top of `references/citations.md`.)
 
 **7. Save what matters, and spend credits purposefully.** Important syntheses and deliverables should be offered back to Evermuse via `add_source` so the knowledge base grows. At the same time, every tool call costs credits — keep to 2–4 well-worded searches per task, low `limit` values, and reuse grounding across chained skills within a session (a spec's evidence feeds its dev plan). Don't spam searches.
 
@@ -66,5 +79,5 @@ Before grounding, sanity-check two things:
 - `references/tool-reference.md` — every tool: exact signature, params, enums, return shape, and gotchas.
 - `references/citations.md` — the source-badge format and the no-link fallback. **Load this whenever you output customer-derived claims.**
 - `references/saving-to-evermuse.md` — `add_source` recipes, project resolution, and the nature-of-save rule.
-- `references/search-patterns.md` — how to word 2–4 varied searches, the nature-selection table, and how to survive huge (100K+) result payloads.
+- `references/search-patterns.md` — how to word 2–4 varied searches, the nature-selection table, and how to read the digest and paginate through large result sets.
 - `references/third-party-bridge.md` — using `find_tool`/`call_tool` and degrading gracefully when third-party access is blocked.

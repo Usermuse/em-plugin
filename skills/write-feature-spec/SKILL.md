@@ -1,6 +1,20 @@
 ---
 name: write-feature-spec
-description: "Write a feature specification grounded in real customer evidence — verbatim quotes, needs, and pain points with source links from Evermuse — using spec-driven-development structure (prioritized user stories, Given/When/Then acceptance scenarios, functional requirements, measurable success criteria). Use when the user wants to write a spec, feature spec, 'spec out' a feature, or turn an idea into a rigorous specification. Trigger terms: write a spec, feature spec, specify, spec out, user stories with acceptance criteria. Not for low-level API/interface specs with no customer-facing behavior; for a lighter business PRD, use create-prd."
+description: >-
+  Write a feature specification grounded in real customer evidence — verbatim
+  quotes, needs, and pain points with source links from Evermuse — using
+  spec-driven-development structure (prioritized user stories, Given/When/Then
+  acceptance scenarios, functional requirements, measurable success criteria).
+  Use when the user wants to write a spec, feature spec, 'spec out' a feature,
+  or turn an idea into a rigorous specification. Trigger terms: write a spec,
+  feature spec, specify, spec out, user stories with acceptance criteria. Not
+  for low-level API/interface specs with no customer-facing behavior; for a
+  lighter business PRD, use create-prd.
+category: Specs & Requirements
+tags:
+  - spec
+  - user-stories
+  - acceptance-criteria
 ---
 
 # Write a Feature Spec (grounded in customer evidence)
@@ -17,7 +31,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a spec:
 
 - **Ground.** Verify the product (Rule 1). Then run **3–4 `evidence` searches** worded from different angles — the exact feature phrasing, the underlying pain, the adjacent workflow, and an objection/failure angle (see `search-patterns.md`). Pull verbatim quotes with `find_supporting_quotes(topic, limit: 8)`. Run **one `guidance` search** for strategy/objectives touching this area, and — only if competitor parity matters — one `context` search.
 - **Work.** Draft the spec using `references/spec-template.md`.
-- **Cite.** Every customer-derived claim carries a source badge; preserve `[^n]` markers into a Sources footer (see `citations.md`).
+- **Cite.** Every customer-derived claim carries an inline linked-number badge [`1`](URL) per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge.
 - **Save.** After the user confirms, save via `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","feature-spec","<slug>"])` (see `saving-to-evermuse.md`).
 
 **The quote discipline.** Quotes are not decoration. Each one must *earn its place* by enriching the WHAT, the HOW, or the WHY:
@@ -29,13 +43,13 @@ Never dump a wall of quotes. If evidence for a claim doesn't exist, mark the cla
 ## Clarify before drafting (spec-kit discipline)
 Scan for ambiguity using `references/clarification-guide.md`. Two rules:
 1. **Check evidence before asking.** Often the corpus already answers the question — if three customers described the same workflow, that's your answer; cite it and move on.
-2. **Cap at 3 `[NEEDS CLARIFICATION]` markers.** Present each as a short multiple-choice question, and **attach the evidence** to it: "Customers split on default scope — 3 quotes want per-project export [^2][^5][^9], 1 wants everything [^11]. Which do we serve in v1?" Resolve, then draft.
+2. **Cap at 3 `[NEEDS CLARIFICATION]` markers.** Present each as a short multiple-choice question, and **attach the evidence** to it: "Customers split on default scope — 3 quotes want per-project export [`1`](URL) [`2`](URL) [`3`](URL), 1 wants everything [`4`](URL). Which do we serve in v1?" Resolve, then draft.
 
 ## Draft the spec
 Fill `references/spec-template.md`. Beyond the standard spec-kit sections it adds:
 - A **Customer Evidence** section up top: the themes you found, demand strength (counts across distinct accounts), and dissenting voices — quote-rich, badged.
 - An **Evidence:** line under each prioritized user story (the quote that motivates it).
-- `[^n]` markers on functional requirements that trace to a customer ask.
+- An inline linked-number badge [`1`](URL) on functional requirements that trace to a customer ask.
 - Success criteria (SC-###) that are technology-agnostic and, where possible, tied to the *magnitude* of the observed pain.
 - An **Assumptions** section split into "Confirmed (cited)" vs "Assumed (no signal yet)".
 

@@ -1,6 +1,19 @@
 ---
 name: pricing-strategy
-description: "Design pricing and monetization grounded in real willingness-to-pay signals, pricing objections, and value language from customer evidence — with competitor pricing as a labeled secondary input. Use when the user says 'how should we price this', 'pricing strategy', 'what should we charge', 'pricing tiers', 'how do we monetize', 'freemium vs paid', or 'raise our prices'. Trigger terms: pricing, pricing strategy, monetization, willingness to pay, price point, tiers, freemium, revenue model, what to charge. Not for full business-model canvases."
+description: >-
+  Design pricing and monetization grounded in real willingness-to-pay signals,
+  pricing objections, and value language from customer evidence — with
+  competitor pricing as a labeled secondary input. Use when the user says 'how
+  should we price this', 'pricing strategy', 'what should we charge', 'pricing
+  tiers', 'how do we monetize', 'freemium vs paid', or 'raise our prices'.
+  Trigger terms: pricing, pricing strategy, monetization, willingness to pay,
+  price point, tiers, freemium, revenue model, what to charge. Not for full
+  business-model canvases.
+category: Growth & GTM
+tags:
+  - pricing
+  - monetization
+  - packaging
 ---
 
 # Pricing & Monetization Strategy
@@ -15,7 +28,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing pricing/positioning/objectives ("current pricing and packaging", "monetization objectives"). Then **2–3 `evidence` searches** for the price signal — worded as: willingness-to-pay ("what customers said they'd pay / budget", "how they value the outcome"), pricing objections ("too expensive / pushback on price", "what they compared cost against"), and value language ("the outcome worth paying for"). Pull verbatim with `find_supporting_quotes("price and value", limit: 6–8)`.
 - **Competitor pricing (secondary, labeled):** use `list_competitors` + `get_competitor_capabilities` for competitor tiers/features, and **1 `context` search** for market pricing conventions. Label all of this **secondary** — it informs positioning, never overrides customer WTP evidence.
 - **Work:** apply the pricing method below (or the monetization brainstorm).
-- **Cite:** every WTP claim, objection, and competitor data point carries a source badge (see `citations.md`); keep evidence separate from the secondary competitor/context inputs.
+- **Cite:** every WTP claim, objection, and competitor data point carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; keep evidence separate from the secondary competitor/context inputs.
 - **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","pricing","monetization"])`.
 
 ## Instructions
@@ -41,18 +54,15 @@ Where the source method reaches for "web search / competitor pricing / survey fi
 # Pricing Recommendation — [product]
 
 **Recommended model:** [model] · **Value metric:** [unit]
-*Grounded in WTP:* > "[quote about price/value]" — [attribution] [^1]
+*Grounded in WTP:* > "[quote about price/value]" — [attribution] [`1`](URL)
 
 | Tier | Price | Target segment | Key features | Positioning |
 |---|---|---|---|---|
 
-**Objections heard (sensitivity signal):** [cited [^n]]
+**Objections heard (sensitivity signal):** [cited [`2`](URL)]
 **Competitor pricing (secondary):** [table] — via list_competitors/context
 **Assumptions → tests:** [assumption] → [experiment]
 **Risks → mitigations:** …
----
-## Sources
-[^1]: …
 ```
 
 ---

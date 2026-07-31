@@ -1,6 +1,21 @@
 ---
 name: shipping-artifacts
-description: "Generate the ship-readiness documentation set for an AI-built (vibe-coded) feature — architecture, flows, permissions, variables, and a tests coverage map, plus conditional docs — and reconstruct the missing 'intent' section from Evermuse shaping notes, the local spec, and customer evidence so a reviewer can judge whether the code matches what was meant. Use when the user wants to 'document this app for review', 'prep for a security/perf audit', 'create shipping docs', 'map the flows and permissions', or 'get this ready to ship'. Trigger terms: shipping artifacts, ship readiness, document the app, review docs, pre-ship documentation, flows and permissions map. Not for user-facing docs — this is reviewer/auditor documentation."
+description: >-
+  Generate the ship-readiness documentation set for an AI-built (vibe-coded)
+  feature — architecture, flows, permissions, variables, and a tests coverage
+  map, plus conditional docs — and reconstruct the missing 'intent' section from
+  Evermuse shaping notes, the local spec, and customer evidence so a reviewer
+  can judge whether the code matches what was meant. Use when the user wants to
+  'document this app for review', 'prep for a security/perf audit', 'create
+  shipping docs', 'map the flows and permissions', or 'get this ready to ship'.
+  Trigger terms: shipping artifacts, ship readiness, document the app, review
+  docs, pre-ship documentation, flows and permissions map. Not for user-facing
+  docs — this is reviewer/auditor documentation.
+category: Delivery & Engineering
+tags:
+  - shipping
+  - artifacts
+  - launch
 ---
 
 # Shipping Artifacts (intent reconstructed from customer evidence)
@@ -17,7 +32,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For shipping arti
 
 - **Ground (intent).** Verify the product (Rule 1). Reconstruct intent from three sources: **shaping notes** via `get_shaping_notes` → `read_shaping_note` (the internal shaping record — secondary, but the closest thing to recorded intent); the **local spec** (`specs/<feature>/spec.md`, PRD, or plan); and **customer evidence** — run **2–3 `evidence` searches** on the feature's purpose + `find_supporting_quotes(topic, limit: 5)` for the pains the feature was meant to solve.
 - **Work.** Write the core + applicable conditional docs into `/documentation/`, reverse-engineered from the code, with the intent/assumptions grounded in the above.
-- **Cite.** The intent + "Known risks/assumptions" entries that rest on customer signal carry source badges `[^n]` (see `citations.md`). Keep shaping notes labeled as **secondary/internal**, never as customer ground truth.
+- **Cite.** The intent + "Known risks/assumptions" entries that rest on customer signal carry an inline linked-number badge [`1`](URL). Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL). Keep shaping notes labeled as **secondary/internal**, never as customer ground truth.
 - **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "Shipping artifacts — <feature>", tags: ["evermuse-plugin","shipping"])`. Ship-readiness docs are company direction → **guidance**.
 
 ## The doc set (core + conditional)
@@ -25,7 +40,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For shipping arti
 Write into `/documentation/`. Core docs always; conditional docs only when the capability exists — if it doesn't, write one honest line in `architecture.md` ("No scheduled work — no `cron.md`.") rather than an empty file. Be an accurate map, not a clean bill of health.
 
 **Core**
-1. **`architecture.md`** — product overview + **key assumptions** (grounded in reconstructed intent [^n]); tech stack; how auth/sessions/claims flow; trust boundaries; a **Known risks / assumptions** list (each backed by where it shows up in code); a "Related Documents" index.
+1. **`architecture.md`** — product overview + **key assumptions** (grounded in reconstructed intent [`1`](URL)); tech stack; how auth/sessions/claims flow; trust boundaries; a **Known risks / assumptions** list (each backed by where it shows up in code); a "Related Documents" index.
 2. **`flows.md`** — each load-bearing flow as actor + precondition + success outcome; the UI→server→data→jobs→providers→agents sequence; the **authz check at each protected step** (claim/role/scope, resource, expected *deny*); **trust-boundary crossings**; side effects. *Anti-PRD rule: only flows touching permissions, data integrity, external side effects, money, privacy, or safety belong here.*
 3. **`permissions.md`** — roles/claims; where scope is derived (token vs DB); a resource × operation × role matrix; which tables use RLS vs code-enforced checks.
 4. **`variables.md`** — table of Name · used-by · scope · source · rotation · risk; explicit "no secret bundled client-side" confirmation; a pre-go-live checklist.
@@ -40,7 +55,7 @@ Write into `/documentation/`. Core docs always; conditional docs only when the c
 ## Notes
 - Each doc registers itself in `architecture.md` under "Related Documents".
 - Keep templates/examples out — these describe *this* system.
-- The customer-evidence layer is what makes intent real: a "Known risk" like "assumes one workspace per user" should trace to code **and**, where relevant, to a customer who hit the multi-workspace case [^n].
+- The customer-evidence layer is what makes intent real: a "Known risk" like "assumes one workspace per user" should trace to code **and**, where relevant, to a customer who hit the multi-workspace case [`1`](URL).
 
 ---
 ### Further reading

@@ -1,6 +1,19 @@
 ---
 name: strategy-frameworks
-description: "Run a classic strategy framework — SWOT, PESTLE, Porter's Five Forces, or Ansoff Matrix — where every cell cites a real customer-evidence or market-context result instead of generic filler. Use when the user says 'do a SWOT', 'PESTLE analysis', 'Porter's five forces', 'Ansoff matrix', 'strategic assessment', 'analyze our competitive position', or 'macro environment'. Trigger terms: SWOT, PESTLE, Porter's five forces, Ansoff matrix, competitive forces, strategic analysis, macro environment, growth options. Not for product specs or roadmaps."
+description: >-
+  Run a classic strategy framework — SWOT, PESTLE, Porter's Five Forces, or
+  Ansoff Matrix — where every cell cites a real customer-evidence or
+  market-context result instead of generic filler. Use when the user says 'do a
+  SWOT', 'PESTLE analysis', 'Porter's five forces', 'Ansoff matrix', 'strategic
+  assessment', 'analyze our competitive position', or 'macro environment'.
+  Trigger terms: SWOT, PESTLE, Porter's five forces, Ansoff matrix, competitive
+  forces, strategic analysis, macro environment, growth options. Not for product
+  specs or roadmaps.
+category: Strategy & Vision
+tags:
+  - frameworks
+  - swot
+  - analysis
 ---
 
 # Strategy Frameworks (SWOT · PESTLE · Porter's · Ansoff)
@@ -21,7 +34,7 @@ Ask the user (or infer from their ask) which to run, and load the matching refer
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing strategy/objectives ("company strategy and objectives") so the framework serves the real direction. Then **2 `evidence` searches** for the customer-side cells — strengths/weaknesses/buyer power come from what customers actually praise and complain about ("what customers love / value most", "what frustrates them / makes them consider leaving"). Then **1–2 `context` searches** for the market-side cells — opportunities/threats/substitutes/forces/macro factors ("competitor and substitute landscape", "market and regulatory shifts"). Pull verbatim with `find_supporting_quotes(topic, limit: 5–6)` for customer-derived cells.
 - **Work:** fill the chosen framework's grid using the reference file. **Each cell names the evidence or context result it rests on.** Customer-derived cells (evidence) stay separate from market cells (context).
-- **Cite:** every cell carries a source badge (see `citations.md`).
+- **Cite:** every cell carries an inline citation — a linked-number code badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`.
 - **Save (nature=context):** after confirmation, `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","framework","<swot|pestle|porters-five-forces|ansoff>"])`.
 
 ## Instructions
@@ -34,7 +47,7 @@ You are a strategic analyst applying the chosen framework to **$ARGUMENTS**. Ope
 Where the source frameworks reach for "market context / competitor data / customer feedback (optional)," use Evermuse `evidence` (customer voice) and `context` (market) as the **primary** sources for every cell.
 
 ## Deliverable format
-The framework grid (table or quadrants) with a source badge in every populated cell, then the cross-referenced recommendations, then a Sources footer. If a cell has no supporting evidence or context, leave it explicitly empty and note it as a research gap rather than inventing content.
+The framework grid (table or quadrants) with an inline citation badge in every populated cell, then the cross-referenced recommendations (links live inline — no Sources footer). If a cell has no supporting evidence or context, leave it explicitly empty and note it as a research gap rather than inventing content.
 
 ---
 ### Further reading

@@ -1,6 +1,20 @@
 ---
 name: positioning-and-messaging
-description: "Generate differentiated positioning options and campaign/message ideas written in your customers' own mined vocabulary, where every message maps to a real quote that proves it resonates. Use when the user says 'how should we position this', 'position the product', 'differentiate from competitors', 'write our messaging', 'brainstorm marketing campaigns', 'promote the product', or 'what's our positioning'. Trigger terms: positioning, positioning statement, messaging, differentiation, value proposition, marketing ideas, campaign ideas, tagline, how to position. Not for a full launch plan — use gtm-strategy for that."
+description: >-
+  Generate differentiated positioning options and campaign/message ideas written
+  in your customers' own mined vocabulary, where every message maps to a real
+  quote that proves it resonates. Use when the user says 'how should we position
+  this', 'position the product', 'differentiate from competitors', 'write our
+  messaging', 'brainstorm marketing campaigns', 'promote the product', or
+  'what's our positioning'. Trigger terms: positioning, positioning statement,
+  messaging, differentiation, value proposition, marketing ideas, campaign
+  ideas, tagline, how to position. Not for a full launch plan — use gtm-strategy
+  for that.
+category: Market & Competition
+tags:
+  - positioning
+  - messaging
+  - marketing
 ---
 
 # Positioning & Messaging
@@ -14,7 +28,7 @@ Confirm this is positioning / marketing work and Evermuse is connected. If the t
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (mine the vocabulary):** verify the product (`get_products`/`switch_product`). Run **2–3 `evidence` searches** for how customers describe the pain, the win, and the alternatives in their own words ("how they describe the problem", "the phrase they use for the outcome", "what they compared us to"), and pull the actual phrasing with **`find_supporting_quotes(topic, limit: 8–10)`** — this is the raw material for the language. Add **1 `context` search** on competitor positioning ("how competitors position themselves", "gaps competitors leave open") to find unclaimed territory.
 - **Work:** generate positioning options and campaign ideas below, each written in mined phrasing and **each mapped to a proof quote**. Positioning claims a territory competitors leave open; campaigns carry the message into a channel.
-- **Cite:** every positioning statement and campaign message carries a source badge to the quote that grounds it (see `citations.md`). Keep `evidence` (customer voice) separate from `context` (competitor positioning).
+- **Cite:** every positioning statement and campaign message carries an inline linked-number badge [`1`](URL) to the quote that grounds it — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`. Keep `evidence` (customer voice) separate from `context` (competitor positioning).
 - **Save (nature=guidance):** positioning is company direction. After the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","positioning","messaging"])`.
 
 ## Instructions
@@ -30,14 +44,14 @@ You are developing positioning and messaging for **$ARGUMENTS**. Where the sourc
 2. **Strategic rationale** — why it resonates and differentiates.
 3. **Supporting messages** — reinforcing lines.
 4. **Competitive advantage** — the capability that lets you own this claim.
-5. **Proof quote** — > "[verbatim]" — [attribution] [^n]. If no quote supports it, the option is speculative — mark it.
+5. **Proof quote** — > "[verbatim]" — [attribution] [`1`](URL). If no quote supports it, the option is speculative — mark it.
 
 ### Part B — Campaign / message ideas
 
 Generate **5 creative, cost-effective campaign ideas** to carry the chosen positioning to the target segment. For each:
 1. **Channel** — primary channel (content, social, community, partnerships, email…).
 2. **Core message** — in mined customer vocabulary.
-3. **Why it works** — grounded in a customer quote about what they care about ([^n]).
+3. **Why it works** — grounded in a customer quote about what they care about ([`1`](URL)).
 4. **Cost efficiency** — what makes it high-impact on a limited budget.
 
 Prioritize high-impact-low-budget and unconventional angles. Every core message must map to a proof quote — that mapping is the whole point.
@@ -50,17 +64,14 @@ Prioritize high-impact-low-budget and unconventional angles. Every core message 
 ## Positioning options
 ### Option 1 — [name]
 **Statement:** [The only … for … who want to …]
-**Rationale:** [why]. **Advantage:** [capability]. **Territory:** [unclaimed gap vs [competitor], [^context]].
-**Proof:** > "[verbatim]" — [attribution] [^1]
+**Rationale:** [why]. **Advantage:** [capability]. **Territory:** [unclaimed gap vs [competitor], [`1`](URL)].
+**Proof:** > "[verbatim]" — [attribution] [`2`](URL)
 … (options 2–5) …
 
 ## Campaign ideas
 | # | Channel | Core message (mined) | Why it works | Proof quote |
 |---|---|---|---|---|
-| 1 | [channel] | "[message]" | [reason] | > "[quote]" — [attribution] [^n] |
----
-## Sources
-[^1]: …
+| 1 | [channel] | "[message]" | [reason] | > "[quote]" — [attribution] [`3`](URL) |
 ```
 
 ## Honesty when evidence is thin

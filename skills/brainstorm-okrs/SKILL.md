@@ -1,6 +1,19 @@
 ---
 name: brainstorm-okrs
-description: "Draft team-level OKRs — inspirational objectives with measurable key results — where each objective maps to an evidenced customer outcome and each key result measures reduction of a real, stated customer pain, aligned to company strategy via Evermuse. Use when the user wants to 'set OKRs', 'draft quarterly objectives', 'write key results', 'align team goals with strategy', or 'brainstorm OKRs for [team]'. Trigger terms: OKRs, objectives and key results, quarterly goals, key results, KPIs, north star metric. Not for a full roadmap — use outcome-roadmap for that."
+description: >-
+  Draft team-level OKRs — inspirational objectives with measurable key results —
+  where each objective maps to an evidenced customer outcome and each key result
+  measures reduction of a real, stated customer pain, aligned to company
+  strategy via Evermuse. Use when the user wants to 'set OKRs', 'draft quarterly
+  objectives', 'write key results', 'align team goals with strategy', or
+  'brainstorm OKRs for [team]'. Trigger terms: OKRs, objectives and key results,
+  quarterly goals, key results, KPIs, north star metric. Not for a full roadmap
+  — use outcome-roadmap for that.
+category: Ops & Meta
+tags:
+  - okrs
+  - goals
+  - planning
 ---
 
 # Brainstorm Team OKRs (grounded in customer outcomes)
@@ -16,7 +29,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For OKRs, groundi
 - **Ground (company direction).** Run **1–2 `guidance` searches** for company objectives, strategy, and north-star metric — the OKRs must ladder up to these. Treat the roadmap / strategy docs as the alignment target.
 - **Ground (customer outcomes).** Run **2–3 `evidence` searches** on the pains and desired outcomes in this team's area, plus `find_supporting_quotes(topic, limit: 6)` for the voice behind each candidate objective.
 - **Work.** Generate **three distinct OKR sets** (below). Each objective names the customer outcome; each KR names the metric that moves when a *stated* pain shrinks.
-- **Cite.** Objectives and KRs that rest on customer signal carry source badges; the `guidance` alignment is cited separately. Preserve `[^n]` into a Sources footer (see `citations.md`).
+- **Cite.** Objectives and KRs that rest on customer signal carry inline linked-number badges; the `guidance` alignment is cited separately. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 - **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "OKRs — <team>/<quarter>", tags: ["evermuse-plugin","okrs"])`. OKRs are company direction → **guidance**.
 
 ## Instructions
@@ -32,14 +45,14 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For OKRs, groundi
 
 ## Output format
 ```
-Objective: [inspiring, customer-outcome-oriented statement]   [^evidence]
+Objective: [inspiring, customer-outcome-oriented statement]   [`1`](URL)
 Key Results:
-- [metric → target]        [^evidence / instrumentation note]
+- [metric → target]        [`2`](URL)
 - [metric → target]
 - [metric → target]
-Rationale: [ladders up to <company objective> [^guidance]; addresses <stated pain> [^evidence]]
+Rationale: [ladders up to <company objective> [`3`](URL); addresses <stated pain> [`4`](URL)]
 ```
-Three sets, then a Sources footer.
+Three sets, each with inline citations.
 
 ---
 ### Further reading

@@ -1,6 +1,20 @@
 ---
 name: segmentation
-description: "Segment a market or user base by evidence-based need differences — not demographics — into 3-5 distinct groups, each with its jobs-to-be-done, pains, product fit, and representative customer quotes. Use when the user says 'segment our users', 'segment the market', 'who are our target segments', 'what customer segments do we have', 'break users into groups', or wants a needs-based segmentation model. Trigger terms: segmentation, market segments, user segments, customer segments, target audiences, segment the market, needs-based groups. Not for arbitrary demographic buckets with no behavioral difference."
+description: >-
+  Segment a market or user base by evidence-based need differences — not
+  demographics — into 3-5 distinct groups, each with its jobs-to-be-done, pains,
+  product fit, and representative customer quotes. Use when the user says
+  'segment our users', 'segment the market', 'who are our target segments',
+  'what customer segments do we have', 'break users into groups', or wants a
+  needs-based segmentation model. Trigger terms: segmentation, market segments,
+  user segments, customer segments, target audiences, segment the market,
+  needs-based groups. Not for arbitrary demographic buckets with no behavioral
+  difference.
+category: Segmentation & Targeting
+tags:
+  - segmentation
+  - markets
+  - analysis
 ---
 
 # Segmentation (needs-based, from the corpus)
@@ -19,7 +33,7 @@ State which you're doing up front. Default to **user segmentation** unless the u
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. Run **3–4 `evidence` searches** worded around *need differences*, not demographics ("what <group A> is trying to do", "why <group B> uses it differently", "unmet need for <workflow>", "who churns and why"). For market-level cuts, add 1–2 `context` searches. Pull `find_supporting_quotes(topic, limit: 3–5)` per emerging segment. Use `get_meetings(attendee_domain)` to see which accounts anchor each group.
 - **Work:** cluster into 3-5 need-distinct, non-overlapping segments (see Instructions).
-- **Cite:** every pain, need, and quote badged (see `citations.md`); keep `evidence` (customer voice) and `context` (market) visibly separate.
+- **Cite:** every pain, need, and quote carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; keep `evidence` (customer voice) and `context` (market) visibly separate.
 - **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","segmentation","<product-slug>"])` after confirmation. (A purely market-level cut may instead save nature=context.)
 
 ## Instructions
@@ -43,7 +57,7 @@ Segment **$ARGUMENTS** into 3-5 distinct groups.
 
 **Representative voice** — 1-2 verbatim quotes:
 ```markdown
-> "[verbatim quote]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
+> "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](URL)
 ```
 
 **Product fit** — how well the product serves this segment today; the sharpest gap.
@@ -52,7 +66,7 @@ Segment **$ARGUMENTS** into 3-5 distinct groups.
 
 **Priority** — invest / maintain / de-prioritize, with a one-line rationale (growth, revenue, strategic fit vs. effort).
 
-Close with a **Sources** footer and a note flagging any segment that's underrepresented in the corpus. This pairs naturally with `/evermuse:user-personas` (a persona per segment) and market-sizing.
+Close with a note flagging any segment that's underrepresented in the corpus. This pairs naturally with `/evermuse:user-personas` (a persona per segment) and market-sizing.
 
 ---
 ### Further reading

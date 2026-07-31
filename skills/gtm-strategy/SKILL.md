@@ -1,6 +1,19 @@
 ---
 name: gtm-strategy
-description: "Build a go-to-market strategy — messaging, channels, segment focus, GTM motions, metrics, and a launch timeline — where every choice is anchored in real customer evidence, not guesswork. Use when the user says 'plan the launch', 'build a GTM plan', 'how do we take this to market', 'what channels should we use', 'inbound or outbound', 'go-to-market strategy', or 'launch strategy'. Trigger terms: go-to-market, GTM, launch plan, GTM motions, marketing channels, launch strategy, distribution. Not for a single feature spec or an internal roadmap — this is how the product reaches its market."
+description: >-
+  Build a go-to-market strategy — messaging, channels, segment focus, GTM
+  motions, metrics, and a launch timeline — where every choice is anchored in
+  real customer evidence, not guesswork. Use when the user says 'plan the
+  launch', 'build a GTM plan', 'how do we take this to market', 'what channels
+  should we use', 'inbound or outbound', 'go-to-market strategy', or 'launch
+  strategy'. Trigger terms: go-to-market, GTM, launch plan, GTM motions,
+  marketing channels, launch strategy, distribution. Not for a single feature
+  spec or an internal roadmap — this is how the product reaches its market.
+category: Growth & GTM
+tags:
+  - gtm
+  - launch
+  - strategy
 ---
 
 # GTM Strategy
@@ -14,7 +27,7 @@ Confirm this is a launch / go-to-market task and Evermuse is connected. If the t
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product (`get_products`/`switch_product`). Then run **2–3 `evidence` searches** for the pains and desired outcomes that drive messaging ("biggest pain the product relieves", "outcome customers want", "why they chose / almost didn't"), **1 `context` search** for the competitive/market landscape ("alternatives customers compare us to", "market shifts"), and **1 `guidance` search** for any existing launch/positioning direction so you extend it. Pull verbatim voice with `find_supporting_quotes(topic, limit: 6–8)`. Use `get_meetings(attendee_domain)` to see which segments show up most in the corpus when the target segment is unsettled.
 - **Work:** fill the strategy below. The **target segment** is where evidence shows the strongest, most-repeated pain; **messaging** is written in the customer's own words (each message maps to a quote); **channel/motion choice** is grounded in where evidence shows these customers actually discover and buy tools like ours.
-- **Cite:** every segment, message, and channel rationale carries a source badge (see `citations.md`). Keep `evidence` (customer voice) separate from `context` (market) in the output.
+- **Cite:** every segment, message, and channel rationale carries a linked-number badge (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`). Keep `evidence` (customer voice) separate from `context` (market) in the output.
 - **Save (nature=guidance):** after the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","gtm","go-to-market"])`.
 
 ## Instructions
@@ -57,23 +70,20 @@ Phase it: pre-launch (assets, channel setup, baseline metrics) → launch (annou
 ```markdown
 # GTM Strategy — [product]
 
-**Target segment:** [segment] — burning pain: > "[quote]" — [attribution] [^1]. Why now: [context, cited [^2]].
+**Target segment:** [segment] — burning pain: > "[quote]" — [attribution] [`1`](URL). Why now: [context, cited [`2`](URL)].
 
 **Positioning (one line):** [value prop in customer language]
 
 **Messaging**
 | Message | Proof quote (evidence) | Maps to differentiator |
 |---|---|---|
-| [message] | > "[verbatim]" — [attribution] [^n] | [diff] |
+| [message] | > "[verbatim]" — [attribution] [`3`](URL) | [diff] |
 
-**Motion stack:** Primary — [motion] ([why, grounded [^n]]); Secondary — [motion(s)]. Sequence: [order].
+**Motion stack:** Primary — [motion] ([why, grounded [`4`](URL)]); Secondary — [motion(s)]. Sequence: [order].
 
 **Success metrics:** North Star [metric] · Funnel KPIs [awareness → revenue] · Baselines [values].
 
 **90-day launch plan:** Pre-launch → Launch → Post-launch → Optimize. Go/no-go: [criteria].
----
-## Sources
-[^1]: …
 ```
 
 ## Save & hand off

@@ -1,6 +1,20 @@
 ---
 name: brainstorm-ideas
-description: "Generate product ideas from PM, Designer, and Engineer perspectives — seeded by the real unmet needs customers actually voiced — and return an idea→evidencing-quote mapping. Use when the user asks to 'brainstorm ideas', 'what should we build', 'come up with feature ideas', 'ideate solutions', 'what could solve this problem', or 'help me think of new features' for either an existing product or a brand-new concept. Trigger terms: brainstorm, ideate, product ideas, feature ideas, come up with ideas, what should we build, solution ideas. Not for prioritizing an existing backlog (that's prioritize-features) or writing the spec."
+description: >-
+  Generate product ideas from PM, Designer, and Engineer perspectives — seeded
+  by the real unmet needs customers actually voiced — and return an
+  idea→evidencing-quote mapping. Use when the user asks to 'brainstorm ideas',
+  'what should we build', 'come up with feature ideas', 'ideate solutions',
+  'what could solve this problem', or 'help me think of new features' for either
+  an existing product or a brand-new concept. Trigger terms: brainstorm, ideate,
+  product ideas, feature ideas, come up with ideas, what should we build,
+  solution ideas. Not for prioritizing an existing backlog (that's
+  prioritize-features) or writing the spec.
+category: Prioritization & Planning
+tags:
+  - brainstorming
+  - ideation
+  - creativity
 ---
 
 # Brainstorm Product Ideas (multi-perspective, evidence-seeded)
@@ -18,7 +32,7 @@ Confirm this is product ideation and Evermuse is connected (see `using-evermuse`
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product (`get_products`/`switch_product`). Run **2–4 searches** worded from different angles around $ARGUMENTS — e.g. the objective ("$ARGUMENTS the outcome"), the underlying pain, the adjacent workflow, the objection. Existing product → nature `evidence`; new concept → mix `context` + `guidance`. Then `find_supporting_quotes(topic, limit: 8–10)` to capture the verbatim unmet needs that will seed ideation.
 - **Work:** the three-perspective ideation below, seeded by those needs.
-- **Cite:** every idea that maps to a real need carries a source badge; ideas with no signal are flagged `hypothesis — no evidence yet`.
+- **Cite:** every idea that maps to a real need carries an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL); ideas with no signal are flagged `hypothesis — no evidence yet`.
 - **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","ideation","<topic>"])` after the user confirms.
 
 ## Instructions
@@ -47,11 +61,8 @@ Lead with the top 5, then the full idea→evidence map so nothing is unsourced:
 ### Idea → evidencing quote
 | Idea | Persona lens | Seed need | Evidencing quote | Accounts |
 |------|--------------|-----------|------------------|----------|
-| [Idea] | PM/Design/Eng | [unmet need] | > "[verbatim]" — [Name], [Meeting], [Date] · [View](LINK) [^1] | 3 |
+| [Idea] | PM/Design/Eng | [unmet need] | > "[verbatim]" — [Name], [Meeting], [Date] [`1`](LINK) | 3 |
 | [Idea] | Eng | — | *hypothesis — no evidence yet* | 0 |
----
-## Sources
-[^1]: …
 ```
 
 Be honest about thin evidence: an idea seeded by a single mention is a weaker bet than one seeded by six across distinct accounts — reflect that in the ranking, don't hide it.

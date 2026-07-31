@@ -6,8 +6,8 @@
 
 ## Why we're building this *(Evermuse — mandatory when grounded)*
 Most-requested by [N accounts]; the recurring pain is [one line].
-> "[verbatim quote]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
-> "[second quote]" — [Name], [Meeting] [^2]
+> "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](URL)
+> "[second quote]" — [Name], [Meeting] [`2`](URL)
 
 [If the user's scope diverges from the evidence, add the ⚠ Evidence flag here.]
 
@@ -47,8 +47,3 @@ Most-requested by [N accounts]; the recurring pain is [one line].
 
 ## Phase 2 — Tasks
 Task generation → `tasks.md` (see tasks-template). Story order = evidence-weighted priority.
-
----
-## Sources
-[^1]: [Name] — [Meeting], [Date] · [View in Evermuse](LINK)
-[^2]: …

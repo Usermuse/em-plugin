@@ -1,6 +1,19 @@
 ---
 name: ideal-customer-profile
-description: "Build an Ideal Customer Profile from your real won-and-happy customers — firmographics, behaviors, jobs-to-be-done, and pains drawn from actual conversations with the accounts that bought and stayed. Use when the user says 'define our ICP', 'who is our ideal customer', 'who are our best customers', 'who should we sell to', 'build a customer profile', or 'who retains and expands'. Trigger terms: ICP, ideal customer profile, best customers, target customer, who to sell to, firmographics, JTBD, disqualification criteria. Not for picking a single first market — use beachhead-segment for that."
+description: >-
+  Build an Ideal Customer Profile from your real won-and-happy customers —
+  firmographics, behaviors, jobs-to-be-done, and pains drawn from actual
+  conversations with the accounts that bought and stayed. Use when the user says
+  'define our ICP', 'who is our ideal customer', 'who are our best customers',
+  'who should we sell to', 'build a customer profile', or 'who retains and
+  expands'. Trigger terms: ICP, ideal customer profile, best customers, target
+  customer, who to sell to, firmographics, JTBD, disqualification criteria. Not
+  for picking a single first market — use beachhead-segment for that.
+category: Segmentation & Targeting
+tags:
+  - icp
+  - targeting
+  - personas
 ---
 
 # Ideal Customer Profile
@@ -14,7 +27,7 @@ Confirm this is an ICP / targeting task and Evermuse is connected. If the tools 
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (real customers first):** verify the product (`get_products`/`switch_product`). Identify the won-and-happy accounts: **`get_meetings(attendee_domain: …)`** for the customers who bought and stayed (renewals, expansions, enthusiastic calls), and **`get_meetings(title_keyword: "renewal" / "QBR" / "onboarding")`** to find the stickiest relationships. Then run **2–3 `evidence` searches** on why they bought and why they stay ("why did they choose us", "what made it worth paying for", "what would make them leave"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Use `view_item` / `get_meeting_transcript` to deep-dive one exemplar happy account.
 - **Work:** extract firmographic, behavioral, JTBD, and pain patterns **across the happy accounts**, each backed by a quote. Note the "ideal-of-the-ideal" (highest-value pattern) and explicit disqualification criteria (who looked similar but churned or never activated).
-- **Cite:** every pattern claim carries a source badge (see `citations.md`).
+- **Cite:** every pattern claim carries a linked-number badge (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`).
 - **Save (nature=evidence):** this is a customer-voice synthesis. After the user confirms, `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","icp","voice-of-customer","segmentation"])`.
 
 ## Instructions
@@ -44,20 +57,17 @@ For the best-customer cohort, synthesize patterns and attach quotes:
 
 **Built from:** [N] won-and-happy accounts in the corpus ([examples]).
 
-**Firmographics:** [size / industry / geo / role / stage] — pattern evidenced by [^1].
-**Behaviors:** discovered via [channel] [^2]; buying committee [who]; adoption [speed].
-**Jobs to Be Done:** functional — [job]; emotional — [feeling]; social — [status]. > "[JTBD quote]" — [attribution] [^3]
+**Firmographics:** [size / industry / geo / role / stage] — pattern evidenced by [`1`](URL).
+**Behaviors:** discovered via [channel] [`2`](URL); buying committee [who]; adoption [speed].
+**Jobs to Be Done:** functional — [job]; emotional — [feeling]; social — [status]. > "[JTBD quote]" — [attribution] [`3`](URL)
 **Top pains → outcomes:**
 | Before (pain) | After (outcome they got) | Evidence |
 |---|---|---|
-| [pain] | [outcome] | > "[quote]" — [attribution] [^4] |
+| [pain] | [outcome] | > "[quote]" — [attribution] [`4`](URL) |
 
 **Ideal-of-the-ideal:** [tightest high-value sub-pattern].
-**Disqualification (NOT a fit):** [traits] — grounded in [churned/stalled accounts] [^5].
+**Disqualification (NOT a fit):** [traits] — grounded in [churned/stalled accounts] [`5`](URL).
 **GTM implications:** [messaging + channel notes].
----
-## Sources
-[^1]: …
 ```
 
 ## Honesty when evidence is thin

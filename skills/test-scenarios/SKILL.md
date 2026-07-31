@@ -1,6 +1,19 @@
 ---
 name: test-scenarios
-description: "Create QA test scenarios in Given/When/Then form from a spec's acceptance criteria AND from the real edge cases customers actually hit — failure stories and complaints pulled from Evermuse so the test plan covers reality, not just the happy path. Use when the user wants to 'write test scenarios', 'create test cases', 'build a test plan', 'define acceptance tests', or 'QA scenarios for [feature]'. Trigger terms: test scenarios, test cases, QA test plan, acceptance tests, Given/When/Then, edge cases. Not for unit-test code generation with no customer-facing behavior."
+description: >-
+  Create QA test scenarios in Given/When/Then form from a spec's acceptance
+  criteria AND from the real edge cases customers actually hit — failure stories
+  and complaints pulled from Evermuse so the test plan covers reality, not just
+  the happy path. Use when the user wants to 'write test scenarios', 'create
+  test cases', 'build a test plan', 'define acceptance tests', or 'QA scenarios
+  for [feature]'. Trigger terms: test scenarios, test cases, QA test plan,
+  acceptance tests, Given/When/Then, edge cases. Not for unit-test code
+  generation with no customer-facing behavior.
+category: Delivery & Engineering
+tags:
+  - testing
+  - scenarios
+  - qa
 ---
 
 # Test Scenarios (grounded in real customer edge cases)
@@ -15,7 +28,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For test scenario
 
 - **Ground.** Verify the product (Rule 1). Source the **acceptance criteria** from the local spec (`specs/<feature>/spec.md`), the `user-stories` output, or shaping notes. Then run **2–3 `evidence` searches** on *failure* in this feature area — "broke", "didn't work", "confusing", "error", "workaround", the specific error the feature area produces — plus `find_supporting_quotes(topic, limit: 6)` and `get_notes(note_types: ["problem","feedback"])` to surface real edge cases customers reported.
 - **Work.** Write scenarios in Given/When/Then, one set from each AC and one set from each evidenced failure.
-- **Cite.** Every evidence-derived edge-case scenario badges the quote it came from `[^n]`; preserve markers into a Sources footer (see `citations.md`).
+- **Cite.** Every evidence-derived edge-case scenario carries an inline linked-number badge [`1`](URL) on the quote it came from. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 - **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "Test scenarios — <feature>", tags: ["evermuse-plugin","test-scenarios"])`. A test plan is company direction → **guidance**.
 
 ## Instructions
@@ -27,19 +40,19 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For test scenario
    - **Given** starting conditions (system state, data, permissions).
    - **When** the user action / trigger.
    - **Then** the expected, observable outcome — including the negative/deny case.
-3. **Tag each scenario** with source (`AC-##` or `evidence [^n]`) and priority. Edge cases customers *actually hit* rank **High** by default — they've already caused real pain.
+3. **Tag each scenario** with its source — an acceptance criterion (`AC-##`) or an evidence citation badge [`1`](URL) — and priority. Edge cases customers *actually hit* rank **High** by default — they've already caused real pain.
 4. **Cover the boundaries** the evidence reveals: bad input, concurrency, permission edges, limits customers bumped into.
 5. **Chain from stories.** If `user-stories` ran this session, reuse its ACs and grounding rather than re-searching (credits — Rule 7).
 
 ## Scenario template
 ```
-Test Scenario: [name]            Source: [AC-## | evidence ^n]    Priority: [High/Med/Low]
+Test Scenario: [name]            Source: [AC-## | evidence [`1`](URL)]    Priority: [High/Med/Low]
 Objective: [what this validates]
 Given: [system state / data / permissions]
 When:  [action / trigger]
 Then:  [observable outcome — include the deny/negative case]
 ```
-Group by source (AC-derived, then evidence-derived), then a Sources footer.
+Group by source (AC-derived, then evidence-derived), with inline citations.
 
 ---
 ### Further reading

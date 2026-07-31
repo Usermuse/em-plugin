@@ -5,8 +5,8 @@ Exact signatures and gotchas for all Evermuse tools. Tool names are prefixed `mc
 > **Global gotchas**
 > - **Product is required.** With no product selected, data calls fail with "Missing product ID". Always resolve the product first (Rule 1).
 > - **Session persists per API key.** `switch_product` / `switch_project` set state that survives across calls in the session. **`switch_product` clears the current project** — re-select the project after switching products if you need it.
-> - **Results truncate at ~120K characters** server-side. `search` and `see_updated_roadmap` can return 100K–175K-char payloads. Scope tightly and prefer `find_supporting_quotes` for quotes. See `search-patterns.md`.
-> - **Credits are billed per call** (≈1 per own-tool call, ≈2 per third-party `call_tool`). Keep to 2–4 searches per task.
+> - **`search` is paginated and opens with a digest.** Ask for the page size you want (`limit`, default 50) and read the digest for the shape of the whole result set. See `search-patterns.md`. A ~120K-char response cap still exists as a safety net for unusually large pages; when it bites, the digest says `size_capped: true` and the trimmed items wait at `next_offset`. `see_updated_roadmap` is **not** paginated and can still return a very large payload — prefer `search` for evidence.
+> - **Credits are billed per call** (≈1 per own-tool call, ≈2 per third-party `call_tool`). Each page of search results is its own call, so page deliberately; keep to 2–4 searches per task.
 
 ## Product & project context
 
@@ -24,16 +24,19 @@ Narrows data scope to one project. Pass an **empty string** to clear the filter 
 
 ## Customer evidence (the voice of the customer)
 
-### `search(literal_user_question, search_query, product_id?, project_id?, nature?)`
-Vector search across needs, feedback, quotes, pain points, transcript sections, competitor capabilities, and news.
+### `search(literal_user_question, search_query, product_id?, project_id?, nature?, limit?, offset?)`
+Vector search across needs, feedback, quotes, pain points, transcript sections, competitor capabilities, and news. **Ranked purely by relevance** — there is no per-type quota, so one search may return mostly pain points and another mostly needs. That mix is a finding, not an artifact.
 - `literal_user_question` (required) — the actual user question that triggered the search.
 - `search_query` (required) — an optimized retrieval query. Vary this across your 2–4 searches.
 - `nature` (optional) — `evidence` | `context` | `guidance` | `all`. Declares what you're seeking. **May be silently dropped on workspaces without the lab flag** — always also triage results by their `type`.
-- Returns items with `id`, `type` (`need` | `feedback` | `quote` | `pain_point`/`problem` | `transcript_section` | competitor / news), `content`, `created_at`, `footnote_marker` (`[^n]`), `marker_id`, and often `meeting_name` / `meeting_id` / `who_said_it` / `project_name`. Clusters carry `is_cluster: true` and `children`.
-- **Large payloads.** If a result set is huge, read it via the saved-file path the harness returns and use `jq` to extract only the fields you need — never paste raw payloads into a deliverable.
+- `limit` (optional) — page size. Default 50, max 100.
+- `offset` (optional) — how many to skip. Default 0. Use the digest's `next_offset` for the following page; it reflects what was actually returned. Each call re-runs the search, so ordering can shift slightly if new data lands between pages.
+- **Returns a digest first, then the items.** The digest summarizes the *full* result set — counts by type, cluster headlines (sized by the whole dataset), distinct meetings/speakers and top speakers, date range, optional nature split, and pagination state (`returned`, `offset`, `total`, `next_offset`, `size_capped`). Read it before the items: it is the fastest route to the patterns, and its counts are exact. Note the two totals: `total_results` is what you page over (a cluster is one row), `item_count` is the evidence inside them (what `counts_by_type` sums to).
+- Items carry `id`, `type` (`need` | `feedback` | `quote` | `pain_point`/`problem` | `transcript_section` | competitor / news), `content`, `created_at`, `url` (deep link back into Evermuse — **cite with this**, see `citations.md`), and often `meeting_name` / `meeting_id` / `who_said_it` / `project_name`. Clusters carry `is_cluster: true`, `children` (only the members this search surfaced), and `total_items` (the cluster's true size in the DB). (Items also carry `footnote_marker` (`[^n]`) / `marker_id` — that is the first-party app's own numbering; **ignore it** and cite via `url` with your own sequential numbers.)
+- **Cluster members live in `children[]`** — enumerating only top-level items skips them. See the cluster trap in `search-patterns.md`.
 
 ### `find_supporting_quotes(topic, limit?, product_id?)`
-Verbatim quotes for a topic. `limit` defaults to 10 — use 6–8. Each quote: `content`, `who_said_it`, `facilitator_question`, `meeting_name`, `meeting_id`, `transcript_context`, `sentiment_analysis`, `emotion`, `priority`, `footnote_marker`. **Preferred tool for showing customer voice** — small, rich, quotable.
+Verbatim quotes for a topic. `limit` defaults to 10 — use 6–8. Each quote: `content`, `who_said_it`, `facilitator_question`, `meeting_name`, `meeting_id`, `transcript_context`, `sentiment_analysis`, `emotion`, `priority`, `url` (cite with this — see `citations.md`). **Preferred tool for showing customer voice** — small, rich, quotable.
 
 ### `get_notes(keyword?, note_types?, meeting_id?, date_from?, date_to?, limit?, product_id?, project_id?)`
 Filtered note search. `note_types`: array of `need` | `feedback` | `quote` | `problem` | `qa`. `date_from`/`date_to` are Unix ms. Use when you want to filter by type or time window rather than semantic relevance (e.g. sentiment over a quarter, all needs for a meeting).
@@ -66,8 +69,15 @@ Competitor list (with threat level) and a competitor's capabilities. The list is
 
 ## Saving back
 
-### `add_source(project_id, nature, source_type, content? | file_base64?+filename?, title?, subtitle?, tags?, mime_type?)`
-Persists a note or document into a Project. See `saving-to-evermuse.md` for full recipes. Requires a `project_id`. `nature`: `evidence` | `guidance` | `context`. `source_type`: `document` | `meeting_notes` | `call_transcription` | `spreadsheet` (`call_transcription` markdown-only; `spreadsheet` binary-only). Markdown mode uses `content` + `title` + optional `tags`; binary mode uses `file_base64` + `filename`.
+### `add_source(project_id, nature, source_type, …)`
+Persists a note, document, meeting or communication thread into a Project. See `saving-to-evermuse.md` for full recipes. Requires a `project_id`. `nature`: `evidence` | `guidance` | `context`. Four modes:
+
+- **Note** — `source_type` `document` | `meeting_notes` | `call_transcription`, with `content` (markdown) + `title` + optional `subtitle`/`tags`.
+- **Document** — `source_type` `document` | `spreadsheet` | `meeting_notes`, with `file_base64` + `filename` (+ optional `mime_type`). Tags are rejected in this mode.
+- **Meeting** — `source_type: 'meeting'`, for a real call pulled from a vendor MCP (Gong, Zoom, Fireflies, Granola…). Supply one or more of `transcript_turns` (`[{speaker, text, start_ms?}]` — speaker required on every turn), `vendor_payload` (raw payload; supported vendors only, today `gong`), `media` (`{url, type: 'video'|'audio'}`). Plus optional `participants`, `occurred_at`, `thread_id`. Produces speaker-attributed transcripts, participants, playable media and citation clips — prefer it over `call_transcription`, which only creates a flat unattributed note.
+- **Communication** — `source_type` `conversation` (Slack thread / Zendesk ticket / Intercom conversation) | `message` | `email` | `email_thread`, with `messages` (`[{author, text, sent_at?}]`, preferred) or `content`.
+
+Set `external_source` + `external_id` on anything fetched from another system: resubmitting the same `external_id` returns the existing source instead of duplicating or re-billing it.
 
 ## Third-party bridge
 

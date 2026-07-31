@@ -13,13 +13,13 @@ The voice of the customer behind this feature. Fill from `search` (nature=eviden
 
 **Themes & demand strength**
 - **[Theme 1]** — [N mentions across M accounts]. [one-line summary]
-  > "[verbatim quote]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
+  > "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](URL)
 - **[Theme 2]** — …
 
 **Dissenting / minority voices** (what a subset wants differently)
-- > "[verbatim quote]" — [Name], [Meeting], [Date] [^2]
+- > "[verbatim quote]" — [Name], [Meeting], [Date] [`2`](URL)
 
-**Strategy fit** (nature=guidance) — [how this ladders to a stated company objective, if found] [^n]
+**Strategy fit** (nature=guidance) — [how this ladders to a stated company objective, if found] [`3`](URL)
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -29,7 +29,7 @@ The voice of the customer behind this feature. Fill from `search` (nature=eviden
 [User journey in plain language.]
 
 **Why this priority**: [value + why now]
-**Evidence**: > "[quote that motivates this story]" — [Name, Meeting, Date] [^n]
+**Evidence**: > "[quote that motivates this story]" — [Name, Meeting, Date] [`4`](URL)
 **Independent Test**: [how this is tested standalone and delivers value]
 **Acceptance Scenarios**:
 1. **Given** [state], **When** [action], **Then** [outcome]
@@ -47,13 +47,13 @@ The voice of the customer behind this feature. Fill from `search` (nature=eviden
 
 ### Edge Cases
 <!-- Prefer edge cases a real customer actually hit; cite them. -->
-- What happens when [boundary]? [customer who hit it, if any] [^n]
+- What happens when [boundary]? [customer who hit it, if any] [`5`](URL)
 - How does the system handle [error scenario]?
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
-- **FR-001**: System MUST [capability]. [^n if traces to a customer ask]
+- **FR-001**: System MUST [capability]. [`6`](URL) if it traces to a customer ask
 - **FR-002**: System MUST [capability].
 - **FR-003**: Users MUST be able to [interaction].
 <!-- Mark unresolved items (max 3 across the spec): -->
@@ -72,15 +72,10 @@ The voice of the customer behind this feature. Fill from `search` (nature=eviden
 ## Assumptions
 
 **Confirmed (cited)** — backed by evidence:
-- [assumption] [^n]
+- [assumption] [`7`](URL)
 
 **Assumed (no signal yet)** — flag for validation:
 - [assumption] — *no customer evidence; validate before building.*
 
 ## Out of Scope
 - [explicitly not doing, and why]
-
----
-## Sources
-[^1]: [Name] — [Meeting], [Date] · [View in Evermuse](LINK)
-[^2]: …

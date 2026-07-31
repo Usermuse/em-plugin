@@ -1,6 +1,18 @@
 ---
 name: value-proposition
-description: "Design a value proposition on the 6-part JTBD structure, then turn it into ready-to-use marketing/sales/onboarding statements — all in customers' verbatim language. Use when the user says 'write our value proposition', 'value prop', 'why should customers choose us', 'positioning statement', or 'articulate our value'. Trigger terms: value proposition, value prop, JTBD, positioning statement, marketing copy, sales messaging, customer value. Not for full pricing or business-model work."
+description: >-
+  Design a value proposition on the 6-part JTBD structure, then turn it into
+  ready-to-use marketing/sales/onboarding statements — all in customers'
+  verbatim language. Use when the user says 'write our value proposition',
+  'value prop', 'why should customers choose us', 'positioning statement', or
+  'articulate our value'. Trigger terms: value proposition, value prop, JTBD,
+  positioning statement, marketing copy, sales messaging, customer value. Not
+  for full pricing or business-model work.
+category: Segmentation & Targeting
+tags:
+  - value-prop
+  - messaging
+  - positioning
 ---
 
 # Value Proposition (JTBD + statements)
@@ -14,7 +26,7 @@ Confirm this is customer-value/positioning work and Evermuse is connected. If no
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. Run **1 `guidance` search** for existing positioning/values ("current positioning", "how we describe our value") so statements stay on-message. Then **2–3 `evidence` searches** for the pains and desired gains, worded from angles: the current-state friction ("what's painful about how they do this today"), the desired outcome ("what they wish they could do"), and the objection to alternatives ("why the tools they use fall short"). Pull the verbatim voice with `find_supporting_quotes(topic, limit: 6–8)` — this is the raw material for both the JTBD boxes and the statement phrasing. Add **1 `context` search** for competitive alternatives.
 - **Work:** fill the 6-part template per segment (below), then generate 2–3 statements per segment.
-- **Cite:** every "What before" pain and "What after" gain carries a source badge with the quote it came from (see `citations.md`).
+- **Cite:** every "What before" pain and "What after" gain carries an inline linked-number badge with the quote it came from. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 - **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","value-prop","positioning"])`.
 
 ## Instructions
@@ -47,15 +59,12 @@ Where the source method reaches for "user-provided data / brand voice files," us
 
 | Who | Why (JTBD) | What before | How | What after | Alternatives |
 |---|---|---|---|---|---|
-| … | … | > "[pain quote]" [^1] | … | > "[gain quote]" [^2] | … |
+| … | … | > "[pain quote]" [`1`](URL) | … | > "[gain quote]" [`2`](URL) | … |
 
 ### Statements
 - **Marketing:** [statement reusing customer phrasing]
 - **Sales:** [statement]
 - **Onboarding:** [statement]
----
-## Sources
-[^1]: …  [^2]: …
 ```
 
 ---

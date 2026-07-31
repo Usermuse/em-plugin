@@ -1,6 +1,20 @@
 ---
 name: north-star-metric
-description: "Define a customer-centric North Star Metric plus a tree of 3-5 input metrics that drive it, where the North Star is anchored to the actual value customers describe getting from the product in real evidence. Use when the user says 'define our north star', 'what should we measure', 'pick a key metric', 'set up a metrics framework', 'what's our North Star', or 'what drives our growth'. Trigger terms: north star, north star metric, NSM, key metric, input metrics, what to measure, metrics framework, OMTM, leading indicator. Not for an ops/health monitoring dashboard — this is the single value metric and its drivers."
+description: >-
+  Define a customer-centric North Star Metric plus a tree of 3-5 input metrics
+  that drive it, where the North Star is anchored to the actual value customers
+  describe getting from the product in real evidence. Use when the user says
+  'define our north star', 'what should we measure', 'pick a key metric', 'set
+  up a metrics framework', 'what's our North Star', or 'what drives our growth'.
+  Trigger terms: north star, north star metric, NSM, key metric, input metrics,
+  what to measure, metrics framework, OMTM, leading indicator. Not for an
+  ops/health monitoring dashboard — this is the single value metric and its
+  drivers.
+category: Strategy & Vision
+tags:
+  - metrics
+  - north-star
+  - kpis
 ---
 
 # North Star Metric
@@ -14,7 +28,7 @@ Confirm this is a metrics-definition task and Evermuse is connected. If the tool
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (value first):** verify the product (`get_products`/`switch_product`). Run **2–3 `evidence` searches** on the core value and the "aha" moment customers name ("the moment it clicked / became worth it", "what they'd miss most if it went away", "the outcome they measure"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Add **1 `guidance` search** for the company's vision/objectives ("company vision and mission", "what success looks like") so the North Star aligns with strategy.
 - **Work:** classify the business game, define the North Star from the evidenced customer value, validate it against the 7 criteria, then build the input-metric tree — each input a lever that provably moves the North Star.
-- **Cite:** the value definition behind the North Star and each input's link to it carries a source badge (see `citations.md`). Keep `evidence` (customer value) separate from `guidance` (company vision).
+- **Cite:** the value definition behind the North Star and each input's link to it carries a linked-number badge (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`). Keep `evidence` (customer value) separate from `guidance` (company vision).
 - **Save (nature=guidance):** a metrics framework is company direction. After the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","north-star","metrics"])`.
 
 ## Instructions
@@ -44,21 +58,18 @@ Name 1–2 health guardrails so optimizing the North Star doesn't quietly harm t
 ```markdown
 # North Star — [product]
 
-**Business game:** [Attention / Transaction / Productivity] — because [evidenced value, [^1]].
+**Business game:** [Attention / Transaction / Productivity] — because [evidenced value, [`1`](URL)].
 
 **North Star Metric:** [metric]
-**Why it captures value:** > "[customer quote about the value]" — [attribution] [^2]
-**7-criteria check:** [✓ understandable · ✓ customer-centric [^2] · ✓ sustainable · ✓ vision-aligned [^3] · ✓ quantitative · ✓ actionable · ✓ leading]
+**Why it captures value:** > "[customer quote about the value]" — [attribution] [`2`](URL)
+**7-criteria check:** [✓ understandable · ✓ customer-centric [`2`](URL) · ✓ sustainable · ✓ vision-aligned [`3`](URL) · ✓ quantitative · ✓ actionable · ✓ leading]
 
 **Input-metric tree**  (North Star = f(inputs))
 | Input metric | Shape (ratio/rate) | How it drives NSM | Lead/Lag |
 |---|---|---|---|
-| [input 1] | [rate] | [link, cited [^n]] | Leading |
+| [input 1] | [rate] | [link, cited [`4`](URL)] | Leading |
 
 **Guardrails:** [health metric 1], [health metric 2].
----
-## Sources
-[^1]: …
 ```
 
 ## Honesty when evidence is thin

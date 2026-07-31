@@ -1,6 +1,20 @@
 ---
 name: sentiment-analysis
-description: "Analyze the feedback corpus over a time period to surface sentiment, themes, and satisfaction shifts — with a score per theme and verbatim quotes carrying their own sentiment labels. Use when the user says 'how do users feel about X', 'what's the sentiment on Y', 'analyze feedback from last quarter', 'are customers happy', 'what are people complaining about', or wants a satisfaction/theme read across feedback. Trigger terms: sentiment analysis, how do users feel, customer satisfaction, feedback themes, complaints, are customers happy, sentiment over time. Not for analyzing a single conversation (use customer-research)."
+description: >-
+  Analyze the feedback corpus over a time period to surface sentiment, themes,
+  and satisfaction shifts — with a score per theme and verbatim quotes carrying
+  their own sentiment labels. Use when the user says 'how do users feel about
+  X', 'what's the sentiment on Y', 'analyze feedback from last quarter', 'are
+  customers happy', 'what are people complaining about', or wants a
+  satisfaction/theme read across feedback. Trigger terms: sentiment analysis,
+  how do users feel, customer satisfaction, feedback themes, complaints, are
+  customers happy, sentiment over time. Not for analyzing a single conversation
+  (use customer-research).
+category: Customer Voice & Feedback
+tags:
+  - sentiment
+  - feedback
+  - analysis
 ---
 
 # Sentiment Analysis (feedback corpus over a period)
@@ -14,7 +28,7 @@ Confirm this is a feedback/satisfaction question spanning multiple conversations
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. Pull the feedback body over the window: `get_notes(note_types: ["feedback","problem","quote"], date_from: "<start>", date_to: "<end>", keyword: "<topic>")`. Add **2–3 `evidence` searches** worded across the sentiment spectrum ("what customers love about <topic>", "frustration with <topic>", "why <topic> falls short"). Pull the voice with `find_supporting_quotes(topic, limit: 6–10)` — **each returned quote carries a `sentiment_analysis` field; use it** as the per-quote sentiment label rather than guessing.
 - **Work:** cluster into themes, score each, split positive vs. negative drivers (see Instructions).
-- **Cite:** every theme and quote badged (see `citations.md`); attach the quote's own `sentiment_analysis` label.
+- **Cite:** every theme and quote carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; attach the quote's own `sentiment_analysis` label.
 - **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","sentiment","feedback-analysis","<product-slug>"])` after confirmation.
 
 ## Instructions
@@ -34,12 +48,12 @@ Lead with a one-line **overall read** (net sentiment + the single biggest driver
 ```markdown
 ### [Theme] — sentiment [score] ([N mentions / M accounts], mostly [pos/neg])
 **Loves:** [driver]
-> "[verbatim]" — [Name], [Meeting], [Date] · sentiment: [positive] · [View in Evermuse](LINK) [^1]
+> "[verbatim]" — [Name], [Meeting], [Date] · sentiment: [positive] [`1`](URL)
 **Frustrations:** [detractor]
-> "[verbatim]" — [Name], [Meeting], [Date] · sentiment: [negative] · [View in Evermuse](LINK) [^2]
+> "[verbatim]" — [Name], [Meeting], [Date] · sentiment: [negative] [`2`](URL)
 ```
 
-Then **top pain points ranked by frequency × severity**, **2-3 highest-impact recommendations**, and a **Sources** footer. Represent minority/dissenting sentiment — don't flatten a split into a false consensus. Flag any theme resting on a small sample. Offer `/evermuse:customer-research` to drill into any single theme.
+Then **top pain points ranked by frequency × severity** and **2-3 highest-impact recommendations**. Represent minority/dissenting sentiment — don't flatten a split into a false consensus. Flag any theme resting on a small sample. Offer `/evermuse:customer-research` to drill into any single theme.
 
 ---
 ### Further reading

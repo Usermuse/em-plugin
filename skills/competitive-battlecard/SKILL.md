@@ -1,6 +1,19 @@
 ---
 name: competitive-battlecard
-description: "Create a sales-ready competitive battlecard against a named competitor where the 'they say / we say' rows are ACTUAL objections and competitor mentions pulled from real customer conversations — not invented talking points. Use when the user says 'build a battlecard', 'how do we beat competitor X', 'why not competitor X', 'competitive comparison', 'handle this objection', or 'prep sales against a competitor'. Trigger terms: battlecard, competitor, competitive, objection handling, win/loss, why not X, versus, compete. Not for broad market sizing — this is a one-competitor sales asset."
+description: >-
+  Create a sales-ready competitive battlecard against a named competitor where
+  the 'they say / we say' rows are ACTUAL objections and competitor mentions
+  pulled from real customer conversations — not invented talking points. Use
+  when the user says 'build a battlecard', 'how do we beat competitor X', 'why
+  not competitor X', 'competitive comparison', 'handle this objection', or 'prep
+  sales against a competitor'. Trigger terms: battlecard, competitor,
+  competitive, objection handling, win/loss, why not X, versus, compete. Not for
+  broad market sizing — this is a one-competitor sales asset.
+category: Market & Competition
+tags:
+  - battlecard
+  - competitors
+  - sales-enablement
 ---
 
 # Competitive Battlecard
@@ -15,7 +28,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (real objections first):** verify the product (`get_products`/`switch_product`). Run **2–3 `evidence` searches** for how this competitor comes up in real calls ("[competitor] mentioned", "why they considered [competitor]", "objection we lost on", "what [competitor] does better"), and pull the verbatim lines with **`find_supporting_quotes(topic: "[competitor]", limit: 6–8)`** and **`get_notes(keyword: "[competitor]", note_types: ["feedback","problem","qa"])`**. Use `get_meetings(transcript_keyword: "[competitor]")` to find the exact deals where it surfaced.
 - **Secondary (label it):** `list_competitors` / `get_competitor_capabilities` for a structured capability read — mark every such row **(secondary — Evermuse capability data, not the customer speaking)**. Never let it override an actual customer objection.
 - **Work:** build the battlecard below. Each "They say / We say" row is an actual objection or competitor mention (evidence), quoted, with a grounded counter. Win/loss patterns come from what the corpus shows about deals where this competitor appeared.
-- **Cite:** every objection and competitor-mention row carries a source badge (see `citations.md`). Keep customer `evidence` visibly separate from `context`/capability data.
+- **Cite:** every objection and competitor-mention row carries an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL). Keep customer `evidence` visibly separate from `context`/capability data.
 - **Save (nature=context):** this is market/competitor output. After the user confirms, `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","battlecard","competitive","<competitor>"])`.
 
 ## Instructions
@@ -33,13 +46,13 @@ One-sentence positioning, target market/ICP, and what's publicly known (funding/
 | [area] | [our approach] | [their approach *(secondary)*] | [Us/Them/Tie] |
 
 ### Where we win / where they win
-- **We win:** [advantage] — proof: > "[customer quote]" — [attribution] [^n] (real, not asserted).
-- **They win:** [their strength, from a real objection [^n]] → our counter-positioning.
+- **We win:** [advantage] — proof: > "[customer quote]" — [attribution] [`1`](URL) (real, not asserted).
+- **They win:** [their strength, from a real objection [`2`](URL)] → our counter-positioning.
 
 ### Common objections & responses — the heart of the card
 | Prospect actually said | Respond with |
 |---|---|
-| > "[verbatim objection]" — [attribution] [^n] | [grounded counter — reframe, value/ROI, proof quote] |
+| > "[verbatim objection]" — [attribution] [`3`](URL) | [grounded counter — reframe, value/ROI, proof quote] |
 Only include objections you can trace to a real conversation. If you must add a likely-but-unheard objection, mark it **(anticipated — not yet heard in corpus)**.
 
 ### Landmines to plant
@@ -60,19 +73,14 @@ Questions that expose the competitor's weaknesses — each tied to a gap custome
 **Quick comparison** — [table]
 
 **Where we win**
-- [advantage] — > "[quote]" — [attribution] [^1]
+- [advantage] — > "[quote]" — [attribution] [`1`](URL)
 
 **Objections & responses**
 | Prospect said | Respond with |
 |---|---|
-| > "[verbatim]" — [attribution] [^2] | [counter] |
+| > "[verbatim]" — [attribution] [`2`](URL) | [counter] |
 
-**Win/loss:** win when [pattern [^3]] · lose when [pattern [^4]] · tipping point [diff].
----
-## Sources
-[^1]: …   (customer evidence)
-[^2]: …
-_(secondary: Evermuse competitor-capability data where marked)_
+**Win/loss:** win when [pattern [`3`](URL)] · lose when [pattern [`4`](URL)] · tipping point [diff].
 ```
 
 ## Honesty when evidence is thin

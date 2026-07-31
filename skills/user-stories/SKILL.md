@@ -1,6 +1,19 @@
 ---
 name: user-stories
-description: "Break a feature into user stories (or job stories) — INVEST-shaped, 3-C's structure, each story citing the motivating customer quote and acceptance criteria that reflect what customers actually expect, grounded in Evermuse evidence. Use when the user wants to 'write user stories', 'break this into stories', 'create backlog items', 'define acceptance criteria', or 'write job stories'. Trigger terms: user stories, job stories, backlog items, acceptance criteria, story breakdown, JTBD stories. Not for a full spec or PRD — use write-feature-spec or create-prd for those."
+description: >-
+  Break a feature into user stories (or job stories) — INVEST-shaped, 3-C's
+  structure, each story citing the motivating customer quote and acceptance
+  criteria that reflect what customers actually expect, grounded in Evermuse
+  evidence. Use when the user wants to 'write user stories', 'break this into
+  stories', 'create backlog items', 'define acceptance criteria', or 'write job
+  stories'. Trigger terms: user stories, job stories, backlog items, acceptance
+  criteria, story breakdown, JTBD stories. Not for a full spec or PRD — use
+  write-feature-spec or create-prd for those.
+category: Specs & Requirements
+tags:
+  - user-stories
+  - agile
+  - requirements
 ---
 
 # User Stories & Job Stories (grounded in customer evidence)
@@ -15,7 +28,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For stories:
 
 - **Ground.** Verify the product (Rule 1). Run **2–3 `evidence` searches** — the feature ask, the underlying job/pain, and the failure/objection angle. Then `find_supporting_quotes(topic, limit: 8)` to get the verbatim lines each story will cite. `get_notes(note_types: ["need","feedback"])` in the feature area surfaces distinct user situations worth their own story.
 - **Work.** Draft stories using the format below. Each story's **why/benefit clause maps to a real quote**; its acceptance criteria encode what customers said they expect (e.g. "notify me *before* I hit the limit" → an AC on threshold warnings).
-- **Cite.** Every story carries a `[^n]` on its motivating quote; preserve markers into a Sources footer (see `citations.md`).
+- **Cite.** Every story carries an inline linked-number badge [`1`](URL) on its motivating quote. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
 - **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "User stories — <feature>", tags: ["evermuse-plugin","user-stories"])`. Stories are company direction → **guidance**.
 
 ## Instructions
@@ -33,17 +46,17 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For stories:
 
 **User story**
 > **Title:** [feature name]
-> **As a** [role], **I want** [action], **so that** [benefit]. [^n motivating quote]
+> **As a** [role], **I want** [action], **so that** [benefit]. [`1`](URL)
 > **Design:** [link]
 > **Acceptance Criteria:** 1–6 observable, testable criteria — each tracing to a stated expectation.
 
 **Job story**
 > **Title:** [job outcome]
-> **When** [situation], **I want to** [motivation], **so I can** [outcome]. [^n motivating quote]
+> **When** [situation], **I want to** [motivation], **so I can** [outcome]. [`1`](URL)
 > **Design:** [link]
 > **Acceptance Criteria:** 6–8 outcome-focused criteria (situation recognized, motivation enabled, feedback visible, edge cases handled).
 
-Each story block ends with its citation; collect all into a **Sources** footer.
+Each story block ends with its inline citation.
 
 ---
 ### Further reading

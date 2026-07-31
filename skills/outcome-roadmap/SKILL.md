@@ -1,6 +1,19 @@
 ---
 name: outcome-roadmap
-description: "Transform a feature-list (output) roadmap into an outcome-focused one — each lane rewritten as 'Enable [segment] to [outcome] so that [business impact]' and citing the demand evidence behind it, grounded in Evermuse. Use when the user wants to 'make the roadmap outcome-focused', 'rewrite the roadmap', 'turn features into outcomes', 'make the roadmap more strategic', or 'build an outcome roadmap'. Trigger terms: roadmap, outcome roadmap, outcome-based roadmap, strategic roadmap, feature list to outcomes. Not for OKRs (use brainstorm-okrs) or a per-feature spec."
+description: >-
+  Transform a feature-list (output) roadmap into an outcome-focused one — each
+  lane rewritten as 'Enable [segment] to [outcome] so that [business impact]'
+  and citing the demand evidence behind it, grounded in Evermuse. Use when the
+  user wants to 'make the roadmap outcome-focused', 'rewrite the roadmap', 'turn
+  features into outcomes', 'make the roadmap more strategic', or 'build an
+  outcome roadmap'. Trigger terms: roadmap, outcome roadmap, outcome-based
+  roadmap, strategic roadmap, feature list to outcomes. Not for OKRs (use
+  brainstorm-okrs) or a per-feature spec.
+category: Prioritization & Planning
+tags:
+  - roadmap
+  - outcomes
+  - planning
 ---
 
 # Outcome-Focused Roadmap (grounded in demand evidence)
@@ -15,7 +28,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a roadmap:
 
 - **Ground.** Verify the product (Rule 1). For **each initiative/lane**, run a focused **`evidence` search** on the pain it addresses + `find_supporting_quotes(topic, limit: 4)` to establish demand strength (mentions across accounts). Run **1 `guidance` search** for the company strategy the roadmap must align to. Keep to a few well-worded searches total — reuse across lanes (credits — Rule 7).
 - **Work.** Rewrite each output as an outcome statement and attach its demand evidence + a proposed success metric.
-- **Cite.** Every lane's demand claim carries a source badge; preserve `[^n]` into a Sources footer (see `citations.md`).
+- **Cite.** Every lane's demand claim carries an inline linked-number badge [`1`](URL); there is no Sources footer (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`).
 - **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "Outcome roadmap — <year>", tags: ["evermuse-plugin","roadmap"])`. A roadmap is company direction → **guidance**.
 
 ## Instructions
@@ -23,7 +36,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a roadmap:
 1. **For each initiative, run the transform:**
    - **Output (old):** the feature/project as currently listed.
    - **Outcome (new):** `Enable [customer segment] to [desired customer outcome] so that [business impact]`.
-   - **Demand evidence:** the quotes + mention count proving customers want this outcome. [^n]
+   - **Demand evidence:** the quotes + mention count proving customers want this outcome. [`1`](URL)
    - **Success metric:** how you'll know the outcome landed (ties to `brainstorm-okrs` KRs if present).
 2. **Let evidence reorder, not just relabel.** If a lane has thin demand evidence, flag it (**low-demand — validate or defer**); if a strongly-evidenced outcome has no lane, surface it as a **missing lane**. Replace the source skill's "web search for alignment" with **Evermuse evidence as the primary source** for what customers actually want.
 3. **`see_updated_roadmap` is a labeled cross-check ONLY.** You may call `see_updated_roadmap` once to compare your evidence-built lanes against Evermuse's AI-generated roadmap — but present it explicitly as **"AI-generated cross-check (secondary, not customer ground truth)"** and never let it originate a lane or override the demand evidence. Same for shaping notes.
@@ -31,7 +44,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a roadmap:
 5. **Apply the "So what?" test.** For any feature you can't tie to a customer/business outcome, ask "so what?" until you reach real value — or drop it from the roadmap.
 
 ## Output
-Transformed roadmap grouped by horizon. Per lane: outcome statement · demand evidence (source badge) · success metric. A short **alignment note** to company strategy [^guidance], an optional **AI cross-check** section, and a Sources footer.
+Transformed roadmap grouped by horizon. Per lane: outcome statement · demand evidence (inline badge) · success metric. A short **alignment note** to company strategy [`1`](URL) and an optional **AI cross-check** section.
 
 ---
 ### Further reading

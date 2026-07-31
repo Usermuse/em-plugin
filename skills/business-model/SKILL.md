@@ -1,6 +1,19 @@
 ---
 name: business-model
-description: "Build a Business Model Canvas — all 9 blocks — with the problem and customer-segment boxes grounded in real customer evidence and the channel/competition boxes grounded in market context. Use when the user says 'business model', 'business model canvas', 'how do we make money', 'model this venture', 'lean canvas', 'startup canvas', or 'map our business'. Trigger terms: business model, business model canvas, BMC, lean canvas, startup canvas, how we make money, revenue streams, cost structure. Not for detailed pricing tiers — use pricing-strategy for that."
+description: >-
+  Build a Business Model Canvas — all 9 blocks — with the problem and
+  customer-segment boxes grounded in real customer evidence and the
+  channel/competition boxes grounded in market context. Use when the user says
+  'business model', 'business model canvas', 'how do we make money', 'model this
+  venture', 'lean canvas', 'startup canvas', or 'map our business'. Trigger
+  terms: business model, business model canvas, BMC, lean canvas, startup
+  canvas, how we make money, revenue streams, cost structure. Not for detailed
+  pricing tiers — use pricing-strategy for that.
+category: Growth & GTM
+tags:
+  - business-model
+  - canvas
+  - monetization
 ---
 
 # Business Model Canvas
@@ -19,7 +32,7 @@ Confirm this is business-model work and Evermuse is connected. If not, produce a
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing strategy/objectives ("company strategy and objectives"). Then **2 `evidence` searches** for the customer problem and who has it ("biggest recurring pain", "which customers feel this most / willingness to pay signals") to fill the **Value Proposition** and **Customer Segments** boxes. Then **1 `context` search** for channels and competition ("how customers discover tools like ours", "competitor landscape"). Pull verbatim voice with `find_supporting_quotes(topic, limit: 6)`.
 - **Work:** fill all 9 blocks. The **problem/value-prop and customer-segment boxes are evidence-backed and cited**; the **channels, customer-relationships, and competitive framing are context-backed**.
-- **Cite:** every problem, segment, and market claim carries a source badge (see `citations.md`); keep evidence and context separate.
+- **Cite:** every problem, segment, and market claim carries an inline citation — a linked-number code badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; keep evidence and context separate.
 - **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","business-model","canvas"])`.
 
 ## Instructions
@@ -44,7 +57,7 @@ You are a business-model strategist building a canvas for **$ARGUMENTS**. Create
 Where the source reaches for "current operations / assumptions," use Evermuse `evidence` for the problem and segment boxes and `context` for channel/competition boxes as the primary sources.
 
 ## Deliverable format
-A labeled 9-block canvas (markdown table or bulleted blocks), with source badges on the value-prop, segment, channel, and competition boxes, then a Sources footer. End with the LTV/CAC sanity check and the top 3 assumptions to test.
+A labeled 9-block canvas (markdown table or bulleted blocks), with inline citation badges on the value-prop, segment, channel, and competition boxes (links live inline — no Sources footer). End with the LTV/CAC sanity check and the top 3 assumptions to test.
 
 ---
 ### Further reading

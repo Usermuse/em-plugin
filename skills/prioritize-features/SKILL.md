@@ -1,6 +1,20 @@
 ---
 name: prioritize-features
-description: "Rank a backlog of feature ideas using real demand counts from customer evidence — Reach and Impact come from how many distinct accounts actually asked, not a gut number — and return a top-5 with the quotes behind each score. Use when the user asks to 'prioritize features', 'what should we build next', 'rank this backlog', 'score these ideas', 'RICE this', 'make scope decisions', or 'which feature first'. Trigger terms: prioritize, prioritization, rank features, backlog, RICE, ICE, what to build next, scope decision, score features. Not for open-ended ideation (that's brainstorm-ideas)."
+description: >-
+  Rank a backlog of feature ideas using real demand counts from customer
+  evidence — Reach and Impact come from how many distinct accounts actually
+  asked, not a gut number — and return a top-5 with the quotes behind each
+  score. Use when the user asks to 'prioritize features', 'what should we build
+  next', 'rank this backlog', 'score these ideas', 'RICE this', 'make scope
+  decisions', or 'which feature first'. Trigger terms: prioritize,
+  prioritization, rank features, backlog, RICE, ICE, what to build next, scope
+  decision, score features. Not for open-ended ideation (that's
+  brainstorm-ideas).
+category: Prioritization & Planning
+tags:
+  - prioritization
+  - rice
+  - frameworks
 ---
 
 # Prioritize Features (scored on real demand)
@@ -14,7 +28,7 @@ Confirm this is backlog prioritization and Evermuse is connected (see `using-eve
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. For **each feature/theme in the backlog**, run a targeted `evidence` search and `find_supporting_quotes(topic, limit: 6–8)` to get the **actual demand count** — distinct accounts that raised it — and the sharpest quote. `get_notes(note_types:[need,feedback])` helps tally asks over a period. Keep to a few well-worded searches per feature (credits).
 - **Work:** score with a framework from `references/prioritization-frameworks.md`, feeding the real counts in.
-- **Cite:** every Reach/Impact figure links to the evidence that produced it.
+- **Cite:** every Reach/Impact figure links to the evidence that produced it — an inline linked-number badge [`1`](URL) per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`.
 - **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","prioritization","<topic>"])` after confirmation.
 
 ## Instructions
@@ -41,15 +55,12 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 
 | # | Feature | Reach (accounts) | Impact (Opp. Score) | Conf | Effort | Score | Evidence |
 |---|---------|------------------|---------------------|------|--------|-------|----------|
-| 1 | Scheduled export | 6 | 0.72 | High | M | … | > "[quote]" [^1] |
-| 2 | … | 3 | 0.55 | Med | S | … | [^2] |
+| 1 | Scheduled export | 6 | 0.72 | High | M | … | > "[quote]" [`1`](URL) |
+| 2 | … | 3 | 0.55 | Med | S | … | [`2`](URL) |
 
 **Deprioritized:** [feature] — [why, e.g. "only 1 account, low importance"].
 
 **AI-generated cross-check (not ground truth):** roadmap suggests … — [agrees/differs with evidence ranking].
----
-## Sources
-[^1]: …
 ```
 
 ---

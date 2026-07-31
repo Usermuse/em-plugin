@@ -1,6 +1,19 @@
 ---
 name: product-strategy
-description: "Build a product strategy on the 9-section Product Strategy Canvas where every pillar is anchored in real customer evidence and market context, not guesswork. Use when the user says 'build a product strategy', 'what's our strategy', 'define our product direction', 'strategic plan', 'how do we win', or 'where should we focus'. Trigger terms: product strategy, strategy canvas, strategic plan, product direction, how we win, defensibility, north star. Not for sprint plans or individual feature specs — this is company-level direction."
+description: >-
+  Build a product strategy on the 9-section Product Strategy Canvas where every
+  pillar is anchored in real customer evidence and market context, not
+  guesswork. Use when the user says 'build a product strategy', 'what's our
+  strategy', 'define our product direction', 'strategic plan', 'how do we win',
+  or 'where should we focus'. Trigger terms: product strategy, strategy canvas,
+  strategic plan, product direction, how we win, defensibility, north star. Not
+  for sprint plans or individual feature specs — this is company-level
+  direction.
+category: Strategy & Vision
+tags:
+  - strategy
+  - vision
+  - planning
 ---
 
 # Product Strategy Canvas
@@ -14,7 +27,7 @@ Confirm this is product/company-direction work and Evermuse is connected. If the
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (guidance first):** verify the product (`get_products`/`switch_product`). Then run **1 `guidance` search** for existing company strategy/objectives/values ("current strategy and objectives", "company vision and values") so you extend rather than reinvent direction. Then **2 `evidence` searches** for the top customer pains driving the strategy ("biggest recurring pain", "why customers churn / stall") and **1 `context` search** for market shifts ("competitor and market shifts", "emerging alternatives"). Pull verbatim voice with `find_supporting_quotes(topic, limit: 6–8)`.
 - **Work:** fill the 9-section canvas below. Each **Market Segment** is defined by a customer problem drawn from evidence; each **Value Proposition** pillar cites the pain (evidence) it relieves AND the market shift (context) that makes it winnable now.
-- **Cite:** every segment, pain, and market claim carries a source badge (see `citations.md`). Keep `evidence` (customer voice) separate from `context` (market) in the output.
+- **Cite:** every segment, pain, and market claim carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`. Keep `evidence` (customer voice) separate from `context` (market) in the output.
 - **Save (nature=guidance):** after the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","strategy","product-strategy"])`.
 
 ## Instructions
@@ -51,24 +64,21 @@ Where the source method reaches for "web search / user-provided data," use Everm
 ```markdown
 # Product Strategy — [product]
 
-**1. Vision:** [one memorable sentence] — grounded in [^n]
+**1. Vision:** [one memorable sentence] — grounded in [`1`](URL)
 
 **2. Market Segments**
-- **Segment A (first):** [JTBD]. Core pain: > "[quote]" — [attribution] [^n]. Why first: [most-cited].
+- **Segment A (first):** [JTBD]. Core pain: > "[quote]" — [attribution] [`2`](URL). Why first: [most-cited].
 
 **4. Value Proposition — Segment A**
 | Before (pain) | How | After (outcome) | Alternatives |
 |---|---|---|---|
-| [pain, cited [^n]] | [mechanism] | [outcome, cited [^n]] | [today's tools] |
-*Market shift making this winnable now:* [context, cited [^m]]
+| [pain, cited [`3`](URL)] | [mechanism] | [outcome, cited [`4`](URL)] | [today's tools] |
+*Market shift making this winnable now:* [context, cited [`5`](URL)]
 
 … (sections 3, 5–9) …
 
 **Critical hypotheses & cheapest tests**
 - [hypothesis] → [test]
----
-## Sources
-[^n]: …
 ```
 
 ---

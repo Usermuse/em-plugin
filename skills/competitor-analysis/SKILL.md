@@ -1,6 +1,20 @@
 ---
 name: competitor-analysis
-description: "Analyze competitors and find differentiation openings by cross-checking capability data against what customers ACTUALLY say about each rival — mentions, win/loss reasons, switching pain — with quotes. Use when the user says 'what do customers say about <competitor>', 'analyze our competitors', 'competitive analysis', 'how do we compare to X', 'why do we lose to Y', 'where can we differentiate', or wants a competitive landscape/brief. Trigger terms: competitor analysis, competitive landscape, competitors, win/loss, differentiation, how do we compare, why we lose deals. Not for internal team/vendor comparisons."
+description: >-
+  Analyze competitors and find differentiation openings by cross-checking
+  capability data against what customers ACTUALLY say about each rival —
+  mentions, win/loss reasons, switching pain — with quotes. Use when the user
+  says 'what do customers say about <competitor>', 'analyze our competitors',
+  'competitive analysis', 'how do we compare to X', 'why do we lose to Y',
+  'where can we differentiate', or wants a competitive landscape/brief. Trigger
+  terms: competitor analysis, competitive landscape, competitors, win/loss,
+  differentiation, how do we compare, why we lose deals. Not for internal
+  team/vendor comparisons.
+category: Market & Competition
+tags:
+  - competitors
+  - analysis
+  - market
 ---
 
 # Competitor Analysis (what customers actually say)
@@ -15,7 +29,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. Two sources, rank
 - **Primary — what customers say (evidence):** for each competitor, run an `evidence` search for **mentions** ("mentions of <competitor>", "compared us to <competitor>", "why they chose <competitor>", "switched from <competitor>") and pull `find_supporting_quotes("<competitor>", limit: 3–5)` for verbatim win/loss voice. This is the ground truth.
 - **Secondary — the internal competitor list (label as less reliable):** `list_competitors` and `get_competitor_capabilities` are **AI-generated/curated inside Evermuse** — use them to enumerate the set and capability claims, but explicitly mark them *secondary* and reconcile every claim against what customers actually said. Never present a capability row as customer truth.
 - **Market color (context):** 1–2 `context` searches (and web research) for positioning, pricing, funding, recent moves.
-- **Cite:** customer mentions carry source badges (see `citations.md`); capability rows are tagged `(competitor DB — unverified)`; market facts cite their external source.
+- **Cite:** customer mentions carry inline citations per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL); capability rows are tagged `(competitor DB — unverified)`; market facts cite their external source.
 - **Save:** `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","competitive","<product-slug>"])` after confirmation.
 
 ## Instructions
@@ -33,7 +47,7 @@ Analyze the competitive landscape for **$ARGUMENTS**.
 
 **Strengths** — what wins them deals. Prefer customer reasons:
 ```markdown
-> "We went with [competitor] because [reason]" — [Name], [Meeting], [Date] · [View in Evermuse](LINK) [^1]
+> "We went with [competitor] because [reason]" — [Name], [Meeting], [Date] [`1`](LINK)
 ```
 
 **Weaknesses & gaps** — where customers are frustrated or churned away from them, badged. Add `[competitor DB]` capability gaps as secondary.
@@ -45,7 +59,7 @@ Analyze the competitive landscape for **$ARGUMENTS**.
 ### Differentiation opportunities (the payoff)
 A ranked list of openings — each an **unmet need or switching pain customers voiced** that we could own — badged with the quote that proves it.
 
-Close with a **competitive positioning recommendation** (differentiators to emphasize, segments to target, threats to monitor) and a **Sources** footer separating customer evidence from competitor-DB and market sources. This feeds `/evermuse:market-sizing` (wedge) and positioning work.
+Close with a **competitive positioning recommendation** (differentiators to emphasize, segments to target, threats to monitor), keeping customer evidence visibly separate from competitor-DB and market sources. This feeds `/evermuse:market-sizing` (wedge) and positioning work.
 
 ---
 ### Further reading

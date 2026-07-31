@@ -1,6 +1,20 @@
 ---
 name: beachhead-segment
-description: "Pick the first beachhead market segment by measuring which segment's people show up most and most painfully in real customer evidence, then evaluating it on burning pain, willingness to pay, winnable share, and reachability. Use when the user says 'who should we target first', 'what's our beachhead', 'which segment do we start with', 'where do we focus first', 'pick a first market', or 'initial market entry'. Trigger terms: beachhead, first market, initial segment, target first, market entry, where to focus, crossing the chasm. Not for a broad ICP definition — this is the single first wedge."
+description: >-
+  Pick the first beachhead market segment by measuring which segment's people
+  show up most and most painfully in real customer evidence, then evaluating it
+  on burning pain, willingness to pay, winnable share, and reachability. Use
+  when the user says 'who should we target first', 'what's our beachhead',
+  'which segment do we start with', 'where do we focus first', 'pick a first
+  market', or 'initial market entry'. Trigger terms: beachhead, first market,
+  initial segment, target first, market entry, where to focus, crossing the
+  chasm. Not for a broad ICP definition — this is the single first wedge.
+category: Segmentation & Targeting
+tags:
+  - beachhead
+  - segmentation
+  - gtm
+  - focus
 ---
 
 # Beachhead Segment
@@ -14,7 +28,7 @@ Confirm this is a first-market / segmentation task and Evermuse is connected. If
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground (demand density first):** verify the product (`get_products`/`switch_product`). To gauge which segments actually show up, call **`get_meetings(attendee_domain: …)`** across the candidate segments' domains/industries and note volume and recency — who is in the room most. Then run **2–3 `evidence` searches** for the acute pain per candidate segment ("who is most desperate about X", "which role feels this daily", "willing to pay to fix"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Add **1 `context` search** on competitive saturation per segment ("who already serves segment Y"). `get_notes(note_types: ["need","problem"])` filtered by keyword helps rank pain intensity.
 - **Work:** rank candidate segments by demand density (frequency + intensity of pain in the corpus), then score the front-runners on the four criteria below — each criterion backed by a cited quote or a count of distinct accounts.
-- **Cite:** every pain, willingness-to-pay, and reachability claim carries a source badge (see `citations.md`). Keep `evidence` separate from `context`.
+- **Cite:** every pain, willingness-to-pay, and reachability claim carries an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL). Keep `evidence` separate from `context`.
 - **Save (nature=guidance):** after the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","beachhead","gtm","segmentation"])`.
 
 ## Instructions
@@ -52,15 +66,12 @@ Choose the segment with the best combined picture: strongest cited pain, clear w
 
 | Criterion | Verdict | Evidence |
 |---|---|---|
-| Burning pain | [strong/weak] | > "[quote]" — [attribution] [^1] ([M accounts]) |
-| Willingness to pay | … | [cited [^2]] |
-| Winnable share | … | [competitive context, cited [^3]] |
-| Reachability | … | [cited [^4]] |
+| Burning pain | [strong/weak] | > "[quote]" — [attribution] [`1`](URL) ([M accounts]) |
+| Willingness to pay | … | [cited [`2`](URL)] |
+| Winnable share | … | [competitive context, cited [`3`](URL)] |
+| Reachability | … | [cited [`4`](URL)] |
 
 **Why first:** [1–2 sentences]. **90-day acquisition plan:** […]. **Expansion path:** [next adjacent segment, why].
----
-## Sources
-[^1]: …
 ```
 
 ## Honesty when evidence is thin

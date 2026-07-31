@@ -4,7 +4,7 @@
 Imagine the launch already failed and work backward. Distinguishes real threats from overblown worries and unspoken concerns, then triages by urgency. Use when the user asks to "run a pre-mortem" or "imagine it failed."
 
 ## Grounding (same falsify-the-doc discipline as the parent skill)
-Before categorizing, run **2–3 `evidence` searches worded to contradict the plan's core bets** and pull opposing quotes with `find_supporting_quotes`. A **Tiger** backed by a customer quote ("we'd never adopt this if it needs SSO on day one [^n]") is far stronger than a hunch. Add **1 `context` search** for market threats. Save `nature: "guidance"`, tags `["evermuse-plugin","red-team","pre-mortem"]`.
+Before categorizing, run **2–3 `evidence` searches worded to contradict the plan's core bets** and pull opposing quotes with `find_supporting_quotes`. A **Tiger** backed by a customer quote ("we'd never adopt this if it needs SSO on day one [`1`](URL)") is far stronger than a hunch. Add **1 `context` search** for market threats. Save `nature: "guidance"`, tags `["evermuse-plugin","red-team","pre-mortem"]`.
 
 ## Steps
 1. **Set the scene.** Imagine it launches in 14 days and fails — no adoption, missed revenue, reputation hit. What went wrong? What did we miss or over-trust?
@@ -23,7 +23,7 @@ Before categorizing, run **2–3 `evidence` searches worded to contradict the pl
 ## Pre-Mortem: [product]
 
 ### Tigers (real risks)
-- [risk] — [launch-blocking|fast-follow|track] · counter-evidence: > "[quote]" [^n] · mitigation
+- [risk] — [launch-blocking|fast-follow|track] · counter-evidence: > "[quote]" [`1`](URL) · mitigation
 
 ### Paper Tigers (overblown)
 - [risk] — why it's not real (cite if evidence disconfirms it)
@@ -33,9 +33,6 @@ Before categorizing, run **2–3 `evidence` searches worded to contradict the pl
 
 ### Action plans — launch-blocking Tigers
 | Risk | Mitigation | Owner | Due |
----
-## Sources
-[^n]: …
 ```
 
 Default to "Tiger" when unsure — better to surface a risk early. Be constructive, not blame-seeking.

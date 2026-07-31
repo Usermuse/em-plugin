@@ -76,11 +76,12 @@ Skills also **auto-activate** when you describe the task in plain language ("wri
 
 - **Foundation:** `using-evermuse` (the doctrine + MCP mechanics every skill uses)
 - **Flagships:** `write-feature-spec`, `development-plan`, `gap-analysis`, `review-pr`, `customer-research`
-- **Discovery:** `brainstorm-ideas`, `assumptions`, `prioritize-features`, `analyze-feature-requests`, `opportunity-solution-tree`, `interview-script`, `summarize-conversation`
+- **Discovery:** `brainstorm-ideas`, `deep-dive`, `assumptions`, `prioritize-features`, `analyze-feature-requests`, `opportunity-solution-tree`, `interview-script`, `summarize-conversation`
 - **Strategy:** `product-strategy`, `product-vision`, `value-proposition`, `business-model`, `pricing-strategy`, `strategy-frameworks`, `strategy-red-team`
 - **Execution:** `create-prd`, `user-stories`, `brainstorm-okrs`, `outcome-roadmap`, `release-notes`, `test-scenarios`, `shipping-artifacts`
 - **Market research:** `user-personas`, `segmentation`, `customer-journey-map`, `market-sizing`, `competitor-analysis`, `sentiment-analysis`
 - **GTM & growth:** `gtm-strategy`, `beachhead-segment`, `ideal-customer-profile`, `competitive-battlecard`, `positioning-and-messaging`, `north-star-metric`
+- **Onboarding & meta:** `setup-evermuse`, `initial-report`, `list-capabilities`
 
 ## Tips
 

@@ -1,6 +1,19 @@
 ---
 name: opportunity-solution-tree
-description: "Build a Teresa Torres Opportunity Solution Tree — outcome → opportunities → solutions → experiments — where every opportunity node is backed by a real customer quote and unsupported nodes are flagged as unproven hypotheses. Use when the user asks to 'build an opportunity solution tree', 'map opportunities to solutions', 'structure our discovery', 'OST', or 'organize opportunities and solutions'. Trigger terms: opportunity solution tree, OST, discovery tree, map opportunities, outcome to opportunities, Teresa Torres. Not for scoring an existing backlog (that's prioritize-features)."
+description: >-
+  Build a Teresa Torres Opportunity Solution Tree — outcome → opportunities →
+  solutions → experiments — where every opportunity node is backed by a real
+  customer quote and unsupported nodes are flagged as unproven hypotheses. Use
+  when the user asks to 'build an opportunity solution tree', 'map opportunities
+  to solutions', 'structure our discovery', 'OST', or 'organize opportunities
+  and solutions'. Trigger terms: opportunity solution tree, OST, discovery tree,
+  map opportunities, outcome to opportunities, Teresa Torres. Not for scoring an
+  existing backlog (that's prioritize-features).
+category: Prioritization & Planning
+tags:
+  - ost
+  - discovery
+  - prioritization
 ---
 
 # Opportunity Solution Tree (every opportunity quote-backed)
@@ -14,7 +27,7 @@ Confirm this is discovery structuring and Evermuse is connected (see `using-ever
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Run **2–4 `evidence` searches** around the outcome and its likely opportunity space (the pain, the workaround, the moment of friction). Use `find_supporting_quotes(topic, limit: 8–10)` — this is what fills the opportunity level with real voice. `get_notes(note_types:[need,problem])` helps enumerate opportunities.
 - **Work:** build the four-level tree below.
-- **Cite:** every opportunity node has a quote + source badge; unsupported nodes are flagged.
+- **Cite:** every opportunity node has a quote + linked-number badge, cited inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL); unsupported nodes are flagged.
 - **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","ost","discovery","<topic>"])` after confirmation.
 
 ## The tree (4 levels)
@@ -41,16 +54,13 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 🎯 OUTCOME: [measurable metric]
 │
 ├─ OPPORTUNITY: "I struggle to export my data" — 6 accounts, Opp. Score 0.72
-│    > "[verbatim]" — [Name], [Meeting], [Date] · [View](LINK) [^1]
+│    > "[verbatim]" — [Name], [Meeting], [Date] [`1`](URL)
 │    ├─ SOLUTION: Scheduled export  → EXPERIMENT: fake-door · CTR ≥ 8%
 │    ├─ SOLUTION: Email-to-share    → EXPERIMENT: prototype task · success ≥ 70%
 │    └─ SOLUTION: Public API        → EXPERIMENT: spike · feasible in budget?
 │
 ├─ OPPORTUNITY: [flag] "unified dashboard" — ⚠ hypothesis — no evidence yet
 │    → needs an interview before it earns a place on the tree
----
-## Sources
-[^1]: …
 ```
 
 ---

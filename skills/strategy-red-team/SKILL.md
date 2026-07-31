@@ -1,11 +1,24 @@
 ---
 name: strategy-red-team
-description: "Adversarially attack a strategy, PRD, or roadmap by hunting the customer counter-evidence that falsifies its claims — 'you assume X, but three customers said the opposite'. Includes a pre-mortem mode. Use when the user says 'red-team this', 'poke holes in this', 'stress-test our strategy', 'pressure-test this plan', 'what could go wrong', or 'run a pre-mortem'. Trigger terms: red team, stress test, pressure test, challenge assumptions, poke holes, pre-mortem, kill criteria. Not for polishing or copy-editing a doc."
+description: >-
+  Adversarially attack a strategy, PRD, or roadmap by hunting the customer
+  counter-evidence that falsifies its claims — 'you assume X, but three
+  customers said the opposite'. Includes a pre-mortem mode. Use when the user
+  says 'red-team this', 'poke holes in this', 'stress-test our strategy',
+  'pressure-test this plan', 'what could go wrong', or 'run a pre-mortem'.
+  Trigger terms: red team, stress test, pressure test, challenge assumptions,
+  poke holes, pre-mortem, kill criteria. Not for polishing or copy-editing a
+  doc.
+category: Strategy & Vision
+tags:
+  - red-team
+  - pre-mortem
+  - risk
 ---
 
 # Strategy Red-Team (attack the assumptions with counter-evidence)
 
-Be a sharp, fair adversary against a strategy/PRD/roadmap — but a *grounded* one. The differentiator over a generic red-team: every attack points to **real customer counter-evidence** where it exists. Not "this might be risky" but "the doc assumes X; three customers said the opposite [^n]." Your grounding searches are designed to **falsify** the document's claims, not confirm them.
+Be a sharp, fair adversary against a strategy/PRD/roadmap — but a *grounded* one. The differentiator over a generic red-team: every attack points to **real customer counter-evidence** where it exists. Not "this might be risky" but "the doc assumes X; three customers said the opposite [`1`](URL)." Your grounding searches are designed to **falsify** the document's claims, not confirm them.
 
 ## Step 0 — Relevance & availability
 Confirm there's a concrete document to attack and Evermuse is connected. If not connected, run a framework-only red-team labeled **⚠ ungrounded — Evermuse not connected** (assumption logic only, no counter-evidence) and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
@@ -18,7 +31,7 @@ Confirm there's a concrete document to attack and Evermuse is connected. If not 
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify the product. First list the doc's **load-bearing claims** about the user/market/mechanism/timeline. Then run **2–3 `evidence` searches worded to contradict them** — for a claim "users want fewer steps," search "users who wanted more control / more options" and "complaints about oversimplified flows." Pull the sharpest opposing quotes with `find_supporting_quotes("<the opposite of the claim>", limit: 6–8)`. Add **1 `context` search** to test market claims ("competitor already does X", "market moving away from Y").
 - **Work:** steelman each load-bearing claim, then attack the steelman — anchoring the attack in the counter-evidence you found. Rank by impact × likelihood-wrong × cheapness-to-test.
-- **Cite:** every counter-evidence attack carries a source badge and the opposing quote (see `citations.md`). If a claim genuinely holds up under a falsifying search, **say so plainly** — a red-team that manufactures doubt is as useless as one that rubber-stamps. Never fabricate a weakness the evidence doesn't support.
+- **Cite:** every counter-evidence attack carries an inline linked-number badge and the opposing quote — cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`, a linked-number code badge [`1`](URL). If a claim genuinely holds up under a falsifying search, **say so plainly** — a red-team that manufactures doubt is as useless as one that rubber-stamps. Never fabricate a weakness the evidence doesn't support.
 - **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","red-team","<red-team|pre-mortem>"])`.
 
 ## Instructions
@@ -43,7 +56,7 @@ Where the source method reaches for "web search / market research," use Evermuse
 ### Top Kill-Assumptions (ranked)
 For each (3–5 max):
 - **Claim:** [the load-bearing assertion in the doc]
-- **Counter-evidence:** > "[opposing quote]" — [attribution] [^n]  (you assume X; [N] customers said the opposite)
+- **Counter-evidence:** > "[opposing quote]" — [attribution] [`1`](URL)  (you assume X; [N] customers said the opposite)
 - **Fails if:** [concrete, falsifiable condition]
 - **Evidence to get this week:** [specific]
 - **Kill criterion:** [threshold]
@@ -54,9 +67,6 @@ For each (3–5 max):
 
 ### What I Couldn't Assess
 [Gaps where neither the doc nor Evermuse gave enough to judge.]
----
-## Sources
-[^n]: …
 ```
 
 End with what to *do*, not just what to fear — the emotional job is relief from shipping the wrong bet.

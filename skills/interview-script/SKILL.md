@@ -1,6 +1,20 @@
 ---
 name: interview-script
-description: "Write a Mom-Test customer interview guide — warm-up, JTBD exploration, wrap-up — but first check the evidence for what's ALREADY known so the questions target the open gaps instead of re-asking answered questions. Use when the user asks to 'write an interview script', 'prep for a user interview', 'discovery interview questions', 'interview guide', 'what should I ask customers', or 'plan a research call'. Trigger terms: interview script, interview guide, user interview, discovery interview, customer interview questions, Mom Test, research questions to ask. Not for summarizing an interview already done (that's summarize-conversation)."
+description: >-
+  Write a Mom-Test customer interview guide — warm-up, JTBD exploration, wrap-up
+  — but first check the evidence for what's ALREADY known so the questions
+  target the open gaps instead of re-asking answered questions. Use when the
+  user asks to 'write an interview script', 'prep for a user interview',
+  'discovery interview questions', 'interview guide', 'what should I ask
+  customers', or 'plan a research call'. Trigger terms: interview script,
+  interview guide, user interview, discovery interview, customer interview
+  questions, Mom Test, research questions to ask. Not for summarizing an
+  interview already done (that's summarize-conversation).
+category: Discovery & Research
+tags:
+  - interviews
+  - research
+  - scripts
 ---
 
 # Customer Interview Script (targeted at the gaps)
@@ -14,7 +28,7 @@ Confirm this is interview prep and Evermuse is connected (see `using-evermuse` S
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
 - **Ground:** verify product. Run **2–4 `evidence` searches** on the research topic $ARGUMENTS to see what customers have *already* said; `find_supporting_quotes(topic, limit: 6–8)` for what's well-established. Then pull **`get_research_questions`** as a **labeled secondary** input — Evermuse's AI-suggested open questions — to cross-reference, never as the primary source of truth.
 - **Work:** split known vs. open, then build the script around the open gaps.
-- **Cite:** the "already known" list carries quotes + badges so the user sees *why* those questions are cut.
+- **Cite:** the "already known" list carries quotes + inline citations (linked-number code badges per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`) so the user sees *why* those questions are cut.
 - **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","interview-script","<topic>"])` after confirmation.
 
 ## Instructions
