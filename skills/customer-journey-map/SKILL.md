@@ -24,11 +24,15 @@ Map the journey from first awareness to advocacy — and make each stage carry a
 Confirm this is a customer-experience question and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the framework labeled **⚠ ungrounded** and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify the product. For **each stage**, pull the pain in the customer's voice: `get_notes(note_types: ["problem","feedback"], keyword: "<stage keyword>")` — e.g. keyword `signup`/`trial` for Acquisition, `onboarding`/`setup`/`first` for Onboarding, `cancel`/`churn` for Retention. Reinforce with a stage-scoped `evidence` search and `find_supporting_quotes("<stage> friction", limit: 3–5)`. That's roughly 2 focused calls per painful stage — concentrate on the stages the user cares about, don't grind all seven.
-- **Work:** map stages, then attach the real pain + quote + emotion to each (see Instructions).
-- **Cite:** every pain point and quote carries an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL), attributed to speaker/meeting/date.
-- **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","journey-map","<product-slug>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

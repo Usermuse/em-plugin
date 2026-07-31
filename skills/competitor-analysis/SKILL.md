@@ -25,12 +25,15 @@ Map the competitive landscape — but weight it by the customers' own words, not
 Confirm this is competitive/market work and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the framework labeled **⚠ ungrounded** and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. Two sources, ranked:
-- **Primary — what customers say (evidence):** for each competitor, run an `evidence` search for **mentions** ("mentions of <competitor>", "compared us to <competitor>", "why they chose <competitor>", "switched from <competitor>") and pull `find_supporting_quotes("<competitor>", limit: 3–5)` for verbatim win/loss voice. This is the ground truth.
-- **Secondary — the internal competitor list (label as less reliable):** `list_competitors` and `get_competitor_capabilities` are **AI-generated/curated inside Evermuse** — use them to enumerate the set and capability claims, but explicitly mark them *secondary* and reconcile every claim against what customers actually said. Never present a capability row as customer truth.
-- **Market color (context):** 1–2 `context` searches (and web research) for positioning, pricing, funding, recent moves.
-- **Cite:** customer mentions carry inline citations per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL); capability rows are tagged `(competitor DB — unverified)`; market facts cite their external source.
-- **Save:** `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","competitive","<product-slug>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

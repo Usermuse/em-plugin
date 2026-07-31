@@ -25,11 +25,15 @@ Define a single, customer-centric North Star Metric and the 3–5 input metrics 
 Confirm this is a metrics-definition task and Evermuse is connected. If the tools aren't present, produce a framework-only NSM labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (value first):** verify the product (`get_products`/`switch_product`). Run **2–3 `evidence` searches** on the core value and the "aha" moment customers name ("the moment it clicked / became worth it", "what they'd miss most if it went away", "the outcome they measure"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Add **1 `guidance` search** for the company's vision/objectives ("company vision and mission", "what success looks like") so the North Star aligns with strategy.
-- **Work:** classify the business game, define the North Star from the evidenced customer value, validate it against the 7 criteria, then build the input-metric tree — each input a lever that provably moves the North Star.
-- **Cite:** the value definition behind the North Star and each input's link to it carries a linked-number badge (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`). Keep `evidence` (customer value) separate from `guidance` (company vision).
-- **Save (nature=guidance):** a metrics framework is company direction. After the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","north-star","metrics"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

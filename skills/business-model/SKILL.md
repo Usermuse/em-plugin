@@ -29,11 +29,15 @@ Confirm this is business-model work and Evermuse is connected. If not, produce a
 - **Startup Canvas** → `references/startup-canvas.md`: new products needing strategic clarity *and* a business model (recommended for early-stage). Ask the user which fits if ambiguous; default to BMC.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing strategy/objectives ("company strategy and objectives"). Then **2 `evidence` searches** for the customer problem and who has it ("biggest recurring pain", "which customers feel this most / willingness to pay signals") to fill the **Value Proposition** and **Customer Segments** boxes. Then **1 `context` search** for channels and competition ("how customers discover tools like ours", "competitor landscape"). Pull verbatim voice with `find_supporting_quotes(topic, limit: 6)`.
-- **Work:** fill all 9 blocks. The **problem/value-prop and customer-segment boxes are evidence-backed and cited**; the **channels, customer-relationships, and competitive framing are context-backed**.
-- **Cite:** every problem, segment, and market claim carries an inline citation — a linked-number code badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; keep evidence and context separate.
-- **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","business-model","canvas"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

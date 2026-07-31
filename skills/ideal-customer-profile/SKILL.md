@@ -24,11 +24,15 @@ Define the customer most likely to find value, retain, and expand — but build 
 Confirm this is an ICP / targeting task and Evermuse is connected. If the tools aren't present, produce a framework-only ICP labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (real customers first):** verify the product (`get_products`/`switch_product`). Identify the won-and-happy accounts: **`get_meetings(attendee_domain: …)`** for the customers who bought and stayed (renewals, expansions, enthusiastic calls), and **`get_meetings(title_keyword: "renewal" / "QBR" / "onboarding")`** to find the stickiest relationships. Then run **2–3 `evidence` searches** on why they bought and why they stay ("why did they choose us", "what made it worth paying for", "what would make them leave"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Use `view_item` / `get_meeting_transcript` to deep-dive one exemplar happy account.
-- **Work:** extract firmographic, behavioral, JTBD, and pain patterns **across the happy accounts**, each backed by a quote. Note the "ideal-of-the-ideal" (highest-value pattern) and explicit disqualification criteria (who looked similar but churned or never activated).
-- **Cite:** every pattern claim carries a linked-number badge (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`).
-- **Save (nature=evidence):** this is a customer-voice synthesis. After the user confirms, `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","icp","voice-of-customer","segmentation"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

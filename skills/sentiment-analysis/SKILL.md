@@ -25,11 +25,15 @@ Read the mood of the feedback corpus — for a topic, a segment, or a time windo
 Confirm this is a feedback/satisfaction question spanning multiple conversations and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the framework labeled **⚠ ungrounded** and tell the user to authorize the MCP. For a single conversation's sentiment, use `/evermuse:customer-research` instead.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify the product. Pull the feedback body over the window: `get_notes(note_types: ["feedback","problem","quote"], date_from: "<start>", date_to: "<end>", keyword: "<topic>")`. Add **2–3 `evidence` searches** worded across the sentiment spectrum ("what customers love about <topic>", "frustration with <topic>", "why <topic> falls short"). Pull the voice with `find_supporting_quotes(topic, limit: 6–10)` — **each returned quote carries a `sentiment_analysis` field; use it** as the per-quote sentiment label rather than guessing.
-- **Work:** cluster into themes, score each, split positive vs. negative drivers (see Instructions).
-- **Cite:** every theme and quote carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; attach the quote's own `sentiment_analysis` label.
-- **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","sentiment","feedback-analysis","<product-slug>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

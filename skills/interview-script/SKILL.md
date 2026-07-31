@@ -25,17 +25,21 @@ A Mom-Test interview guide — ask about their life, not your idea; the past, no
 Confirm this is interview prep and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, you can still produce a solid Mom-Test script from the framework — label it **⚠ ungrounded** and note you couldn't check what's already known, so it may re-ask settled questions.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify product. Run **2–4 `evidence` searches** on the research topic $ARGUMENTS to see what customers have *already* said; `find_supporting_quotes(topic, limit: 6–8)` for what's well-established. Then pull **`get_research_questions`** as a **labeled secondary** input — Evermuse's AI-suggested open questions — to cross-reference, never as the primary source of truth.
-- **Work:** split known vs. open, then build the script around the open gaps.
-- **Cite:** the "already known" list carries quotes + inline citations (linked-number code badges per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`) so the user sees *why* those questions are cut.
-- **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","interview-script","<topic>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
 1. **Clarify research objectives.** What decision will this research inform? What assumptions need validating?
 
-2. **Split known vs. open (the key step).** From the grounded evidence, list what the corpus **already answers** (with quotes) and what remains **genuinely open**. Write questions only for the open set; briefly show the user what you cut and why. For each open gap, note whether `get_research_questions` (secondary) independently flagged it.
+2. **Split known vs. open (the key step).** From the grounded evidence, list what the corpus **already answers** (with quotes) and what remains **genuinely open**. Write questions only for the open set; briefly show the user what you cut and why.
 
 3. **Build the script** — Mom-Test throughout:
 

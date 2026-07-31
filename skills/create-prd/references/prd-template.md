@@ -4,7 +4,7 @@
 **Product (Evermuse):** [product name] · **Grounding:** [N evidence searches, M quotes] or ⚠ ungrounded
 **Status:** Draft · **Input:** "$ARGUMENTS"
 
-> **Customer Evidence (mandatory when grounded).** The voice behind this PRD. Fill from `search` (nature=evidence) + `find_supporting_quotes`.
+> **Customer Evidence (mandatory when grounded).** The voice behind this PRD. Fill from `search` (nature=evidence) + a quote-angled `search`.
 > - **[Theme 1]** — [N mentions across M accounts]. [one-line summary] [`1`](URL)
 > - **[Theme 2]** — [N mentions]. [`2`](URL)
 > - Representative quote: *"[verbatim]"* — [Speaker, Account, date] [`3`](URL)

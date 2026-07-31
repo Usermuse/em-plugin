@@ -27,12 +27,16 @@ Confirm there's a concrete document to attack and Evermuse is connected. If not 
 - **Red-team (default):** attack load-bearing assumptions *now*, while the cheapest test is still available.
 - **Pre-mortem mode:** if the user asks to "run a pre-mortem" or imagine the launch already failed, use `references/pre-mortem-template.md` (Tigers / Paper Tigers / Elephants → launch-blocking / fast-follow / track). Same counter-evidence grounding applies.
 
-## Evermuse Grounding (required — searches must try to FALSIFY the doc)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify the product. First list the doc's **load-bearing claims** about the user/market/mechanism/timeline. Then run **2–3 `evidence` searches worded to contradict them** — for a claim "users want fewer steps," search "users who wanted more control / more options" and "complaints about oversimplified flows." Pull the sharpest opposing quotes with `find_supporting_quotes("<the opposite of the claim>", limit: 6–8)`. Add **1 `context` search** to test market claims ("competitor already does X", "market moving away from Y").
-- **Work:** steelman each load-bearing claim, then attack the steelman — anchoring the attack in the counter-evidence you found. Rank by impact × likelihood-wrong × cheapness-to-test.
-- **Cite:** every counter-evidence attack carries an inline linked-number badge and the opposing quote — cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`, a linked-number code badge [`1`](URL). If a claim genuinely holds up under a falsifying search, **say so plainly** — a red-team that manufactures doubt is as useless as one that rubber-stamps. Never fabricate a weakness the evidence doesn't support.
-- **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","red-team","<red-team|pre-mortem>"])`.
+## Evermuse Grounding (required)
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

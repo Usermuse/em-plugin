@@ -25,11 +25,15 @@ Rank a backlog to find the top 5 to pursue. The Evermuse difference: **Reach and
 Confirm this is backlog prioritization and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, you can still apply the frameworks, but every Reach/Impact number is a guess — label the output **⚠ ungrounded** and say the scores are unvalidated.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify product. For **each feature/theme in the backlog**, run a targeted `evidence` search and `find_supporting_quotes(topic, limit: 6–8)` to get the **actual demand count** — distinct accounts that raised it — and the sharpest quote. `get_notes(note_types:[need,feedback])` helps tally asks over a period. Keep to a few well-worded searches per feature (credits).
-- **Work:** score with a framework from `references/prioritization-frameworks.md`, feeding the real counts in.
-- **Cite:** every Reach/Impact figure links to the evidence that produced it — an inline linked-number badge [`1`](URL) per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`.
-- **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","prioritization","<topic>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
@@ -44,7 +48,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
    - **Effort** = dev/design/coordination cost.
    RICE = (R × I × C) / E · ICE = I × C × E · Opportunity Score for problem-ranking.
 
-4. **`see_updated_roadmap` is a labeled cross-check only.** You may pull Evermuse's AI-generated roadmap to sanity-check your ranking, but present it explicitly as **"AI-generated cross-check (not customer ground truth)"** — never let it override the evidence-backed scores. Same caution for `get_research_questions`.
+4. **`get_opportunities` is a labeled cross-check only.** You may pull Evermuse's machine-suggested opportunities to sanity-check your ranking, but present them explicitly as **"AI-generated cross-check (not customer ground truth)"** — never let them override the evidence-backed scores.
 
 5. **Recommend the top 5** with ranking, rationale naming the evidence, key trade-offs, and **what was deprioritized and why**.
 

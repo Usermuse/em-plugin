@@ -18,17 +18,21 @@ tags:
 
 # Summarize a Conversation (interview or meeting)
 
-Turn one specific conversation into a structured, accessible summary — pulling needs, decisions, and **verbatim quotes with timestamps** out of the actual transcript. This is the **sanctioned place to use `get_meeting_transcript`**: a single-conversation deep dive, not a corpus search. The summary can then be saved back so one call's insights compound into the evidence base.
+Turn one specific conversation into a structured, accessible summary — pulling needs, decisions, and **verbatim quotes with timestamps** out of the actual transcript. This is the **sanctioned place to use `read_source`**: a single-conversation deep dive, not a corpus search. The summary can then be saved back so one call's insights compound into the evidence base.
 
 ## Step 0 — Relevance & availability
 Confirm the user means a specific conversation (not "what do customers think about X" across many — that's `/evermuse:customer-research`) and Evermuse is connected (see `using-evermuse` Step 0). If disconnected but the user pasted a transcript, summarize that directly and label it **⚠ ungrounded — not from Evermuse** (no source links).
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify product. **Locate the conversation** with `get_meetings(attendee_domain / title_keyword / transcript_keyword / date_from / date_to)` — narrow to the one meeting the user means; if several match, list them and ask which. Then **`get_meeting_transcript(meeting_id)`** for that one conversation (this is the deep-dive exception to the "no transcripts for search" rule).
-- **Work:** extract into the template below, pulling **verbatim quotes with their timestamps**.
-- **Cite:** quotes carry speaker + timestamp and an inline citation (linked-number code badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`); the summary links back to the meeting in Evermuse.
-- **Save:** `add_source(nature: "evidence", source_type: "meeting_notes", tags: ["evermuse-plugin","<interview-summary | meeting-summary>","<topic>"])` after confirmation — so the extracted needs/quotes rejoin the corpus.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — locate, then read (this skill is serial, not a corpus batch).** Verify the product (Rule 1), then:
+1. **`find_sources`** to locate the one conversation (filter by `title_keyword`, `attendee_email`/`attendee_domain`, or date; or `query` if the user described it by topic). If more than one plausible match, confirm which meeting with the user before reading.
+2. **`read_source`** on that source and read it fully before writing — page with `offset`/`next_offset` until `has_more` is false. The transcript IS the grounding for this skill.
+
+Do **not** run the multi-search corpus batch here — that's for research skills across many calls (`/evermuse:customer-research`). One conversation in, one summary out.
+
+**Optional — considered use.** After reading, reach for other tools only when they add value: a single `evidence` search to check whether a need heard here echoes across the corpus, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Citations and saving are optional — not required.
 
 ## Two flavors (pick by conversation type)
 

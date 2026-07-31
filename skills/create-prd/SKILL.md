@@ -27,17 +27,20 @@ Produce a comprehensive but readable Product Requirements Document — the busin
 Confirm this is customer-facing product work and the Evermuse tools are present. If the MCP isn't connected, produce the PRD from the template but label it **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a PRD:
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
-- **Ground.** Verify the product (Rule 1). Run **3–4 `evidence` searches** worded from different angles — the exact feature ask, the underlying pain, the adjacent workflow, and an objection/failure angle. Pull verbatim quotes with `find_supporting_quotes(topic, limit: 6)` for the sections that carry customer voice (Background, Objective, Segments, Value Props). Run **one `guidance` search** for company objectives/strategy this feature should ladder up to. Only if competitor parity is part of the value story, run **one `context` search**.
-- **Work.** Fill the 8-section template in `references/prd-template.md`. Replace the source skill's "web search / user-provided data" with Evermuse evidence as the **primary** source for every "why".
-- **Cite.** Every customer-derived claim (a stated pain, a demand count, a quote) carries an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
-- **Save.** After the user confirms, `add_source(nature: "guidance", source_type: "document", title: "PRD — <feature>", tags: ["evermuse-plugin","prd"])`. A PRD is company direction → **guidance**.
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
 1. **Anchor each section in evidence, not assertion.** Walk the 8 sections in `references/prd-template.md`. For each, ask what the corpus says before you write:
-   - **Background / Why now** — what changed for customers? Lead with the pain, quoted. `find_supporting_quotes` on the problem.
+   - **Background / Why now** — what changed for customers? Lead with the pain, quoted. A quote-angled `search` on the problem.
    - **Objective + Key Results** — the objective maps to an *evidenced customer outcome*; the KRs measure *reduction of a stated pain*. (For a full OKR set, chain to `brainstorm-okrs`.)
    - **Market Segment(s)** — segments are defined by the *problem/job* customers described, not demographics. Name the accounts/personas the evidence actually came from.
    - **Value Proposition(s)** — each pain avoided / gain created is a real quote, not a guess. This is where the customer's voice does the most work.
@@ -45,7 +48,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a PRD:
    - **Release** — relative timeframes (now / next / later), never hard dates.
 2. **Reuse grounding across the session.** If a spec, OKR set, or research brief already pulled this evidence, carry the quotes and source badges forward instead of re-searching (credits — Rule 7).
 3. **Write for a wide audience.** Short sentences, minimal jargon; a PRD is read by leadership and engineers alike.
-4. **Working-Backwards variant (optional).** If the user wants an Amazon-style press release / FAQ instead of (or before) the full PRD, use `references/wwas-press-release-template.md`. Its customer-quote sections must use **real customer quotes** from `find_supporting_quotes`, attributed — never invented testimonials.
+4. **Working-Backwards variant (optional).** If the user wants an Amazon-style press release / FAQ instead of (or before) the full PRD, use `references/wwas-press-release-template.md`. Its customer-quote sections must use **real customer quotes** from a quote-angled `search`, attributed — never invented testimonials.
 
 ## Deliverable
 An 8-section PRD (or the Working-Backwards press release) as clean markdown, with a **Customer Evidence** callout near the top summarizing themes + demand strength and inline citation badges throughout (links live inline — no Sources footer). Offer to save it (guidance).

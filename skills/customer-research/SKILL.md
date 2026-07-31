@@ -24,20 +24,24 @@ The everyday workhorse: someone asks a question about customers and gets back no
 Confirm it's a customer question and Evermuse is connected. If not connected, say so plainly and tell the user to authorize the MCP — don't answer a "what do customers think" question from memory and pass it off as grounded.
 
 ## Scope the question
-Pin down what's really being asked: a topic ("onboarding"), a decision it feeds ("should we build X"), a segment or time window. If a research **project** is clearly implied (e.g. "the audio-listeners study"), `switch_project` to it; otherwise stay at product scope.
+Pin down what's really being asked: a topic ("onboarding"), a decision it feeds ("should we build X"), a segment or time window. If a research **project** is clearly implied (e.g. "the audio-listeners study"), pass its `project_id` on your calls; otherwise stay at product scope.
 
-## Ground (the heart of this skill)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` and `search-patterns.md`:
-- **3–4 `evidence` searches**, worded from different angles (literal ask → underlying pain → adjacent workflow → objection).
-- **`find_supporting_quotes(topic, limit: 8–10)`** for the verbatim voice.
-- **`get_notes`** with `note_types`/`date_from`/`date_to` when filtering by type or period sharpens the answer (e.g. sentiment this quarter, all needs from one account).
-- **`view_item`** to expand a hot item; **`get_meeting_transcript`** only if the user is asking about one specific conversation in depth.
+## Evermuse Grounding (required)
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Synthesize
 Cluster the evidence into **themes**, and for each: demand strength (mentions across distinct accounts), sentiment split, who said it and when, and the sharpest verbatim quote. Represent **dissenting voices** — don't flatten disagreement into a false consensus. Separate `evidence` (what customers said) from any `context` (market) you pulled; never blend them.
 
 ## Deliver
-Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
+When you cite, use the inline linked-number badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — [`1`](URL). Citations are optional, but a voice-of-customer brief is far stronger with them, so prefer them here.
 
 A brief that leads with the answer, then themes with quote blocks and inline citations:
 

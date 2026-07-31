@@ -25,12 +25,20 @@ Find what's missing — not just against the spec, but against reality and again
 Confirm the product context and Evermuse availability (see `using-evermuse` Step 0). Lens 3 needs the MCP; Lenses 1–2 work ungrounded (label the output accordingly if disconnected).
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill: verify the product → run `evidence` searches per major need theme (for Lens 3) → cite every Lens-3 row with a linked-number badge → save. **Reuse grounding from an earlier spec/plan in the same session** rather than re-searching. Do this grounding pass before Lens 3 below.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Gather the artifacts
 - **Spec/plan**: local `specs/<feature>/spec.md` + `plan.md`, and/or shaping notes via `get_shaping_notes` → `read_shaping_note`.
 - **Code** (for Lens 2): read the relevant implementation, **read-only**. Don't modify anything.
-- **Customer evidence** (for Lens 3): `evidence` searches per major need theme + `find_supporting_quotes`.
+- **Customer evidence** (for Lens 3): `evidence` searches per major need theme + a quote-angled `search`.
 
 ## The three lenses
 
@@ -41,7 +49,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill: v
 **Lens 3 — Spec ↔ Customer (demand coverage).** For each high-signal need in the corpus, check whether the spec/build addresses it. The gaps that hurt are **strongly-evidenced needs that nothing covers**. Rank by demand strength (mentions across accounts), each row badged with a quote.
 
 ## Output
-Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
+When you cite, use the inline linked-number badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — [`1`](URL). Citations are optional but recommended.
 
 A severity-ranked table — Critical / High / Medium — where each row names the gap, the lens, and the evidence (a linked-number badge for Lens 3, a file:line for Lens 2, a spec reference for Lens 1):
 

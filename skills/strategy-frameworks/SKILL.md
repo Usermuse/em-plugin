@@ -31,11 +31,15 @@ Ask the user (or infer from their ask) which to run, and load the matching refer
 - **Ansoff Matrix** — growth options across product × market → `references/ansoff.md`
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing strategy/objectives ("company strategy and objectives") so the framework serves the real direction. Then **2 `evidence` searches** for the customer-side cells — strengths/weaknesses/buyer power come from what customers actually praise and complain about ("what customers love / value most", "what frustrates them / makes them consider leaving"). Then **1–2 `context` searches** for the market-side cells — opportunities/threats/substitutes/forces/macro factors ("competitor and substitute landscape", "market and regulatory shifts"). Pull verbatim with `find_supporting_quotes(topic, limit: 5–6)` for customer-derived cells.
-- **Work:** fill the chosen framework's grid using the reference file. **Each cell names the evidence or context result it rests on.** Customer-derived cells (evidence) stay separate from market cells (context).
-- **Cite:** every cell carries an inline citation — a linked-number code badge per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`.
-- **Save (nature=context):** after confirmation, `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","framework","<swot|pestle|porters-five-forces|ansoff>"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

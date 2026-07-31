@@ -24,12 +24,15 @@ Shift $ARGUMENTS from an output roadmap (a list of features by quarter) to an **
 Confirm this is product-roadmap work and Evermuse is present. If the MCP isn't connected, transform the roadmap using the framework but label it **⚠ ungrounded** and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a roadmap:
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
-- **Ground.** Verify the product (Rule 1). For **each initiative/lane**, run a focused **`evidence` search** on the pain it addresses + `find_supporting_quotes(topic, limit: 4)` to establish demand strength (mentions across accounts). Run **1 `guidance` search** for the company strategy the roadmap must align to. Keep to a few well-worded searches total — reuse across lanes (credits — Rule 7).
-- **Work.** Rewrite each output as an outcome statement and attach its demand evidence + a proposed success metric.
-- **Cite.** Every lane's demand claim carries an inline linked-number badge [`1`](URL); there is no Sources footer (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`).
-- **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "Outcome roadmap — <year>", tags: ["evermuse-plugin","roadmap"])`. A roadmap is company direction → **guidance**.
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
@@ -39,7 +42,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For a roadmap:
    - **Demand evidence:** the quotes + mention count proving customers want this outcome. [`1`](URL)
    - **Success metric:** how you'll know the outcome landed (ties to `brainstorm-okrs` KRs if present).
 2. **Let evidence reorder, not just relabel.** If a lane has thin demand evidence, flag it (**low-demand — validate or defer**); if a strongly-evidenced outcome has no lane, surface it as a **missing lane**. Replace the source skill's "web search for alignment" with **Evermuse evidence as the primary source** for what customers actually want.
-3. **`see_updated_roadmap` is a labeled cross-check ONLY.** You may call `see_updated_roadmap` once to compare your evidence-built lanes against Evermuse's AI-generated roadmap — but present it explicitly as **"AI-generated cross-check (secondary, not customer ground truth)"** and never let it originate a lane or override the demand evidence. Same for shaping notes.
+3. **`get_opportunities` is a labeled cross-check ONLY.** You may call `get_opportunities` once to compare your evidence-built lanes against Evermuse's machine-suggested opportunities — but present them explicitly as **"AI-generated cross-check (secondary, not customer ground truth)"** and never let them originate a lane or override the demand evidence. Same for shaping notes.
 4. **Keep horizons flexible.** Now / Next / Later (or quarters), never hard dates. Multiple outputs can serve one outcome — focus on the outcome.
 5. **Apply the "So what?" test.** For any feature you can't tie to a customer/business outcome, ask "so what?" until you reach real value — or drop it from the roadmap.
 

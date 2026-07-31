@@ -9,7 +9,7 @@
 
 ## Customer Evidence *(Evermuse — mandatory when grounded)*
 
-The voice of the customer behind this feature. Fill from `search` (nature=evidence) + `find_supporting_quotes`.
+The voice of the customer behind this feature. Fill from `search` (nature=evidence) + a quote-angled `search`.
 
 **Themes & demand strength**
 - **[Theme 1]** — [N mentions across M accounts]. [one-line summary]

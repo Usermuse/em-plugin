@@ -4,7 +4,7 @@
 Fast, hypothesis-driven adaptation of the Business Model Canvas (Ash Maurya). Replaces Partners/Activities/Resources with Problem/Solution/Unfair Advantage. Best for rapid hypothesis testing on a new venture, not as a finished strategy document.
 
 ## Grounding note
-Same Evermuse loop as `../SKILL.md`. The **Problem** and **Customer Segments** boxes are the evidence-backed heart of this canvas — fill them from `evidence` searches and `find_supporting_quotes`, cited. **Channels** and **Unfair Advantage** framing lean on `context`. Save `nature: "guidance"`, tags `["evermuse-plugin","business-model","lean-canvas"]`.
+Same Evermuse loop as `../SKILL.md`. The **Problem** and **Customer Segments** boxes are the evidence-backed heart of this canvas — fill them from `evidence` searches and a quote-angled `search`, cited. **Channels** and **Unfair Advantage** framing lean on `context`. Save `nature: "guidance"`, tags `["evermuse-plugin","business-model","lean-canvas"]`.
 
 ## Template
 

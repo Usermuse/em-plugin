@@ -24,12 +24,15 @@ Recommend a pricing model and structure, or brainstorm 3–5 monetization option
 Confirm this is pricing/monetization work and Evermuse is connected. If not, produce a framework-only recommendation labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (guidance first):** verify the product. Run **1 `guidance` search** for existing pricing/positioning/objectives ("current pricing and packaging", "monetization objectives"). Then **2–3 `evidence` searches** for the price signal — worded as: willingness-to-pay ("what customers said they'd pay / budget", "how they value the outcome"), pricing objections ("too expensive / pushback on price", "what they compared cost against"), and value language ("the outcome worth paying for"). Pull verbatim with `find_supporting_quotes("price and value", limit: 6–8)`.
-- **Competitor pricing (secondary, labeled):** use `list_competitors` + `get_competitor_capabilities` for competitor tiers/features, and **1 `context` search** for market pricing conventions. Label all of this **secondary** — it informs positioning, never overrides customer WTP evidence.
-- **Work:** apply the pricing method below (or the monetization brainstorm).
-- **Cite:** every WTP claim, objection, and competitor data point carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; keep evidence separate from the secondary competitor/context inputs.
-- **Save (nature=guidance):** after confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","pricing","monetization"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

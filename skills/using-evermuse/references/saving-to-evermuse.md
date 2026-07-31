@@ -18,10 +18,10 @@ Rationale: a spec is the company telling itself what to build (guidance); a rese
 
 1. Call `get_projects`.
 2. **One project** → use it.
-3. **Several** → ask the user once which project this belongs to (Discovery for research, Sales for deal insights, Support for tickets, or a named research project), then `switch_project` so the choice sticks for the session.
+3. **Several** → ask the user once which project this belongs to (Discovery for research, Sales for deal insights, Support for tickets, or a named research project), then pass that project's id as `add_source`'s `project_id` (and as `project_id` on any scoped calls that should stay in it).
 4. **None** → don't invent an ID. Skip the save and tell the user: "I couldn't save this to Evermuse — there's no project to attach it to. Create one in Evermuse and I'll save it next time."
 
-If you switched product mid-task, re-verify the project (switching product clears it).
+Projects live under a product, so make sure the `project_id` you save to belongs to the same `product_id` you grounded in.
 
 ## Recipes
 

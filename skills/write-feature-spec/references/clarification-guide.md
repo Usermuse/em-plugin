@@ -5,7 +5,7 @@ Reduce ambiguity in a spec *before* drafting the body, the same way spec-kit's `
 
 ## The evidence-first rule
 
-Before you ask the user anything, ask the corpus. For each ambiguity, run a quick `evidence` search / `find_supporting_quotes`. If customers already answered it (e.g. several described the same default behavior), that's your answer — cite it and don't spend a question on it. Only genuine, unresolved, high-impact ambiguities become questions.
+Before you ask the user anything, ask the corpus. For each ambiguity, run a quick `evidence` search (keep the `quote`-type results). If customers already answered it (e.g. several described the same default behavior), that's your answer — cite it and don't spend a question on it. Only genuine, unresolved, high-impact ambiguities become questions.
 
 ## Ambiguity scan (categories to sweep)
 

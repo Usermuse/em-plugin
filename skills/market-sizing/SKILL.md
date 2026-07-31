@@ -25,12 +25,15 @@ This is the showcase skill for **nature=context**: the market numbers come from 
 Confirm this is a market-opportunity question and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, produce the sizing framework labeled **⚠ ungrounded** (external numbers still possible via web research, but the wedge won't be evidence-validated) and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill the natures split cleanly:
-- **Ground (context — the market):** verify the product, then run **2–3 `context` searches** for market/industry signals ("<market> size", "<industry> growth", "<segment> spend on <category>"). Supplement with web research / analyst reports for TAM inputs where the corpus is thin — label external figures with their source.
-- **Ground (evidence — the wedge only):** run **1–2 `evidence` searches** + `find_supporting_quotes` to confirm a real, urgent beachhead ("who is desperate for this", "willing to pay for <capability>"). This validates SOM/SAM assumptions — it does **not** size TAM.
-- **Work:** triangulate top-down and bottom-up; scope SAM/SOM; project growth (see Instructions).
-- **Cite:** market figures cite their external source; wedge claims carry customer linked-number badges (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`). Keep the two visibly separate — never let a customer quote masquerade as a market number, or vice versa.
-- **Save:** `add_source(nature: "context", source_type: "document", tags: ["evermuse-plugin","market-sizing","<product-slug>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

@@ -1,23 +1,23 @@
 # Citations & Source Badges
 
-IMPORTANT: Please ALWAYS ground your answers with in-line citations following the path outlined below. The whole point of this plugin is that customer-derived claims are **visibly** backed by real evidence. And since resource links are not yet supported in many clients, and the citation schema doesn't work properly with external links - this is the best format right now.
+IMPORTANT: Citations are **optional but strongly recommended** — the required part of any Evermuse task is the grounding search batch, not the citing. That said, in-line citations are what make customer-derived claims **visibly** backed by real evidence, so cite whenever you reasonably can. When you do cite, follow the format below. Since resource links are not yet supported in many clients, and the citation schema doesn't work properly with external links, this is the best format right now.
 
 
 ## Which citation format applies
 
 **First-party Evermuse chat:** If you are the in-app Evermuse assistant — the surface where the app renders your `[^n]` markers and appends the Sources list for you — so please keep following your system message with the app's own footnote citation instructions. They take precedence.
 
-**Everywhere else** (external MCP clients, Claude Code, Claude Desktop, ChatGPT, Codex or any raw-markdown renderer): use the inline linked-number badge defined below. This is the required baseline.
+**Everywhere else** (external MCP clients, Claude Code, Claude Desktop, ChatGPT, Codex or any raw-markdown renderer): use the inline linked-number badge defined below. This is the recommended baseline whenever you cite.
 
 
 ## The rule
 
-EVERY claim you make in a deliverable that rests on Evermuse input gets an **inline citation**. If you wrote "customers want X", a reader must be able to click straight through to *where they said it*. No citation → it reads as your opinion, and the plugin has failed its promise.
+Whenever a claim in a deliverable rests on Evermuse input, **prefer an inline citation**. If you wrote "customers want X", a citation lets a reader click straight through to *where they said it* — without it, the claim reads as your opinion. Citations are optional, but they are the whole point of showing the customer's voice, so cite when you can.
 
-The required baseline for **every** agentic answer is the inline linked-number badge below. Fuller treatments — a verbatim quote block, an attribution line — are welcome *in addition* where they sharpen the point, but they never replace the inline badge.
+The recommended baseline when you cite is the inline linked-number badge below. Fuller treatments — a verbatim quote block, an attribution line — are welcome *in addition* where they sharpen the point, but they never replace the inline badge.
 
 
-## Required format — linked number in a code badge
+## Recommended format — linked number in a code badge
 
 Cite sources with a bare, linked number rendered as inline code. Put the code span **inside** the link so the number shows as a pink code badge that is still clickable. Do not wrap the number in brackets.
 

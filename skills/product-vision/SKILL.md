@@ -23,11 +23,15 @@ Brainstorm a product vision that is inspiring, achievable, and emotional — and
 Confirm this is product-direction work and Evermuse is connected. If not, produce a framework-only vision labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (guidance first):** verify the product. Run **1 `guidance` search** for any existing vision/values/objectives ("company vision and values", "long-term objectives") so the new vision extends the real one. Then **2 `evidence` searches** worded to surface the *future customers want* — their desired end state, not just today's pain ("what customers wish were possible", "the outcome they're really after / 'if only we could…'"). Add **1 `context` search** for where the market is heading ("where the market is moving", "emerging expectations"). Use `find_supporting_quotes("desired future outcome", limit: 6–8)` for the verbatim aspiration.
-- **Work:** distill recurring customer-desired outcomes into the vision. The vision must echo language customers actually used.
-- **Cite:** each aspirational claim carries an inline linked-number badge [`1`](URL) tying it to a customer quote about the future they want — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`.
-- **Save (nature=guidance):** after the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","vision","product-vision"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

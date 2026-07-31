@@ -33,10 +33,13 @@ Confirm customer-facing product work and that the Evermuse tools are present (se
 ## Evermuse Grounding (required)
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
-- **Ground.** Verify the product. **If a spec already exists** (a local `specs/<feature>/spec.md`, or a shaping note found via `get_shaping_notes`), inherit its citations — don't re-search from scratch. **Otherwise** run a light grounding pass: 2–3 `evidence` searches + `find_supporting_quotes(limit: 6)` on the feature and its underlying pain.
-- **Work.** Fill `references/plan-template.md` then `references/tasks-template.md`, reading the actual repository for technical context.
-- **Cite.** The plan opens with a **"Why we're building this"** block (see below). Each task story-group repeats its motivating quote. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL).
-- **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","dev-plan","<slug>"])`.
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## The "Why we're building this" opener (required)
 Before any technical content, the plan states — in the customer's words — why this work exists:

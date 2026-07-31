@@ -30,11 +30,15 @@ Confirm this is segmentation work and Evermuse is connected (see `using-evermuse
 State which you're doing up front. Default to **user segmentation** unless the user is clearly exploring a market they don't yet serve.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify the product. Run **3–4 `evidence` searches** worded around *need differences*, not demographics ("what <group A> is trying to do", "why <group B> uses it differently", "unmet need for <workflow>", "who churns and why"). For market-level cuts, add 1–2 `context` searches. Pull `find_supporting_quotes(topic, limit: 3–5)` per emerging segment. Use `get_meetings(attendee_domain)` to see which accounts anchor each group.
-- **Work:** cluster into 3-5 need-distinct, non-overlapping segments (see Instructions).
-- **Cite:** every pain, need, and quote carries an inline linked-number badge [`1`](URL) — see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`; keep `evidence` (customer voice) and `context` (market) visibly separate.
-- **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","segmentation","<product-slug>"])` after confirmation. (A purely market-level cut may instead save nature=context.)
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

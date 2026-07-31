@@ -25,20 +25,24 @@ Pick the smallest winnable, referenceable first market — the wedge that gets y
 Confirm this is a first-market / segmentation task and Evermuse is connected. If the tools aren't present, produce a framework-only analysis labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground (demand density first):** verify the product (`get_products`/`switch_product`). To gauge which segments actually show up, call **`get_meetings(attendee_domain: …)`** across the candidate segments' domains/industries and note volume and recency — who is in the room most. Then run **2–3 `evidence` searches** for the acute pain per candidate segment ("who is most desperate about X", "which role feels this daily", "willing to pay to fix"), and pull verbatim voice with **`find_supporting_quotes(topic, limit: 6–8)`**. Add **1 `context` search** on competitive saturation per segment ("who already serves segment Y"). `get_notes(note_types: ["need","problem"])` filtered by keyword helps rank pain intensity.
-- **Work:** rank candidate segments by demand density (frequency + intensity of pain in the corpus), then score the front-runners on the four criteria below — each criterion backed by a cited quote or a count of distinct accounts.
-- **Cite:** every pain, willingness-to-pay, and reachability claim carries an inline citation per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL). Keep `evidence` separate from `context`.
-- **Save (nature=guidance):** after the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","beachhead","gtm","segmentation"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
-You are choosing the beachhead for **$ARGUMENTS**. Where the source method reaches for "customer interviews / market research," use the Evermuse corpus as the primary source: demand density from `get_meetings`, pain from `evidence` searches and quotes.
+You are choosing the beachhead for **$ARGUMENTS**. Where the source method reaches for "customer interviews / market research," use the Evermuse corpus as the primary source: demand density from `find_sources`, pain from `evidence` searches and quotes.
 
 ### Step 1 — Read demand density from the corpus
 List the candidate segments (verticals, company sizes, roles, use cases). For each, gauge presence in the evidence:
-- **Frequency** — how many distinct accounts/meetings feature this segment (`get_meetings` by `attendee_domain`).
-- **Intensity** — how burning the pain reads in their quotes (`find_supporting_quotes`, `get_notes`).
+- **Frequency** — how many distinct accounts/meetings feature this segment (`find_sources` by `attendee_domain`).
+- **Intensity** — how burning the pain reads in their quotes (quote-angled `search`, filters-only `search`).
 The segment with the most people showing up, most strongly, is your demand-density front-runner — it earns the burden of proof, not an automatic win.
 
 ### Step 2 — Score the front-runners on four criteria

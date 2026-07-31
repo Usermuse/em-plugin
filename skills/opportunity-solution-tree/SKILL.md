@@ -24,11 +24,15 @@ Structure discovery the Teresa Torres way: one measurable **outcome** at the top
 Confirm this is discovery structuring and Evermuse is connected (see `using-evermuse` Step 0). If disconnected, you can sketch the tree's skeleton but every opportunity is unverified — label the whole thing **⚠ ungrounded** and tell the user to authorize the MCP.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify product. Run **2–4 `evidence` searches** around the outcome and its likely opportunity space (the pain, the workaround, the moment of friction). Use `find_supporting_quotes(topic, limit: 8–10)` — this is what fills the opportunity level with real voice. `get_notes(note_types:[need,problem])` helps enumerate opportunities.
-- **Work:** build the four-level tree below.
-- **Cite:** every opportunity node has a quote + linked-number badge, cited inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL); unsupported nodes are flagged.
-- **Save:** `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","ost","discovery","<topic>"])` after confirmation.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## The tree (4 levels)
 

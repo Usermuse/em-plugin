@@ -1,7 +1,7 @@
 <!-- Adapted from phuryn/pm-skills (MIT), Working-Backwards / Amazon PR-FAQ — extended with an Evermuse real-quote layer. -->
 # Working-Backwards Press Release + FAQ
 
-Write the announcement **as if the feature already shipped**, to force clarity on the customer benefit before any build. Every customer quote below must be a **real, attributed quote** pulled via `find_supporting_quotes` — never an invented testimonial. If no real quote fits a slot, leave it blank and note the gap rather than fabricating one.
+Write the announcement **as if the feature already shipped**, to force clarity on the customer benefit before any build. Every customer quote below must be a **real, attributed quote** pulled via a quote-angled `search` — never an invented testimonial. If no real quote fits a slot, leave it blank and note the gap rather than fabricating one.
 
 ---
 

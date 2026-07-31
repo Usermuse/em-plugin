@@ -24,11 +24,15 @@ Produce a go-to-market strategy — target segment, messaging, channel/motion mi
 Confirm this is a launch / go-to-market task and Evermuse is connected. If the tools aren't present, produce a framework-only GTM plan labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md` Step 0.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify the product (`get_products`/`switch_product`). Then run **2–3 `evidence` searches** for the pains and desired outcomes that drive messaging ("biggest pain the product relieves", "outcome customers want", "why they chose / almost didn't"), **1 `context` search** for the competitive/market landscape ("alternatives customers compare us to", "market shifts"), and **1 `guidance` search** for any existing launch/positioning direction so you extend it. Pull verbatim voice with `find_supporting_quotes(topic, limit: 6–8)`. Use `get_meetings(attendee_domain)` to see which segments show up most in the corpus when the target segment is unsettled.
-- **Work:** fill the strategy below. The **target segment** is where evidence shows the strongest, most-repeated pain; **messaging** is written in the customer's own words (each message maps to a quote); **channel/motion choice** is grounded in where evidence shows these customers actually discover and buy tools like ours.
-- **Cite:** every segment, message, and channel rationale carries a linked-number badge (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`). Keep `evidence` (customer voice) separate from `context` (market) in the output.
-- **Save (nature=guidance):** after the user confirms, `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","gtm","go-to-market"])`.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 

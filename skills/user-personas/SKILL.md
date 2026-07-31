@@ -24,19 +24,24 @@ Produce 3 personas that a skeptical stakeholder can't dismiss as made up — bec
 Confirm this is user/customer profiling work and Evermuse is connected (see `using-evermuse` Step 0). If the MCP isn't connected, produce framework-only personas labeled **⚠ ungrounded — Evermuse not connected** and tell the user to authorize the MCP. Never present invented archetypes as research-backed.
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For this skill:
-- **Ground:** verify the product (`get_products`/`switch_product`). Find out **who actually exists** before inventing anyone: `get_meetings(attendee_domain: "<customer-domain>")` (and/or `get_meetings(title_keyword: "interview")`) to see the real people and accounts in the corpus. Then run **2–3 `evidence` searches** per emerging cluster, worded around behavior and goals ("<workflow> how they do it today", "why they <goal>", "frustration with <task>"). Pull the voice with `find_supporting_quotes(topic, limit: 4–6)` for each persona.
-- **Work:** cluster the real people into 3 distinct personas by shared job-to-be-done and behavior — never by demographics alone (see Instructions).
-- **Cite:** every pain, gain, and the quote block carries an inline linked-number badge. Cite every customer-derived claim inline per `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md` — a linked-number code badge [`1`](URL). Attribute the verbatim quotes to the real speaker, meeting, and date.
-- **Save:** `add_source(nature: "evidence", source_type: "document", tags: ["evermuse-plugin","personas","<product-slug>"])` after the user confirms.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
+
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+- **one `find_sources` browse** (no `query`, `limit` up to 50) to map who actually exists in the corpus — the attendees, accounts, and domains across sources. Personas are composites of these real people; this call is the raw material for Instructions step 1.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
 Build **3 refined personas for $ARGUMENTS**, grounded entirely in the corpus.
 
-1. **Map who's really there.** From `get_meetings`, list the distinct people/accounts. This is your raw material — personas are composites of these real users, not personas you'd expect the market to have.
+1. **Map who's really there.** From `find_sources`, list the distinct people/accounts. This is your raw material — personas are composites of these real users, not personas you'd expect the market to have.
 2. **Cluster by job and behavior.** Group the real people by shared jobs-to-be-done, workflows, and motivations. Distinct *needs*, not distinct age brackets. Aim for 3 non-overlapping personas; if the corpus only supports 2, say so rather than padding.
-3. **Enrich each persona from evidence**, using the structure below. Where the source method would reach for a survey or "if the user provides data", reach for `evidence` searches and `find_supporting_quotes` instead.
+3. **Enrich each persona from evidence**, using the structure below. Where the source method would reach for a survey or "if the user provides data", reach for `evidence` searches and a quote-angled `search` instead.
 4. **Validate.** Every attribute must trace to something a real person said or did. Flag any trait you're inferring vs. one that's directly evidenced.
 
 ### Persona structure (each of the 3)

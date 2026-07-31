@@ -2,16 +2,16 @@
 
 How to get sharp, grounded results out of Evermuse without burning credits or drowning in the payload.
 
-## Triangulate: 2–4 searches, worded differently
+## The grounding batch: evidence × 3–4, plus guidance and context
 
-One search finds one facet. Real grounding comes from attacking the topic from several angles. For a feature or topic, run searches like:
+One search finds one facet. Real grounding comes from attacking the topic from several angles in one parallel batch. Word the evidence angles like:
 
 1. **The literal ask** — the user's own phrasing ("bulk export to CSV").
 2. **The underlying pain** — the problem behind it ("manual re-keying of data / copy-paste into spreadsheets").
 3. **The adjacent workflow** — where it lives ("end-of-month reporting", "handoff to finance").
 4. **The objection / negative** — friction and complaints ("export is broken / missing columns / too slow").
 
-Different wording surfaces different items because retrieval is by vector similarity. Stop at 2–4; more than that rarely adds signal and costs credits.
+Run **3–4 of these as `evidence` searches** (`limit` up to 50 each), plus **one `guidance`** and **one `context`** search. Different wording surfaces different items because retrieval is by vector similarity. Evidence comes back rich and varied — often large. Guidance and context are usually sparse or empty; run them anyway so you know. This whole batch is the required grounding; nothing beyond it is mandatory.
 
 ## Declare the nature you want
 
@@ -40,27 +40,29 @@ Every `search` response opens with a **digest** — a server-computed summary of
 
 Use it. Counting items yourself across a long JSON payload is slower and less accurate than reading the number the server already computed.
 
-## Paginate deliberately
+## Paginate on judgment, not reflex
 
-`search` accepts `limit` (default 50, max 100) and `offset` (default 0).
+`search` accepts `limit` (default 50, max 100) and `offset` (default 0). Ground with `limit` up to 50; then let the **digest decide** whether to go deeper.
 
-- The first page holds the strongest matches. For most questions it is enough — the digest tells you what you're missing, so you can decide rather than guess.
-- To go deeper, pass the digest's `next_offset` as your next `offset`. It reflects what was **actually** returned, so following it never skips an item.
+- The first page holds the strongest matches. The digest tells you how many more exist — so you can judge, not guess, whether the tail is worth pulling.
+- To go deeper, raise `limit` (toward the 100 max) and/or pass the digest's `next_offset` as your next `offset`. `next_offset` reflects what was **actually** returned, so following it never skips or repeats an item.
 - `next_offset: null` means you've reached the end.
+- Weigh the pull against payload size, remaining context, task complexity, and the value of the data. Rich evidence on a high-stakes deliverable is worth several pages; a quick sanity check is not.
+- For large pulls, consider spawning a sub-agent to page through and return the distilled findings — instruct it to carry each citation's tool metadata (`url`, `who_said_it`, `meeting_name`, `created_at`) back so you can still cite.
 - Each call re-runs the search, so ordering can shift slightly if new data lands between pages. Harmless in practice; don't rely on offsets across a long session.
 - `size_capped: true` means a rare, very large page was trimmed to fit a response-size limit. The trimmed items aren't lost — they're at `next_offset`.
 
-Pull more pages when you genuinely need the tail (an exhaustive audit, a rare edge case). For "what do customers think about X", page 1 plus the digest is usually the whole answer.
+## Quotes: angle the search at verbatim voice
 
-## Quotes: use the right tool
-
-To *show* the customer's voice, call `find_supporting_quotes(topic, limit: 6-8)` — it's smaller and richer than `search` and returns speaker + meeting + sentiment ready to cite. Use `search` to *map the landscape* (what themes/needs exist); use `find_supporting_quotes` to *pull the pull-quotes*.
+There is no separate quotes tool. To *show* the customer's voice, run a `search` whose `search_query` is worded for verbatim reactions (e.g. "what customers said about X", "how they described the frustration") and keep the `quote`-type items — each carries speaker + meeting + sentiment, ready to cite. Use one search to *map the landscape* (what themes/needs exist) and a quote-angled one to *pull the pull-quotes*.
 
 ## Filtering instead of searching
 
-When the question is about a **type** or a **time window**, `get_notes` beats `search`:
-- All needs mentioned in one meeting → `get_notes(meeting_id, note_types:["need"])`.
-- Sentiment shift this quarter → `get_notes(date_from, date_to, note_types:["feedback","problem"])`.
+When the question is about a **type** or a **time window** rather than semantics, use `search` in **filters-only mode** — omit `search_query` and pass filters. Results come back recency-ordered (newest first), no relevance score:
+- All needs from one source → `search(meeting_id: "<id>", note_types: ["need"])`.
+- Sentiment shift this quarter → `search(date_from, date_to, note_types: ["feedback","problem"])`.
+
+(`note_types` only applies in filters-only mode; it's ignored when you pass a `search_query`.)
 
 ## The canonical result shape
 

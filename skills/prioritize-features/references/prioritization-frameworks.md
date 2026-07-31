@@ -3,7 +3,7 @@
 
 Select and apply the right framework. **Core principle:** never allow customers to design solutions — prioritize **problems (opportunities)**, not features.
 
-**Evermuse note:** the point of grounding is that the numbers below stop being guesses. **Reach** = distinct accounts that actually asked (from `find_supporting_quotes` / `get_notes` counts). **Importance** and **Satisfaction** are read off what the corpus says — high demand + loud dissatisfaction = high Opportunity Score. Feed real counts in; cite them.
+**Evermuse note:** the point of grounding is that the numbers below stop being guesses. **Reach** = distinct accounts that actually asked (from quote-angled and filters-only `search` counts). **Importance** and **Satisfaction** are read off what the corpus says — high demand + loud dissatisfaction = high Opportunity Score. Feed real counts in; cite them.
 
 ## Opportunity Score (Dan Olsen, *The Lean Product Playbook*) — recommended for problems
 

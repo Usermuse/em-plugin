@@ -24,12 +24,15 @@ Turn tickets/PRDs/git logs for $ARGUMENTS into polished, user-facing release not
 Confirm these are customer-facing changes and Evermuse is present. If the MCP isn't connected, produce the notes from the raw material but label them **⚠ ungrounded** (no "you asked" attribution) and tell the user to authorize the MCP. (See `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`, Step 0.)
 
 ## Evermuse Grounding (required)
-Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For release notes:
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
-- **Ground.** Verify the product (Rule 1). For **each shipped item**, run `find_supporting_quotes(topic, limit: 3)` and `get_notes(keyword, note_types: ["need","feedback"])` to find who requested it and count requesting accounts. Keep searches tight — one pass per notable item, skip minor fixes (credits — Rule 7).
-- **Work.** Categorize changes and write user-benefit-first entries, attaching the "who asked" layer.
-- **Cite.** Internal version: each entry badges its requester quotes with an inline linked-number badge [`1`](URL). External version: aggregate to a count, no names. There is no Sources footer — the links live inline (see `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/references/citations.md`).
-- **Save.** After confirmation, `add_source(nature: "guidance", source_type: "document", title: "Release notes — <version>", tags: ["evermuse-plugin","release-notes"])`. Release notes are outbound company communication → **guidance**.
+**Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
+- **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
+- **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
+
+Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
+
+**Optional — considered use.** Once grounded, reach for the other tools only when they add value: a quote-angled `search` for verbatim voice, `read_source` for a single deep dive, inline citations (`references/citations.md`), and `add_source` to save the deliverable. Sources, citations, and saving are optional — not required.
 
 ## Instructions
 
@@ -37,7 +40,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`. For release notes
 2. **Categorize:** New Features · Improvements · Bug Fixes · Breaking Changes (action required) · Deprecations.
 3. **Write benefit-first, jargon-free.** 1–3 sentences per entry; lead with the user outcome, not the technical change. (e.g. "Dashboards load 3× faster" not "added Redis caching layer".)
 4. **Add the "You asked, we built" layer per item:**
-   - `find_supporting_quotes` + `get_notes` on the item's topic → the customers who asked.
+   - a quote-angled `search` + an `evidence` `search` on the item's topic → the customers who asked.
    - **Internal cut:** quote 1–2 requesters verbatim, attributed and cited. [`1`](URL)
    - **External cut:** aggregate to a number — "Requested by 12 accounts" — no names or quotes.
    - If nothing in the corpus maps to an item, ship it plainly (don't invent a requester).
