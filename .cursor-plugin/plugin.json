@@ -1,0 +1,25 @@
+{
+  "name": "evermuse",
+  "version": "0.1.0",
+  "description": "Product-management skills grounded in real customer evidence. Feature specs, dev plans, customer research, gap analysis and PR reviews backed by verbatim customer quotes with source links, via the Evermuse MCP.",
+  "author": {
+    "name": "Evermuse",
+    "email": "support@evermuse.com"
+  },
+  "homepage": "https://evermuse.com",
+  "repository": "https://github.com/Usermuse/em-plugin",
+  "license": "MIT",
+  "keywords": [
+    "product-management",
+    "customer-evidence",
+    "voice-of-customer",
+    "feature-spec",
+    "product-research",
+    "evermuse",
+    "spec-driven-development"
+  ],
+  "logo": "logomark.svg",
+  "skills": "skills",
+  "commands": [],
+  "mcpServers": "mcp.json"
+}
