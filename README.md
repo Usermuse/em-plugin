@@ -41,10 +41,23 @@ server with a one-click deeplink:
 
 [Add Evermuse to Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=evermuse&config=eyJ1cmwiOiJodHRwczovL2FwaS5ldmVybXVzZS5jb20vYXBpL21jcCJ9)
 
-The Cursor plugin ships the **skills** and the **MCP server**. The `/evermuse:*` slash
-commands are Claude Code only — Cursor commands are plain Markdown without frontmatter, so
-the command files here aren't portable. You lose nothing important: the skills auto-activate
-from plain-language requests in Cursor exactly as they do in Claude Code.
+The Cursor plugin ships the **skills** and the **MCP server**.
+
+**How invocation differs between the two clients.** In Claude Code, skills auto-activate — you
+describe the task in plain language and the right skill fires. **Cursor works differently:
+skills are invoked explicitly**, by typing `/skill-name` in chat or `@skill-name` to attach one
+as context. So in Cursor the skill name *is* the command:
+
+| Claude Code | Cursor |
+|---|---|
+| `/evermuse:spec <feature>` | `/write-feature-spec` |
+| `/evermuse:research <question>` | `/customer-research` |
+| "write a spec for bulk CSV export" *(auto-activates)* | `/write-feature-spec` *(explicit)* |
+
+The `/evermuse:*` commands in `commands/` are Claude Code only — Cursor commands are plain
+Markdown with no frontmatter and no `$ARGUMENTS` interpolation, so those files aren't portable
+and the Cursor manifest excludes them. Every capability is still reachable in Cursor under its
+skill name; what you give up is the short alias and the curated flagship menu.
 
 ## Authenticate the MCP
 
