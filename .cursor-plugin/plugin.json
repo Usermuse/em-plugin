@@ -20,6 +20,6 @@
   ],
   "logo": "logomark.svg",
   "skills": "skills",
-  "commands": [],
+  "commands": "cursor-commands",
   "mcpServers": "mcp.json"
 }

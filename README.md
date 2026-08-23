@@ -54,10 +54,22 @@ as context. So in Cursor the skill name *is* the command:
 | `/evermuse:research <question>` | `/customer-research` |
 | "write a spec for bulk CSV export" *(auto-activates)* | `/write-feature-spec` *(explicit)* |
 
-The `/evermuse:*` commands in `commands/` are Claude Code only — Cursor commands are plain
-Markdown with no frontmatter and no `$ARGUMENTS` interpolation, so those files aren't portable
-and the Cursor manifest excludes them. Every capability is still reachable in Cursor under its
-skill name; what you give up is the short alias and the curated flagship menu.
+Because Cursor won't auto-fire a skill, the short aliases matter more there, not less — so
+Cursor gets its own command layer in `cursor-commands/`:
+
+```
+/spec        /dev-plan     /research     /setup      /save
+/discover    /brainstorm   /pricing      /strategy   /plan-launch    …28 in total
+```
+
+These are **plain Markdown with no frontmatter** — Cursor's format. The Claude versions in
+`commands/` use YAML frontmatter and `$ARGUMENTS`, neither of which Cursor supports, so the two
+directories are kept separate and each client reads its own.
+
+Six Claude commands are deliberately **not** duplicated — `business-model`, `gap-analysis`,
+`release-notes`, `review-pr`, `test-scenarios` and `value-proposition` share a name with a skill
+that already does the same job, so in Cursor you invoke those as `/gap-analysis` etc. directly
+and a duplicate command would only make the `/` list ambiguous.
 
 ## Authenticate the MCP
 
@@ -91,7 +103,13 @@ Every skill follows **Ground → Work → Cite → Save**:
 
 The full doctrine lives in the `using-evermuse` skill, which every other skill defers to.
 
-## Commands *(Claude Code only)*
+## Commands
+
+**Cursor** — 28 plain-Markdown commands in `cursor-commands/`. Same short names as below, without
+the `evermuse:` prefix (`/spec`, `/dev-plan`, `/research`). The six that duplicate a skill name are
+omitted; invoke those as `/gap-analysis`, `/review-pr` etc. directly.
+
+**Claude Code** — the `/evermuse:*` commands in `commands/`, listed here:
 
 Flagship: `/evermuse:setup` · `spec` · `dev-plan` · `gap-analysis` · `review-pr` · `research` · `release-notes` · `save`
 
