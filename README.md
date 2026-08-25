@@ -1,8 +1,8 @@
-# Evermuse for Claude Code
+# Evermuse for Claude Code and Cursor
 
 **Make your AI agent speak with the voice of your customers.**
 
-Evermuse is a Claude Code plugin that turns everyday product work — specs, dev plans, research, roadmaps, gap analyses, PR reviews — into deliverables grounded in **real customer evidence**. Instead of plausible-sounding generic answers, you get verbatim quotes, real needs, and actual pain points, each with a source link back to the conversation it came from. And the important things you produce get saved back into Evermuse, so your knowledge base compounds.
+Evermuse is a plugin for **Claude Code** and **Cursor** that turns everyday product work — specs, dev plans, research, roadmaps, gap analyses, PR reviews — into deliverables grounded in **real customer evidence**. Instead of plausible-sounding generic answers, you get verbatim quotes, real needs, and actual pain points, each with a source link back to the conversation it came from. And the important things you produce get saved back into Evermuse, so your knowledge base compounds.
 
 It combines proven PM/research methods (adapted from [pm-skills](https://github.com/phuryn/pm-skills)) and spec-driven-development discipline (adapted from [spec-kit](https://github.com/github/spec-kit)) with the [Evermuse MCP](https://evermuse.com), which searches your recorded calls, interviews, and feedback.
 
@@ -19,6 +19,8 @@ Every spec gets a Customer Evidence section. Every dev plan opens with the custo
 
 ## Install
 
+### Claude Code
+
 ```bash
 # Add this repo as a plugin marketplace, then install the plugin
 claude plugin marketplace add Usermuse/em-plugin
@@ -32,12 +34,51 @@ claude plugin marketplace add /path/to/em-plugin
 claude plugin install evermuse@evermuse
 ```
 
+### Cursor
+
+Install from the [Cursor Marketplace](https://cursor.com/marketplace), or add just the MCP
+server with a one-click deeplink:
+
+[Add Evermuse to Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=evermuse&config=eyJ1cmwiOiJodHRwczovL2FwaS5ldmVybXVzZS5jb20vYXBpL21jcCJ9)
+
+The Cursor plugin ships the **skills** and the **MCP server**.
+
+**How invocation differs between the two clients.** In Claude Code, skills auto-activate — you
+describe the task in plain language and the right skill fires. **Cursor works differently:
+skills are invoked explicitly**, by typing `/skill-name` in chat or `@skill-name` to attach one
+as context. So in Cursor the skill name *is* the command:
+
+| Claude Code | Cursor |
+|---|---|
+| `/evermuse:spec <feature>` | `/write-feature-spec` |
+| `/evermuse:research <question>` | `/customer-research` |
+| "write a spec for bulk CSV export" *(auto-activates)* | `/write-feature-spec` *(explicit)* |
+
+Because Cursor won't auto-fire a skill, the short aliases matter more there, not less — so
+Cursor gets its own command layer in `cursor-commands/`:
+
+```
+/spec        /dev-plan     /research     /setup      /save
+/discover    /brainstorm   /pricing      /strategy   /plan-launch    …28 in total
+```
+
+These are **plain Markdown with no frontmatter** — Cursor's format. The Claude versions in
+`commands/` use YAML frontmatter and `$ARGUMENTS`, neither of which Cursor supports, so the two
+directories are kept separate and each client reads its own.
+
+Six Claude commands are deliberately **not** duplicated — `business-model`, `gap-analysis`,
+`release-notes`, `review-pr`, `test-scenarios` and `value-proposition` share a name with a skill
+that already does the same job, so in Cursor you invoke those as `/gap-analysis` etc. directly
+and a duplicate command would only make the `/` list ambiguous.
+
 ## Authenticate the MCP
 
 The plugin bundles the Evermuse MCP server (`https://api.evermuse.com/api/mcp`). Before the skills can ground anything, connect it:
 
-- **OAuth (recommended):** run `/mcp` in an interactive Claude Code session and authorize **evermuse**.
-- **API key:** add an `Authorization` header for the `evermuse` server in your MCP settings.
+- **Claude Code — OAuth (recommended):** run `/mcp` in an interactive session and authorize **evermuse**.
+- **Cursor — OAuth:** open Settings → MCP and authorize **evermuse**. Cursor registers itself
+  dynamically (DCR), so there's no client ID to configure.
+- **API key (either client):** add an `Authorization` header for the `evermuse` server in your MCP settings.
 
 Then run **`/evermuse:setup`** to pick your Product and confirm grounding works. (A **Product** is required for every Evermuse call; a **Project** like Discovery/Support/Sales is optional and only needed when you're focused on one research effort.)
 
@@ -63,6 +104,12 @@ Every skill follows **Ground → Work → Cite → Save**:
 The full doctrine lives in the `using-evermuse` skill, which every other skill defers to.
 
 ## Commands
+
+**Cursor** — 28 plain-Markdown commands in `cursor-commands/`. Same short names as below, without
+the `evermuse:` prefix (`/spec`, `/dev-plan`, `/research`). The six that duplicate a skill name are
+omitted; invoke those as `/gap-analysis`, `/review-pr` etc. directly.
+
+**Claude Code** — the `/evermuse:*` commands in `commands/`, listed here:
 
 Flagship: `/evermuse:setup` · `spec` · `dev-plan` · `gap-analysis` · `review-pr` · `research` · `release-notes` · `save`
 

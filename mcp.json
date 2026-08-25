@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "evermuse": {
+      "url": "https://api.evermuse.com/api/mcp"
+    }
+  }
+}
