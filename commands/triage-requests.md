@@ -5,4 +5,4 @@ argument-hint: "[paste requests, or a topic/time window]"
 
 # /evermuse:triage-requests
 
-Invoke the **analyze-feature-requests** skill with `$ARGUMENTS`. Pull requests via get_notes(note_types:[need,feedback]) plus evidence searches, cluster into themes, distinguish requests from underlying needs, and rank by demand strength.
+Invoke the **analyze-feature-requests** skill with `$ARGUMENTS`. Pull requests via `search(note_types: [need, feedback])` plus evidence searches, cluster into themes, distinguish requests from underlying needs, and rank by demand strength.

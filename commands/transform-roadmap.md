@@ -5,4 +5,4 @@ argument-hint: "[paste roadmap or feature list]"
 
 # /evermuse:transform-roadmap
 
-Invoke the **outcome-roadmap** skill with `$ARGUMENTS`. Each outcome lane cites demand evidence; see_updated_roadmap is a labeled AI-generated cross-check only.
+Invoke the **outcome-roadmap** skill with `$ARGUMENTS`. Each outcome lane cites demand evidence; `get_opportunities` is a labeled AI-generated cross-check only.

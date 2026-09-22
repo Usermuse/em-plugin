@@ -5,4 +5,4 @@ argument-hint: "[version or diff range]"
 
 # /evermuse:release-notes
 
-Invoke the **release-notes** skill with `$ARGUMENTS`. For each shipped item, find the customers who asked (find_supporting_quotes / get_notes), tie the note to their voice, and flag follow-up opportunities (optionally notify via the Intercom/email bridge if available). Save to Evermuse (nature=guidance).
+Invoke the **release-notes** skill with `$ARGUMENTS`. For each shipped item, find the customers who asked (`search`, nature=evidence), tie the note to their voice, and flag follow-up opportunities. Save to Evermuse (nature=guidance).

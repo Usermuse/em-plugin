@@ -1,3 +1,8 @@
+---
+name: dev-plan
+description: Create a development plan that starts from what customers actually requested — quotes and demand evidence in the plan, plus spec-driven phasing and a dependency-ordered task list
+---
+
 Use the **development-plan** skill to build a development plan that starts from what customers actually asked for.
 
 If the input points to an existing `specs/<feature>/spec.md` or a matching Evermuse shaping note, inherit its evidence. Otherwise run a light grounding pass first, or offer `/spec`.

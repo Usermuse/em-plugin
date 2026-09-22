@@ -5,4 +5,4 @@ argument-hint: "<product or segment>"
 
 # /evermuse:value-proposition
 
-Invoke the **value-proposition** skill with `$ARGUMENTS`. Pains/gains come from find_supporting_quotes verbatim; statements reuse customer phrasing.
+Invoke the **value-proposition** skill with `$ARGUMENTS`. Pains/gains come from `search` (nature=evidence) verbatim; statements reuse customer phrasing.
