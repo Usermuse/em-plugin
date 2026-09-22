@@ -42,7 +42,7 @@ Lead with the answer, then themes with quote blocks:
 **Short answer:** [1–2 sentences that directly answer the topic they raised.]
 
 ### Theme 1 — [name] ([N mentions / M accounts], mostly [sentiment])
-> "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](https://www.evermuse.com/pricing-mcp)
+> "[verbatim quote]" — [Name], [Meeting], [Date] [`1`](URL)
 [one line of interpretation]
 
 ### Theme 2 — …

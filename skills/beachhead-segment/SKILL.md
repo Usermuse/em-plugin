@@ -41,7 +41,7 @@ You are choosing the beachhead for **$ARGUMENTS**. Where the source method reach
 
 ### Step 1 — Read demand density from the corpus
 List the candidate segments (verticals, company sizes, roles, use cases). For each, gauge presence in the evidence:
-- **Frequency** — how many distinct accounts/meetings feature this segment (`find_sources` by `attendee_domain`).
+- **Frequency** — how many distinct accounts/meetings feature this segment (`find_sources` by `attendee_domain`, which matches transcript participants as well as calendar invitees).
 - **Intensity** — how burning the pain reads in their quotes (quote-angled `search`, filters-only `search`).
 The segment with the most people showing up, most strongly, is your demand-density front-runner — it earns the burden of proof, not an automatic win.
 

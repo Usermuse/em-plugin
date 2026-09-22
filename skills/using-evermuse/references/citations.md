@@ -69,6 +69,10 @@ Some results won't carry a `url` yet. Keep everything except the link and citati
 
 Never fabricate a URL to fill the gap. This is a best-effort to provide real grounding for teams to build trust in your conclusions.
 
+## Legacy local-mode tokens: convert them to links
+
+Deliverables written while this workspace stored its data locally cite with **id tokens** instead of links: `` `evermuse:s:<id>` ``, `` `evermuse:m:<id>` ``, `` `evermuse:d:<id>` ``. The letters are this workspace's own short-link paths, and the ids survived the upgrade — so whenever you quote from, revise, or build on a document carrying these tokens, upgrade them to real badges: `evermuse:<letter>:<id>` becomes `` [`n`](https://<workspace-origin>/<letter>/<id>) ``, numbered like any other citation. Take the origin from any `url` a current tool result carries — never guess it. A token whose link turns out not to resolve (rare: its source lost an import dedup race) falls back to the attribution prose beside it, which is why the tokens always travel with attribution.
+
 ## What not to cite as customer voice
 
 Shaping notes, research questions, the competitor list, and the updated roadmap are internal/AI-generated assets. If you reference them, label them as such ("per the team's draft roadmap (AI-generated)") — never dress them up as a customer quote.

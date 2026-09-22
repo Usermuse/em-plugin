@@ -11,7 +11,32 @@ One search finds one facet. Real grounding comes from attacking the topic from s
 3. **The adjacent workflow** — where it lives ("end-of-month reporting", "handoff to finance").
 4. **The objection / negative** — friction and complaints ("export is broken / missing columns / too slow").
 
-Run **3–4 of these as `evidence` searches** (`limit` up to 50 each), plus **one `guidance`** and **one `context`** search. Different wording surfaces different items because retrieval is by vector similarity. Evidence comes back rich and varied — often large. Guidance and context are usually sparse or empty; run them anyway so you know. This whole batch is the required grounding; nothing beyond it is mandatory.
+Run **3–4 of these as `evidence` searches** (`limit` up to 50 each), plus **one `guidance`** and **one `context`** search. Evidence comes back rich and varied — often large. Guidance and context are usually sparse or empty; run them anyway so you know. This whole batch is the required grounding; nothing beyond it is mandatory.
+
+### Wording is not diversity — filters are
+
+The four angles are worth writing, but do not expect them to do the heavy lifting. Retrieval is vector similarity over one corpus, and four paraphrases of the same question land on nearly the same neighbourhood: in practice the pools come back ~80% identical. Rewording a fifth time buys almost nothing.
+
+What actually widens the net is varying the **axis**, not the phrasing. Two levers work alongside a `search_query`:
+
+- **`nature`** — the primary split (`evidence` / `context` / `guidance`). Three genuinely different corpora, and the single biggest lever you have.
+- **`customer_tags`** — the same question asked of Tier 1 accounts, then of everyone else.
+
+The other two need you to **drop `search_query`** and run a filters-only listing instead — `note_types`, `meeting_id` and `date_from`/`date_to` are only honored there, and are ignored when a `search_query` is present (see "Filtering instead of searching" below):
+
+- **`note_types`** — list `quote`, then `need`, then `problem`. An item's type is a real property of it, not a wording accident.
+- **date windows** — `date_from`/`date_to` on this quarter, then the one before. Semantic mode has no date window of its own, so this is the only way to be sure an older period is represented rather than simply out-ranked.
+
+A filters-only listing is recency-ordered rather than relevance-ranked, which is exactly why it reaches items no phrasing would ever have surfaced.
+
+### Read the overlap before you search again
+
+Every digest reports the top clusters and the top speakers **over the whole result set**. Compare them across the batch:
+
+- **Different clusters, different speakers** → the angles are doing real work; another angle may be worth it.
+- **Same top clusters and the same top speakers in two or more searches** → the pools have converged. Another rewording will return the same items a sixth time. **Stop searching and go deeper**: `view_item` on the members of the fattest cluster, or `find_sources` → `read_source` on the conversations those speakers appear in.
+
+Depth beats breadth once the pools converge, and it is also cheaper — each extra search is another billed call returning items you already hold.
 
 ## Declare the nature you want
 
@@ -21,7 +46,7 @@ Run **3–4 of these as `evidence` searches** (`limit` up to 50 each), plus **on
 | Market, competitors, news | `context` | "competitor pricing for bulk export" |
 | Company strategy/objectives/values | `guidance` | "our stated goals for the reporting area" |
 
-Set `nature` per search so the sets stay clean. Because the param can be silently dropped, **also** triage what comes back by each item's `type` — keep `quote`/`need`/`feedback`/`pain_point` (evidence) apart from competitor/news items (context).
+Set `nature` per search so the sets stay clean — it is also the single biggest lever you have on result diversity. It is applied server-side, before the vector search, so an empty filtered result is a real answer rather than a dropped parameter — and when a filtered search does come back empty the digest tells you how many candidates the same query matched *without* the filter. **Also** triage what comes back by each item's `type` — keep `quote`/`need`/`feedback`/`pain_point` (evidence) apart from competitor/news items (context).
 
 ## Results are ranked by relevance, not by type
 
@@ -35,7 +60,8 @@ Every `search` response opens with a **digest** — a server-computed summary of
 - **Cluster headlines** — recurring themes, each sized by the full dataset (`total_items`) and the meetings it spans. This is the algorithm's own pattern detection; it is usually the fastest route to "what are customers actually saying".
 - **Distinct meetings and speakers**, plus the top speakers by mention count — the raw material for "7 mentions across 5 accounts" claims, already tallied.
 - **Date range** of the results.
-- **Nature split**, when natures are stamped and you didn't filter to one.
+- **Nature split**, when you didn't filter to one nature.
+- **Nature-filter diagnostic**, on the one case that needs it: a `nature`-filtered search that came back empty. It reports how many candidates the same query matched *without* the filter, so "the filter emptied this result" and "the workspace holds nothing on this query" are never confused. When it says the unfiltered query found candidates, re-run without `nature` and triage by `type`.
 - **Pagination state** — how many you're holding, how many exist, and the `next_offset` to ask for.
 
 Use it. Counting items yourself across a long JSON payload is slower and less accurate than reading the number the server already computed.
@@ -74,7 +100,7 @@ Each item in `data`:
   url?,                      // deep link — cite with this
   who_said_it?, meeting_id?, meeting_name?, meeting_type?, project_name?,
   original_transcript_segment?,
-  nature?,                   // only when the workspace has the labs flag on
+  nature?,                   // 'evidence' | 'context' | 'guidance'
   is_cluster?, total_items?, meetings_count?, children?[]
 }
 ```

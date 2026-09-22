@@ -27,7 +27,7 @@ Confirm the user means a specific conversation (not "what do customers think abo
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 
 **Required — locate, then read (this skill is serial, not a corpus batch).** Verify the product (Rule 1), then:
-1. **`find_sources`** to locate the one conversation (filter by `title_keyword`, `attendee_email`/`attendee_domain`, or date; or `query` if the user described it by topic). If more than one plausible match, confirm which meeting with the user before reading.
+1. **`find_sources`** to locate the one conversation (filter by `title_keyword`, `participant` (a person's name or email), `attendee_email`/`attendee_domain`, or date; or `query` if the user described it by topic). If more than one plausible match, confirm which meeting with the user before reading.
 2. **`read_source`** on that source and read it fully before writing — page with `offset`/`next_offset` until `has_more` is false. The transcript IS the grounding for this skill.
 
 Do **not** run the multi-search corpus batch here — that's for research skills across many calls (`/evermuse:customer-research`). One conversation in, one summary out.

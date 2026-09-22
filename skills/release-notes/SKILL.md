@@ -44,7 +44,8 @@ Read each response's **digest** — it reports how many more results exist. Use 
    - **Internal cut:** quote 1–2 requesters verbatim, attributed and cited. [`1`](URL)
    - **External cut:** aggregate to a number — "Requested by 12 accounts" — no names or quotes.
    - If nothing in the corpus maps to an item, ship it plainly (don't invent a requester).
-5. **Flag follow-up opportunities (optional).** For high-demand items, offer to notify the specific requesters that their ask shipped. This uses the third-party bridge: `find_tool` → `call_tool` to reach **Intercom / email**. **Degrade gracefully** — if the bridge is blocked or unauthenticated, produce a ready-to-send draft + the requester list instead, and tell the user the channel needs authorizing (see `third-party-bridge.md`). Never send without explicit user go-ahead.
+5. **Flag follow-up opportunities (optional).** For high-demand items, offer to notify the specific requesters that their ask shipped, with a ready-to-send draft + the requester list.
+   Never send without explicit user go-ahead.
 6. **Match the product's voice** — B2B professional, consumer friendly, or developer-focused.
 
 ## Output
