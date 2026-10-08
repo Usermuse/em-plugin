@@ -1,0 +1,47 @@
+{
+  "name": "evermuse",
+  "version": "0.2.0",
+  "description": "Product-management skills grounded in real customer evidence. Feature specs, dev plans, customer research, gap analysis, and PR reviews backed by verbatim customer quotes with source links via the Evermuse MCP.",
+  "author": {
+    "name": "Evermuse",
+    "email": "support@evermuse.com",
+    "url": "https://www.evermuse.com"
+  },
+  "homepage": "https://www.evermuse.com/mcp",
+  "repository": "https://github.com/Usermuse/em-plugin",
+  "license": "MIT",
+  "keywords": [
+    "product-management",
+    "customer-evidence",
+    "voice-of-customer",
+    "user-research",
+    "feature-spec",
+    "evermuse"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Evermuse",
+    "shortDescription": "Agentic user research at scale",
+    "longDescription": "Evermuse connects to the customer conversations in your Evermuse workspace (interviews, calls, support tickets and feedback) and turns them into evidence-backed product work. Research what customers need, then write specs, PRDs, roadmaps and competitive analyses that cite verbatim customer quotes with links back to the source.",
+    "developerName": "Evermuse",
+    "category": "Data & Analytics",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://www.evermuse.com/mcp",
+    "supportURL": "https://www.evermuse.com/help",
+    "privacyPolicyURL": "https://www.evermuse.com/privacy-policy",
+    "termsOfServiceURL": "https://www.evermuse.com/tos",
+    "defaultPrompt": [
+      "What are customers asking for most this quarter?",
+      "Write a feature spec backed by customer quotes.",
+      "Summarize the top complaints from recent customer calls."
+    ],
+    "brandColor": "#FF4A8E",
+    "composerIcon": "./assets/composer-icon.png",
+    "logo": "./assets/logo.png"
+  }
+}
