@@ -29,7 +29,7 @@ Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.
 **Required — one parallel batch of searches.** Verify the product (Rule 1), then fire in a single parallel batch:
 - **3–4 `evidence` searches**, each worded from a different angle (`limit` up to 50). Evidence comes back rich and varied — expect large, useful result sets.
 - **one `guidance` search** and **one `context` search** (`limit` up to 50). These are usually sparse or empty; run them anyway and note when they're thin.
-- **one `find_sources` browse** (no `query`, `limit` up to 50) to map who actually exists in the corpus — the attendees, accounts, and domains across sources. Personas are composites of these real people; this call is the raw material for Instructions step 1.
+- **one `find_sources` browse** (no `query`, `limit` up to 50) to map who actually exists in the corpus — the `participants`, attendees, accounts, and domains across sources. To pull everything one person or one account said, re-run `find_sources` with `participant` (name or email) or `attendee_domain`. Personas are composites of these real people; this call is the raw material for Instructions step 1.
 
 Read each response's **digest** — it reports how many more results exist. Use judgment on whether a query is worth pulling deeper (raise `limit` toward the 100 max and/or page with `next_offset` to avoid repeats), weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite.
 

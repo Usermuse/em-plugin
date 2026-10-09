@@ -24,7 +24,8 @@ A normal review asks "is the code good?" This one also asks "does it build what 
 Confirm this is a customer-facing PR and Evermuse is available. If the user only wants code-quality feedback (or names a dedicated reviewer), do that and skip the customer lens.
 
 ## Fetch the PR
-Prefer `gh pr view <n>` / `gh pr diff <n>` (or the current branch's diff). Optionally try the Evermuse third-party bridge to GitHub (`find_tool` → `call_tool`); **degrade gracefully** to `gh` if it's blocked (see `third-party-bridge.md`). If neither works, ask the user to paste the diff.
+Use `gh pr view <n>` / `gh pr diff <n>` (or the current branch's diff).
+If you still have no diff, ask the user to paste it.
 
 ## Find the intent
 What was this PR *supposed* to do?
@@ -45,7 +46,7 @@ Run the required grounding batch (see **Evermuse Grounding** below) scoped to th
 Lead with a clear recommendation — **Approve / Approve with nits / Request changes** — and the single most important reason. Then the three passes as sections. Keep code nits concise; make the customer-voice findings vivid and cited.
 
 ## Save (optional)
-Offer to save the review summary: `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","pr-review","pr-<n>"])`. If the bridge allows and the user wants, offer to post it as a PR comment via `call_tool`.
+Offer to save the review summary: `add_source(nature: "guidance", source_type: "document", tags: ["evermuse-plugin","pr-review","pr-<n>"])`.
 
 ## Evermuse Grounding (required)
 Follow `${CLAUDE_PLUGIN_ROOT}/skills/using-evermuse/SKILL.md`.

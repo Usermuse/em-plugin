@@ -35,23 +35,23 @@ Every Evermuse skill follows the same beats. **Grounding is the one required bea
 
 Grounding is a batch of `search` calls and nothing more is required. Once you know the `product_id` (from the first-run context), issue the whole batch as **one parallel set of tool calls**, not one-at-a-time:
 
-- **3–4 `evidence` searches**, each worded from a different angle (the literal ask, the underlying pain, the adjacent workflow, the objection), `limit` up to 50. Evidence is the voice of the customer — it comes back rich and varied, often large.
+- **3–4 `evidence` searches**, `limit` up to 50. Vary the **angle** (the literal ask, the underlying pain, the adjacent workflow, the objection) *and* the **filters** — differently-worded queries over the same corpus return heavily overlapping pools, so wording alone is not diversity. Real spread comes from varying `nature` and `customer_tags` alongside the query, and from a filters-only listing (drop `search_query`, then filter by `note_types` or a date window — those are ignored when a query is present). Evidence is the voice of the customer — it comes back rich and varied, often large.
 - **one `guidance` search** and **one `context` search**, `limit` up to 50. These are usually sparse or empty; run them anyway and note when they're thin.
 
-Read each response's **digest** first — it reports, pre-counted, how many more results exist. Use judgment on whether a query is worth pulling deeper: raise `limit` (toward the 100 max) and/or page with `next_offset` to avoid repeats, weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite from their results.
+Read each response's **digest** first — it reports, pre-counted, how many more results exist. Compare digests across the batch: when two searches show the **same top clusters and the same top speakers**, their pools have converged and a fifth rewording will not help — stop searching and go deeper instead (`view_item` on the cluster members, or `find_sources` → `read_source` on the conversations behind them). Use judgment on whether a query is worth pulling deeper: raise `limit` (toward the 100 max) and/or page with `next_offset` to avoid repeats, weighing payload size, remaining context, task complexity, and the value of the data. For deep pulls, consider spawning sub-agents — instruct them to return every citation with the **same metadata the tools return** (`url`, `who_said_it`, `meeting_name`, `created_at`) so you can still cite from their results.
 
 Everything past this batch — quote-angled searches, `find_sources`, `read_source`, citing, saving — is **optional considered use**. When a skill loops over items (per feature, per competitor, per segment), batch each round's searches together; the only reads that must stay serial are genuinely dependent ones (`find_sources` → `read_source` on what it found). Passing `product_id` explicitly on every call (rather than switching sessions) is what makes this batching safe.
 
 ## The Seven Rules (read once, apply always)
 
-**1. Product first, always.** Every product-scoped Evermuse call **requires** a `product_id` — you pass it on every call rather than switching sessions. Your `find_skills` first-run context hands you `current_product.id` (your default scope) and `other_products[].id`; use those. If you don't have that context, call `get_products` to list them. If exactly one product exists (or one obviously matches the repo/context), use its id and mention which one you picked. If several plausibly match, **ask the user** which product before searching — grounding against the wrong product is worse than not grounding at all. A Project (e.g. "Discovery", "Support", "Sales") is optional; pass `project_id` on a call only when the task is scoped to one research effort, otherwise omit it for full-product scope. If no product exists, tell the user to set one up in Evermuse and proceed with a clearly-labeled **⚠ ungrounded** deliverable.
+**1. Product first, always.** Every product-scoped Evermuse call **requires** a `product_id` — you pass it on every call rather than switching sessions. Your `find_skills` first-run context lists every valid choice in `product_selection.products` and includes `product_selection.selected_product_id` only when the session has a genuine valid selection. Use that selected id when present. Otherwise, if exactly one product exists (or one obviously matches the repo/context), use its id and mention which one you picked; if several plausibly match, **ask the user** which product before searching — never treat the first listed product as a default. If you don't have that context, call `get_products`. A Project (e.g. "Discovery", "Support", "Sales") is optional; pass `project_id` on a call only when the task is scoped to one research effort, otherwise omit it for full-product scope. If no product exists, tell the user to set one up in Evermuse and proceed with a clearly-labeled **⚠ ungrounded** deliverable.
 
-**2. Grounding is the search batch — nothing beyond `search` is required.** The required grounding for any customer question is the parallel batch above: **3–4 `evidence` searches** worded from different angles (the literal ask, the underlying pain, the adjacent workflow, the objection), plus **one `guidance`** and **one `context`** search. Each `search` response opens with a **digest** — counts by type, the recurring-theme clusters, top speakers, date range, and how many results remain. Read it before the items: it hands you the patterns pre-counted, and tells you how deep the tail goes. Set `nature` per search so the sets stay clean:
+**2. Grounding is the search batch — nothing beyond `search` is required.** The required grounding for any customer question is the parallel batch above: **3–4 `evidence` searches** varied by angle *and* by filter (rewording alone returns near-identical pools), plus **one `guidance`** and **one `context`** search. Each `search` response opens with a **digest** — counts by type, the recurring-theme clusters, top speakers, date range, and how many results remain. Read it before the items: it hands you the patterns pre-counted, and tells you how deep the tail goes. Set `nature` per search so the sets stay clean:
    - `evidence` — direct customer signal: needs, feedback, quotes, pain points, Q&A from real conversations. **This is the voice of the customer, and it is where the volume is.**
    - `context` — market/industry: competitor capabilities, news, external signals. Usually sparse.
    - `guidance` — the company's own internal direction: strategy, objectives, values, positioning. Usually sparse or empty.
    
-   Keep the natures separate in your output — don't blend a competitor's press release with a customer's complaint. (The `nature` parameter may be silently ignored on some workspaces; regardless, triage results by their `type` field yourself so the separation always holds.) Quotes, full sources, citations, and saving are optional follow-ons — never a requirement for grounding.
+   Keep the natures separate in your output — don't blend a competitor's press release with a customer's complaint. Triage results by their `type` field as well, so the separation still holds inside a single set. Quotes, full sources, citations, and saving are optional follow-ons — never a requirement for grounding.
 
 **3. Pull quotes when you need the customer's actual voice.** To *show* the customer speaking rather than summarize, run a quote-angled `search` — word the `search_query` for verbatim reactions and keep the `quote`-type items it returns (each carries speaker, meeting, and sentiment, ready to cite). When you don't need semantic ranking — a source's quotes, or a window's — use a filters-only `search(note_types: ["quote"])` instead.
 
@@ -67,7 +67,7 @@ Everything past this batch — quote-angled searches, `find_sources`, `read_sour
 
 Before grounding, sanity-check two things:
 - **Is this actually product/customer work?** If the session is clearly non-product (debugging library internals, CI config, infra plumbing with no customer-facing behavior), don't force Evermuse calls. Say so and offer the plain, ungrounded version of the task.
-- **Is the MCP available?** If the `mcp__evermuse__*` (a.k.a. Evermuse) tools are not present, the MCP isn't connected/authenticated. Tell the user to authorize it (via `/mcp` in an interactive session, or their claude.ai connector settings) and produce a framework-only deliverable labeled **⚠ ungrounded — Evermuse not connected**. Never silently skip grounding without telling the user.
+- **Is the MCP available?** Look for the Evermuse tool *names* (`search`, `find_sources`, `find_skills`, `get_products`…), not for a particular prefix — clients namespace MCP tools differently, and a marketplace client may surface them under a raw server id rather than `mcp__evermuse__*`. If none of those tool names is present under any prefix, the MCP isn't connected/authenticated. Tell the user to authorize it (via `/mcp` in an interactive session, or their claude.ai connector settings) and produce a framework-only deliverable labeled **⚠ ungrounded — Evermuse not connected**. Never silently skip grounding without telling the user.
 
 ## Tool map (full schemas in references/tool-reference.md)
 
@@ -75,6 +75,7 @@ Before grounding, sanity-check two things:
 |------|------|
 | Confirm / list the product (`product_id` comes from the find_skills first-run context) | `get_products` |
 | List research projects | `get_projects` |
+| Start a whole job with its methodology | `customer_research`, `create_prd`, `write_feature_spec`, `write_brief`, `user_personas`, `user_stories`, `competitor_analysis`, `summarize_conversation` |
 | Find customer evidence (declare nature) | `search` |
 | List notes by type/date/source, no semantics | `search` filters-only mode (omit `search_query`) |
 | Pull verbatim quotes | quote-angled `search` (keep the `quote`-type results) |
@@ -83,7 +84,10 @@ Before grounding, sanity-check two things:
 | Inspect one item in detail | `view_item` |
 | Save research/deliverables back | `add_source` |
 | Secondary/internal assets (use sparingly) | `get_shaping_notes`, `read_shaping_note`, `get_opportunities`, `list_competitors`, `get_competitor_capabilities` |
-| Bridge to external tools (Linear/Jira/GitHub/Notion…) | `find_tool`, `call_tool` |
+| Load full product context | `get_product_summary` |
+| Save or revise thinking in the Shaping tab | `create_shaping_note`, `update_shaping_note` |
+
+When the task matches a workflow tool, call it first: it runs one first-step call and returns its skill's main body (methodology and next steps). Then complete the grounding batch and deepen as that methodology directs; when it points to a `references/` file (templates, checklists), load it with `read_skills`.
 
 ## Reference files (load only the one you need)
 
@@ -91,4 +95,3 @@ Before grounding, sanity-check two things:
 - `references/citations.md` — the source-badge format and the no-link fallback. **Load this whenever you output customer-derived claims.**
 - `references/saving-to-evermuse.md` — `add_source` recipes, project resolution, and the nature-of-save rule.
 - `references/search-patterns.md` — how to word the grounding batch (3–4 evidence + guidance + context), the nature-selection table, and how to read the digest and paginate through large result sets on judgment.
-- `references/third-party-bridge.md` — using `find_tool`/`call_tool` and degrading gracefully when third-party access is blocked.

@@ -38,6 +38,7 @@ Create a custom UI with the following skills (use human names), in a color coded
 Technical name	Human name	Description	Category	Color
 customer-journey-map	Customer Journey Map	Maps awareness→advocacy with the pain, emotion, and a verbatim quote at each stage, plus prioritized fixes.	Discovery & Research	#3B82F6
 customer-research	Customer Research	Answers "what do customers think/need/complain about" with a quote-rich, source-linked brief from Evermuse.	Discovery & Research	#3B82F6
+daily-brief	Daily Brief	Digests the last 24 hours of customer sources into a delivered brief, quoting customers only — never the internal team.	Discovery & Research	#3B82F6
 initial-report	Initial Report	Presents the first Evermuse report after the initial source scan and hands off to the interactive report UI.	Discovery & Research	#3B82F6
 interview-script	Interview Script	Writes a Mom-Test interview guide targeting the gaps evidence hasn't already answered.	Discovery & Research	#3B82F6
 user-personas	User Personas	Builds 3 evidence-backed personas with JTBD, pains, gains, and an "in their own words" quote block.	Discovery & Research	#3B82F6

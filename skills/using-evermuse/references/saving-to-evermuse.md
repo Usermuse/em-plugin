@@ -1,6 +1,6 @@
 # Saving Back to Evermuse
 
-Assume that **every important piece of research or every deliverable worth keeping should be saved back into Evermuse**, so the corpus compounds over time. Use `add_source`. Always offer the save and let the user confirm before writing — but do offer it; don't quietly skip it.
+Assume that **every important piece of research or every deliverable worth keeping should be saved back into Evermuse**, so the corpus compounds over time. Use `add_source`, then `add_signals` when the saved source contains discrete customer observations. Use `update_signals` to correct existing observations instead of creating replacements. Always offer the save and let the user confirm before writing — but do offer it; don't quietly skip it.
 
 ## The nature-of-save rule
 

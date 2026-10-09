@@ -5,4 +5,4 @@ argument-hint: "[topic or time window]"
 
 # /evermuse:analyze-feedback
 
-Invoke the **sentiment-analysis** skill with `$ARGUMENTS`. Use get_notes(date_from/to) plus evidence searches; surface themes, sentiment split, and cited quotes. Save to Evermuse (nature=evidence).
+Invoke the **sentiment-analysis** skill with `$ARGUMENTS`. Use `search` with `date_from`/`date_to` over evidence; surface themes, sentiment split, and cited quotes. Save to Evermuse (nature=evidence).

@@ -5,6 +5,8 @@ argument-hint: "<feature description>"
 
 # /evermuse:spec — Feature spec (customer-grounded)
 
+Start by calling the `write_feature_spec` workflow tool with the request below — it runs the first grounding step and returns the methodology. Then:
+
 Invoke the **write-feature-spec** skill with `$ARGUMENTS`.
 
 Follow its flow: verify product → ground (evidence searches + quotes + guidance) → clarify (evidence-attached, ≤3 markers) → draft the spec (Customer Evidence section, per-story evidence, cited FRs, measurable SCs) → quality gate → save to `specs/<slug>/spec.md` and to Evermuse (nature=guidance). Then offer `/evermuse:dev-plan`.

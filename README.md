@@ -62,8 +62,8 @@ Cursor gets its own command layer in `cursor-commands/`:
 /discover    /brainstorm   /pricing      /strategy   /plan-launch    …28 in total
 ```
 
-These are **plain Markdown with no frontmatter** — Cursor's format. The Claude versions in
-`commands/` use YAML frontmatter and `$ARGUMENTS`, neither of which Cursor supports, so the two
+Each carries Cursor's `name` / `description` frontmatter. The Claude versions in `commands/`
+use a different frontmatter shape plus `$ARGUMENTS`, which Cursor does not support, so the two
 directories are kept separate and each client reads its own.
 
 Six Claude commands are deliberately **not** duplicated — `business-model`, `gap-analysis`,
@@ -103,6 +103,25 @@ Every skill follows **Ground → Work → Cite → Save**:
 
 The full doctrine lives in the `using-evermuse` skill, which every other skill defers to.
 
+## The MCP tools
+
+OAuth clients — Claude Code and Cursor included — are served these 27 tools:
+
+| Group | Tools |
+|---|---|
+| Guidance | `find_skills` · `read_skills` |
+| Product context | `get_products` · `get_product_summary` · `get_projects` |
+| Workflow (start here when the job matches) | `customer_research` · `create_prd` · `write_brief` · `write_feature_spec` · `user_personas` · `user_stories` · `competitor_analysis` · `summarize_conversation` |
+| Evidence | `search` · `view_item` |
+| Sources | `find_sources` · `read_source` |
+| Competitors & opportunities | `list_competitors` · `get_competitor_capabilities` · `get_opportunities` |
+| Shaping notes | `get_shaping_notes` · `read_shaping_note` · `create_shaping_note` · `update_shaping_note` |
+| Writes | `add_source` · `add_signals` · `update_signals` |
+
+A workflow tool runs the job's first grounding step **and** returns the methodology, so start
+from one when it matches the task rather than reaching straight for `search`. Every
+product-scoped call takes `product_id` as a parameter — there is no session to switch.
+
 ## Commands
 
 **Cursor** — 28 plain-Markdown commands in `cursor-commands/`. Same short names as below, without
@@ -125,16 +144,30 @@ Skills also **auto-activate** when you describe the task in plain language ("wri
 - **Flagships:** `write-feature-spec`, `development-plan`, `gap-analysis`, `review-pr`, `customer-research`
 - **Discovery:** `brainstorm-ideas`, `deep-dive`, `assumptions`, `prioritize-features`, `analyze-feature-requests`, `opportunity-solution-tree`, `interview-script`, `summarize-conversation`
 - **Strategy:** `product-strategy`, `product-vision`, `value-proposition`, `business-model`, `pricing-strategy`, `strategy-frameworks`, `strategy-red-team`
-- **Execution:** `create-prd`, `user-stories`, `brainstorm-okrs`, `outcome-roadmap`, `release-notes`, `test-scenarios`, `shipping-artifacts`
+- **Execution:** `create-prd`, `user-stories`, `brainstorm-okrs`, `outcome-roadmap`, `release-notes`, `test-scenarios`, `shipping-artifacts`, `daily-brief`
 - **Market research:** `user-personas`, `segmentation`, `customer-journey-map`, `market-sizing`, `competitor-analysis`, `sentiment-analysis`
 - **GTM & growth:** `gtm-strategy`, `beachhead-segment`, `ideal-customer-profile`, `competitive-battlecard`, `positioning-and-messaging`, `north-star-metric`
-- **Onboarding & meta:** `setup-evermuse`, `initial-report`, `list-capabilities`
+- **Onboarding & meta:** `setup-evermuse`, `initial-report`, `list-capabilities`, `schedule-new-ingestion-tasks`
+
+`skills/` is generated from the Evermuse monorepo (`yarn sync:em-plugin`). Do not edit it here —
+open an issue instead, and the change is made upstream and synced down.
 
 ## Tips
 
 - The plugin works best when your project's `CLAUDE.md` mentions the product name — it helps the agent pick the right Evermuse Product automatically. (Optional.)
 - If Evermuse isn't connected, skills still run but produce **⚠ ungrounded** output and tell you to authorize the MCP — they never fake evidence.
 - Secondary Evermuse assets (the AI-generated roadmap, shaping notes, competitor list, research questions) are used sparingly and always labeled — customer conversations are the source of truth.
+
+## Contributing
+
+- **`skills/` is generated.** Request changes upstream in the Evermuse monorepo; a sync PR brings
+  them here. Commands, manifests, the README and the logo are hand-written and edited here.
+- **`logomark.svg` must keep this path.** The `setup-evermuse` skill loads it from
+  `https://cdn.jsdelivr.net/gh/Usermuse/em-plugin@main/logomark.svg`, so moving or renaming it
+  breaks the setup header for every user.
+- **Bump the version before merging a sync PR.** Cursor re-reviews every update, so each release
+  needs `version` raised in `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json` and
+  `.claude-plugin/marketplace.json`.
 
 ## Credits
 
