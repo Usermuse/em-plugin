@@ -105,22 +105,49 @@ The full doctrine lives in the `using-evermuse` skill, which every other skill d
 
 ## The MCP tools
 
-OAuth clients — Claude Code and Cursor included — are served these 27 tools:
+The submitted default cloud OAuth configuration exposes these 27 tools:
 
 | Group | Tools |
 |---|---|
-| Guidance | `find_skills` · `read_skills` |
-| Product context | `get_products` · `get_product_summary` · `get_projects` |
-| Workflow (start here when the job matches) | `customer_research` · `create_prd` · `write_brief` · `write_feature_spec` · `user_personas` · `user_stories` · `competitor_analysis` · `summarize_conversation` |
-| Evidence | `search` · `view_item` |
-| Sources | `find_sources` · `read_source` |
-| Competitors & opportunities | `list_competitors` · `get_competitor_capabilities` · `get_opportunities` |
-| Shaping notes | `get_shaping_notes` · `read_shaping_note` · `create_shaping_note` · `update_shaping_note` |
-| Writes | `add_source` · `add_signals` · `update_signals` |
+| Read-only: guidance | `find_skills` · `read_skills` |
+| Read-only: product context | `get_products` · `get_product_summary` · `get_projects` |
+| Read-only: workflow (start here) | `customer_research` · `create_prd` · `write_brief` · `write_feature_spec` · `user_personas` · `user_stories` · `competitor_analysis` · `summarize_conversation` |
+| Read-only: evidence and sources | `search` · `view_item` · `find_sources` · `read_source` |
+| Read-only: internal assets | `list_competitors` · `get_competitor_capabilities` · `get_opportunities` · `get_shaping_notes` · `read_shaping_note` |
+| Write: additive | `add_source` · `add_signals` · `create_shaping_note` |
+| Write: overwrites existing data (destructive) | `update_signals` · `update_shaping_note` |
+
+Workflow tools are read-only despite their imperative names: `create_prd` creates nothing — you
+write the document, and it is stored only if you then call a write tool.
+
+Not every workspace gets exactly this list. Workspaces with shaping writes disabled don't get
+`create_shaping_note` / `update_shaping_note`, local-storage workspaces get only the guidance
+tools from the cloud endpoint, and other feature flags can add tools. `tools/list` is the
+authority for what a given workspace is served.
 
 A workflow tool runs the job's first grounding step **and** returns the methodology, so start
 from one when it matches the task rather than reaching straight for `search`. Every
 product-scoped call takes `product_id` as a parameter — there is no session to switch.
+
+### Tool annotations
+
+Every tool sets all four MCP [tool annotations](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations)
+explicitly to `true` or `false`, plus a title.
+
+| Tool(s) | readOnlyHint | destructiveHint | idempotentHint | openWorldHint | Why |
+|---|---|---|---|---|---|
+| The 22 read-only tools: `find_skills` · `read_skills` · `get_products` · `get_product_summary` · `get_projects` · `customer_research` · `create_prd` · `write_brief` · `write_feature_spec` · `user_personas` · `user_stories` · `competitor_analysis` · `summarize_conversation` · `search` · `view_item` · `find_sources` · `read_source` · `list_competitors` · `get_competitor_capabilities` · `get_opportunities` · `get_shaping_notes` · `read_shaping_note` | `true` | `false` | `true` | `false` | Retrieve guidance or authorized workspace data. They never create, overwrite, delete or publish the user's sources, signals or notes. |
+| `add_source` | `false` | `false` | `false` | `true` | Adds a source to the caller's workspace and queues ingestion; the response confirms submission, not completion. Meeting imports can fetch a caller-supplied public HTTPS media URL (`media.url`), which is why it is open-world. Meeting and communication imports deduplicate on `external_source` + `external_id`, but note, document and spreadsheet modes don't, so a repeated call can create another source. It never overwrites an existing source. |
+| `add_signals` | `false` | `false` | `true` | `false` | Adds up to 100 signals to an existing source. Replays are deduplicated on source, type and content, so repeating a call creates nothing new. |
+| `create_shaping_note` | `false` | `false` | `false` | `false` | Creates a new shaping note and never modifies an existing one. Repeating the call creates a second note. |
+| `update_signals` | `false` | `true` | `false` | `false` | Overwrites the passed fields on up to 100 existing signals (`null` clears an optional title or attribution). Signals have no version history. Repeating a title, content or type update advances the embedding revision and queues embedding work again, so a repeat has further effects. |
+| `update_shaping_note` | `false` | `true` | `false` | `false` | Replaces each passed field outright, `content` and `tags` included. Every successful update, a repeat included, creates a new version, so it is not idempotent. Version history allows recovery, but the current fields are still overwritten. |
+
+Idempotency here means a repeated identical call has no further effect, not that the data
+can't change between calls. Every tool except `add_source` works only on Evermuse guidance or
+the caller's own workspace data (hosted storage and embedding services included); `add_source`
+can also download a media file from a URL the caller supplies. The third-party proxy tools
+(`find_tool` / `call_tool`) are not served to OAuth clients. No tool on this surface renders UI.
 
 ## Commands
 
@@ -166,8 +193,8 @@ open an issue instead, and the change is made upstream and synced down.
   `https://cdn.jsdelivr.net/gh/Usermuse/em-plugin@main/logomark.svg`, so moving or renaming it
   breaks the setup header for every user.
 - **Bump the version before merging a sync PR.** Cursor re-reviews every update, so each release
-  needs `version` raised in `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json` and
-  `.claude-plugin/marketplace.json`.
+  needs `version` raised in `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json`,
+  `.codex-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
 
 ## Credits
 
