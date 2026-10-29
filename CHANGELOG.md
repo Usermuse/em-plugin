@@ -2,6 +2,30 @@
 
 All notable changes to the Evermuse plugin are documented here.
 
+## 0.2.1
+
+Documentation and manifest corrections for the ChatGPT app submission. No plugin
+behaviour changes.
+
+### Added
+
+- **Tool annotations section** in the README: `readOnlyHint`, `destructiveHint`,
+  `idempotentHint` and `openWorldHint` for every submitted tool, each with the behaviour
+  that justifies it. `add_source` is documented as open-world because meeting imports can
+  fetch a caller-supplied media URL; this matches the server's corrected annotation.
+
+### Changed
+
+- **README tool table regrouped by read/write behaviour** (read-only, additive writes,
+  destructive writes) instead of by subject, so the shaping-note writes no longer sit in a
+  row with the read tools. It now describes the submitted default cloud OAuth
+  configuration and says that `tools/list` decides what a given workspace gets.
+
+### Removed
+
+- `Interactive` from `interface.capabilities` in the Codex manifest. No submitted tool
+  renders UI.
+
 ## 0.2.0
 
 Aligns the plugin with the Evermuse MCP surface currently served to OAuth clients
