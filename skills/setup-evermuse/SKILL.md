@@ -62,7 +62,10 @@ Render the Evermuse setup header as a visual widget (mcp__visualize__show_widget
 
 <h2 class="sr-only">Evermuse setup header with logomark, welcome heading, and setup overview</h2>
 <div style="display:block; width:100%; box-sizing:border-box; text-align:center; padding:1rem 0;">
-  <img src="https://cdn.jsdelivr.net/gh/Usermuse/em-plugin@main/logomark.svg" width="80" height="80" alt="Evermuse logomark" style="display:block; margin:0 auto;">
+  <svg width="80" height="80" viewBox="0 0 160 160" fill="none" role="img" aria-label="Evermuse logomark" style="display:block; margin:0 auto;">
+  <path d="M61.9648 68.3047C50.1805 66.4199 42.6607 66.2318 39.4053 67.7405L36.1416 67.8549C34.0916 67.8549 32.2375 68.4666 30.5791 69.69C28.9206 70.913 27.7747 72.515 27.1412 74.494C26.5078 76.474 26.1911 78.349 26.1911 80.121C26.1911 81.892 26.1422 84.301 26.0443 87.348C25.9465 90.394 26.0105 94.244 26.2363 98.896C26.4621 103.549 27.7395 108.947 30.0685 115.09C32.3975 121.232 36.7321 125.223 43.0725 127.063C49.4128 128.902 56.0515 129.426 62.9886 128.636C69.9256 127.845 75.681 125.185 80.255 120.654C84.829 116.124 87.132 109.895 87.166 101.968C87.2 94.04 85.954 86.919 83.429 80.604C80.904 74.289 73.749 70.19 61.9648 68.3047Z" fill="#FFC921" stroke="#FFC921" stroke-width="4"/>
+  <path d="M100.161 69.7441C88.66 67.9039 81.322 67.7202 78.145 69.1932L74.96 69.3049C72.959 69.3049 71.15 69.9022 69.5312 71.097C67.9128 72.291 66.7944 73.855 66.1762 75.787C65.5581 77.72 65.249 79.551 65.249 81.281C65.249 83.01 65.2012 85.362 65.1058 88.336C65.0103 91.311 65.0728 95.069 65.2931 99.612C65.5135 104.154 66.7601 109.424 69.033 115.422C71.306 121.419 75.536 125.316 81.724 127.111C87.911 128.907 94.39 129.419 101.16 128.647C107.93 127.875 113.546 125.278 118.01 120.854C122.474 116.431 124.722 110.35 124.755 102.61C124.787 94.871 123.572 87.918 121.107 81.753C118.643 75.587 111.661 71.584 100.161 69.7441Z" fill="#FF4A8E" stroke="#FF4A8E" stroke-width="4"/>
+  </svg>
   <h1 style="font-size:22px; font-weight:500; margin:16px 0 0; text-align:center;">Welcome to Evermuse Setup</h1>
   <p style="font-size:16px; font-weight:400; line-height:1.7; color:var(--text-secondary); margin:8px auto 0; max-width:520px; text-align:center;">We'll be selecting sources to process, storage options, and historical import preferences to get you set up.</p>
 </div>
@@ -133,7 +136,7 @@ For each source the user selected in step 1 that you can actually reach, create 
 
 A scheduled run starts in a fresh context with none of this conversation, so each task's prompt must be self-contained. Use this shape, substituting the source — and for a mixed chat tool, substituting the exact customer channels the user confirmed in 1a:
 
-> Fetch every `<source>` record from the last 24 hours (for chat tools, only from these customer channels: `<confirmed channel list>`). First read the `using-evermuse` skill from the Evermuse MCP and follow its grounding rules. For each record containing verbatim customer feedback, send the full conversation or transcript to Evermuse with the `add_source` tool — one `add_source` call per conversation or record. Send only the customer's actual words plus the surrounding context needed to understand them; never send summaries or second-hand reports. Run this end to end without asking anyone anything: if something is ambiguous, make a reasonable choice, continue, and note the choice in your final output. If Evermuse replies that MCP access is paused for lack of credits, stop without retrying and report that the workspace is out of credits. Finish with a short list of what you sent.
+> Fetch every `<source>` record from the last 24 hours (for chat tools, only from these customer channels: `<confirmed channel list>`). First load the `using-evermuse` skill bundled with the Evermuse plugin and follow its grounding rules; if it isn't installed, stop and report that the Evermuse plugin is missing. For each record containing verbatim customer feedback, send the full conversation or transcript to Evermuse with the `add_source` tool — one `add_source` call per conversation or record. Send only the customer's actual words plus the surrounding context needed to understand them; never send summaries or second-hand reports. Run this end to end without asking anyone anything: if something is ambiguous, make a reasonable choice, continue, and note the choice in your final output. If Evermuse replies that MCP access is paused for lack of credits, stop without retrying and report that the workspace is out of credits. Finish with a short list of what you sent.
 
 Set the task's tool use to Auto if the scheduler exposes that setting, per the independence requirement above.
 
@@ -162,7 +165,7 @@ Then ask the user what time of day they'd like to receive the daily report. (Sug
 
 This is the one scheduled task in this skill that is **not** self-contained, and that is deliberate: it carries no context of its own, because everything it needs is in the skill it loads. Schedule it with the scheduling mechanism you already found in 2a, using exactly this shape and nothing more:
 
-> Read the `daily-brief` skill from the Evermuse MCP — call `find_skills` for `daily-brief`, then `read_skills` to load it — and run it end to end.
+> Run the `daily-brief` skill bundled with the Evermuse plugin end to end. If that skill isn't installed, stop and report that the Evermuse plugin is missing.
 
 Do not add the product, the window, the internal roster, the delivery destination, the citation rules, or the out-of-credits handling. Every one of those is already in the skill, and a prompt that restates them is a second copy that will drift from the first. If you think the task needs to know something, the right fix is for the skill to say it — not for the prompt to.
 

@@ -189,9 +189,9 @@ open an issue instead, and the change is made upstream and synced down.
 
 - **`skills/` is generated.** Request changes upstream in the Evermuse monorepo; a sync PR brings
   them here. Commands, manifests, the README and the logo are hand-written and edited here.
-- **`logomark.svg` must keep this path.** The `setup-evermuse` skill loads it from
-  `https://cdn.jsdelivr.net/gh/Usermuse/em-plugin@main/logomark.svg`, so moving or renaming it
-  breaks the setup header for every user.
+- **The setup header inlines `logomark.svg`.** The `setup-evermuse` skill embeds the SVG
+  markup directly rather than loading it from a URL, so if the logomark changes, update the
+  inline copy in that skill too.
 - **Bump the version before merging a sync PR.** Cursor re-reviews every update, so each release
   needs `version` raised in `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json`,
   `.codex-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
