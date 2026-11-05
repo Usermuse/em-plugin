@@ -2,6 +2,18 @@
 
 All notable changes to the Evermuse plugin are documented here.
 
+## 0.2.2
+
+Review test cases for the ChatGPT app submission. No plugin behaviour changes.
+
+### Added
+
+- **ChatGPT review test cases** in the Codex manifest at
+  `extensions.com.openai.review.test_cases`: five positive cases (scenario, prompt,
+  expected tools and expected result) and three negative cases where Evermuse should not
+  act. OpenAI imports them from the package, and they are read-only in the dashboard, so
+  change them here. The demo recording is submitted through the dashboard.
+
 ## 0.2.1
 
 Documentation and manifest corrections for the ChatGPT app submission. No plugin
