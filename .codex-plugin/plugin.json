@@ -1,6 +1,6 @@
 {
   "name": "evermuse",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Product-management skills grounded in real customer evidence. Feature specs, dev plans, customer research, gap analysis, and PR reviews backed by verbatim customer quotes with source links via the Evermuse MCP.",
   "author": {
     "name": "Evermuse",
@@ -42,5 +42,59 @@
     "brandColor": "#FF4A8E",
     "composerIcon": "./assets/composer-icon.png",
     "logo": "./assets/logo.png"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "ChatGPT user wants to know more about what folks have said about podcast discovery",
+              "prompt": "@evermuse What are folks saying about podcast discovery? Show me the actual quotes.",
+              "tools_triggered": "find_skills, customer_research, search",
+              "expected_behavior": "A fully cited response to the question. Tool notes: find_skills loads the customer-research method; search runs with nature: evidence, guidance, context."
+            },
+            {
+              "description": "ChatGPT user wants to draft a PRD for a specific feature",
+              "prompt": "@evermuse Write a PRD for a new podcast discovery feature, grounded in what customers actually said.",
+              "tools_triggered": "find_skills, create_prd, search",
+              "expected_behavior": "An 8-section PRD whose problem statement and value propositions quote the interviews, each quote with a source link. Tool notes: find_skills loads the create-prd method; search runs with nature: evidence, guidance, context."
+            },
+            {
+              "description": "ChatGPT user wants to create an interview script to gather more intel about a specific topic",
+              "prompt": "@evermuse Create an interview script for me to learn more about what folks have to say about podcast discovery.",
+              "tools_triggered": "find_skills, read_skills, search",
+              "expected_behavior": "A Mom-Test interview script whose questions focus on what the 5 existing interviews don’t answer yet. Tool notes: find_skills and read_skills load the interview-script method; search runs with nature: evidence."
+            },
+            {
+              "description": "ChatGPT user wants a summary of one specific customer interview",
+              "prompt": "@evermuse Find the most recent podcast interview and summarize it — key needs, pain points, and the best quotes.",
+              "tools_triggered": "find_sources, read_source, summarize_conversation",
+              "expected_behavior": "A summary of one interview: needs, pain points, and 3–5 verbatim quotes with source links. Tool notes: find_sources finds the interview; read_source reads the full transcript."
+            },
+            {
+              "description": "ChatGPT user wants evidence-based user personas",
+              "prompt": "@evermuse Build user personas for podcast listeners based on our interviews.",
+              "tools_triggered": "find_skills, user_personas, search",
+              "expected_behavior": "2–3 podcast-listener personas, each with goals, frustrations, and a quote with a source link. Tool notes: find_skills loads the user-personas method; search runs with nature: evidence."
+            }
+          ],
+          "negative": [
+            {
+              "description": "A user wants podcast recommendations for their own listening, not research on what customers said about podcasts.",
+              "prompt": "What are some good podcasts about product management I should listen to?"
+            },
+            {
+              "description": "A user wants general PM advice or a blank template, with no question about their own customers.",
+              "prompt": "Give me a generic PRD template I can fill in myself."
+            },
+            {
+              "description": "A user wants public market data from the web, not their own customer conversations.",
+              "prompt": "How big is the global podcast market, and how fast is it growing?"
+            }
+          ]
+        }
+      }
+    }
   }
 }
